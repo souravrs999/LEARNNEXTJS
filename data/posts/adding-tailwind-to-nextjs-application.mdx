@@ -1,0 +1,89 @@
+---
+title: "Adding TailwindCSS to your NextJS application"
+publishedAt: "2020-6-30"
+summary: "A detailed walthrough for setting up and using TailwindCSS in your NextJS application."
+image_thumb: "/img/blog/adding-tailwind-to-nextjs-application-800x700.jpg"
+image_cover: "/img/blog/adding-tailwind-to-nextjs-application-800x514.jpg"
+author: "Dark Stalker"
+tags: "NextJS, Tailwind"
+designation: "Backend Dev"
+---
+
+## Setting up Tailwind CSS
+
+Tailwind CSS requires Node.js 12.13.0 or higher.
+
+** Install Tailwind via npm **
+
+Install Tailwind and its peer-dependencies using _npm_:
+
+```bash
+# If you're on Next.js v10 or newer
+npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+
+# If you're on Next.js v9 or older
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+```
+
+## Create your configuration files
+
+Next, generate your tailwind.config.js and postcss.config.js files:
+
+```bash
+npx tailwindcss init -p
+```
+
+This will create a minimal tailwind.config.js file at the root of your project:
+
+```bash
+// tailwind.config.js
+module.exports = {
+  purge: [],
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Learn more about configuring Tailwind in the [configuration documentation](https://tailwindcss.com/docs/configuration).
+
+It will also create a ** postcss.config.js ** file that includes ** tailwindcss ** and ** autoprefixer ** already configured:
+
+```bash
+// postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+```
+
+If you’re planning to use any other PostCSS plugins, you should read our documentation on ** using PostCSS as your preprocessor ** for more details about the best way to order them alongside Tailwind.
+
+## Configure Tailwind to remove unused styles in production
+
+In your ** tailwind.config.js ** file, configure the ** purge ** option with the paths to all of your pages and components so Tailwind can tree-shake unused styles in production builds:
+
+```bash
+// tailwind.config.js
+  module.exports = {
+
+   purge: [],
+
+   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    darkMode: false, // or 'media' or 'class'
+    theme: {
+      extend: {},
+    },
+    variants: {
+      extend: {},
+    },
+    plugins: [],
+  }
+```

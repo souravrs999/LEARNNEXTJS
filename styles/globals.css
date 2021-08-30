@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/font/Poppins-Regular.woff2) format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  src: url(/font/Poppins-Bold.woff2) format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  src: url(/font/Poppins-SemiBold.woff2) format("woff2");
+}
+@font-face {
+  font-display: swap;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 900;
+  src: url(/font/Poppins-Black.woff2) format("woff2");
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.mdxComp h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-black font-bold text-2xl py-3;
+  @apply dark:text-gray-100;
+}
+
+.mdxComp p {
+  @apply text-gray-500;
+  @apply dark:text-gray-400;
+}
+
+.mdxComp strong {
+  @apply text-gray-500;
+  @apply dark:text-gray-300;
+}
+
+.mdxComp blockquote p {
+  @apply text-yellow-500;
+  @apply dark:text-yellow-500;
+}
+
+.mdxComp a {
+  @apply text-gray-600 dark:text-gray-300 underline;
+}
+
+.mdxComp img {
+  @apply rounded-xl;
+}
+
+.mdxComp pre {
+  @apply rounded-xl;
+}
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
