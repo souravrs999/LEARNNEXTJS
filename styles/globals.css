@@ -34,6 +34,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.mdxComp {
+  @apply max-w-4xl;
+}
+
 .mdxComp h1,
 h2,
 h3,
@@ -45,7 +49,7 @@ h6 {
 }
 
 .mdxComp p {
-  @apply text-gray-500;
+  @apply text-gray-500 text-lg;
   @apply dark:text-gray-400;
 }
 

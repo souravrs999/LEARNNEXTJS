@@ -1,6 +1,6 @@
 export default function Cta() {
   return (
-    <div className="mx-auto px-12 py-12">
+    <div className="mx-auto px-5 py-12">
       <div className="flex flex-col space-y-3">
         <h2 className="text-xl font-bold dark:text-gray-100">
           Subsribe to newsletter

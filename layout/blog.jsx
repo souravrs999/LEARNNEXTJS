@@ -5,14 +5,14 @@ import Container from "@/components/Container";
 export default function BlogLayout({ children, matter }) {
   return (
     <Container>
-      <div className="py-12 mx-5 md:mx-12 lg:mx-28">
+      <div className="py-12 mx-auto max-w-4xl px-5">
         <div className="flex flex-col items-center justify-center space-y-3">
           {/* author image */}
           <div className="w-20 h-20">
             <Image
               src="/img/avatar-placeholder-360x360.png"
-              height="260"
-              width="260"
+              height={80}
+              width={80}
               alt="avatar image"
               className="rounded-full"
             />
@@ -27,15 +27,15 @@ export default function BlogLayout({ children, matter }) {
             </span>
           </div>
           {/* blog title and description*/}
-          <h2 className="text-4xl dark:text-gray-100 font-bold text-center pt-5 mx-5 md:mx-12 lg:mx-48">
+          <h2 className="text-4xl dark:text-gray-100 text-center font-bold pt-5">
             {matter.title}
           </h2>
-          <p className="text-xl text-gray-500 dark:text-gray-400 text-center mx-5 md:mx-16 lg:mx-56 pt-3">
+          <p className="text-xl text-gray-500 dark:text-gray-400 text-center pt-3">
             {matter.summary}
           </p>
 
           {/* cover image */}
-          <div className="mx-12 pt-5">
+          <div className="pt-5">
             <Image
               src={matter.image_cover}
               width={800}
@@ -44,11 +44,10 @@ export default function BlogLayout({ children, matter }) {
               className="rounded-xl"
             />
           </div>
-        </div>
-
-        {/* blog content */}
-        <div className="mdxComp flex flex-col justify-center space-y-3 text-lg text-gray-500 dark:text-gray-400 mt-5 mx-5 md:mx-12 lg:mx-72">
-          {children}
+          {/* blog content */}
+          <div className="mdxComp flex flex-col justify-center text-lg space-y-3 text-gray-500 dark:text-gray-400 mt-5 w-full">
+            {children}
+          </div>
         </div>
       </div>
     </Container>

@@ -10,7 +10,7 @@ export function Tagged({ posts }) {
           className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-5"
           key={post.title}
         >
-          <div className="overflow-hidden w-full md:w-1/2">
+          <div className="overflow-hidden w-full lg:w-3/4">
             <Image
               src="/img/placeholder-800x514.png"
               width={800}
@@ -34,7 +34,7 @@ export function Tagged({ posts }) {
             <div className="flex items-center">
               <div className="h-12 w-12">
                 <Image
-                  src="/img/xperson_1.jpg.pagespeed.ic.ku-D0yMWz5.jpg"
+                  src="/img/avatar-placeholder-360x360.png"
                   height="260"
                   width="260"
                   alt="avatar image"

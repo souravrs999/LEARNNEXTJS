@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
 export default function Hero({ posts }) {
-  console.log(posts);
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -33,7 +32,7 @@ export default function Hero({ posts }) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
-    <div className="py-12 mx-auto lg:mx-28">
+    <div className="py-12 mx-auto max-w-6xl px-5">
       {/* title */}
       <div className="flex justify-center items-center pb-10">
         <h2 className="text-center text-black dark:text-gray-100 text-4xl font-bold">
@@ -46,15 +45,15 @@ export default function Hero({ posts }) {
           {posts.map((post) => (
             // carousel slider
             <div
-              className="relative flex flex-none flex-wrap lg:flex-nowrap w-full px-14"
+              className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
               key={post.title}
             >
-              <div className="overflow-hidden cursor-pointer lg:w-2/5">
+              <div className="overflow-hidden cursor-pointer lg:w-1/2">
                 <Link href={`/blog/${post.slug}`}>
                   <a>
                     <Image
-                      src={post.image_thumb}
-                      height={700}
+                      src={post.image_cover}
+                      height={514}
                       width={800}
                       className="rounded-lg"
                       alt="cover image"

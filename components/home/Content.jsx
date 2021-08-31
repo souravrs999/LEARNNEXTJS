@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export default function Content({ posts }) {
   return (
-    <div className="py-12 mx-auto lg:mx-28">
+    <div className="py-12 mx-auto max-w-6xl">
       <div className="flex flex-wrap space-y-7 lg:space-y-0">
         {posts.map((post) => (
           // item
           <div
-            className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-14 lg:px-7 py-5"
+            className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-5"
             key={post.title}
           >
             <div className="overflow-hidden lg:w-auto cursor-pointer">

@@ -16,7 +16,7 @@ function Navbar() {
     <>
       {/* sliding mobile menu */}
       <div
-        className={`w-80 h-full fixed right-0 z-50 pt-5 shadow-2xl bg-white dark:bg-dark-primary transform transition ease-in-out duration-500 ${
+        className={`w-80 md:w-1/3 lg:w-1/5 h-full fixed right-0 z-50 pt-5 shadow-2xl bg-white dark:bg-dark-primary transform transition ease-in-out duration-500 ${
           collapsed ? "translate-x-full" : "translate-x-0"
         }`}
       >
@@ -60,7 +60,6 @@ function Navbar() {
                 setTheme(resolvedTheme === "dark" ? "light" : "dark")
               }
             >
-              {console.log(resolvedTheme)}
               {mounted && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,8 +90,8 @@ function Navbar() {
         </div>
       </div>
       {/* navbar */}
-      <nav className="py-5 px-10 lg:px-40 w-full border-b border-gray-200 dark:border-dark-muted">
-        <div className="mx-auto flex flex-wrap">
+      <nav className="py-5 px-5 w-full border-b border-gray-200 dark:border-dark-muted">
+        <div className="mx-auto flex flex-wrap max-w-6xl">
           {/* logo */}
           <div className="order-1 md:order-2 text-center md:w-6/12 w-full mt-2 md:mb-0 mb-4">
             <Link href="/">

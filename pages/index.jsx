@@ -16,19 +16,19 @@ export default function Home({ posts }) {
       <Content posts={posts} />
       <Popular posts={posts} />
 
-      <div className="py-12 mx-auto lg:mx-28">
-        <div className="flex flex-wrap px-12">
-          <div className="flex flex-col w-full lg:w-1/2 space-y-7">
+      <div className="py-12 mx-auto max-w-6xl">
+        <div className="flex flex-wrap px-5">
+          <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2">
             <Tagged posts={posts.slice(0, 3)} />
           </div>
-          <div className="flex flex-col w-full lg:w-1/2 space-y-7 py-10 lg:py-0">
+          <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2 py-10 lg:py-0">
             <Tagged posts={posts.slice(0, 3)} />
           </div>
         </div>
       </div>
 
       {/* call to action */}
-      <div className="py-12 mx-auto lg:mx-28">
+      <div className="py-12 mx-auto max-w-6xl">
         <Cta />
       </div>
     </Container>

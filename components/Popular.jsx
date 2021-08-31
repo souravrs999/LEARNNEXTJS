@@ -28,7 +28,7 @@ export default function Popular({ posts }) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (
-    <div className="py-12 mx-auto lg:mx-28">
+    <div className="py-12 mx-auto max-w-6xl">
       {/* title */}
       <div className="flex justify-center items-center pb-16">
         <h2 className="text-center text-black dark:text-white text-5xl font-bold">
@@ -36,12 +36,12 @@ export default function Popular({ posts }) {
         </h2>
       </div>
 
-      <div className="overflow" ref={emblaRef}>
+      <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {posts.map((item) => (
             // carousel slider
             <div
-              className="relative flex flex-none flex-wrap w-full md:w-4/6 px-14"
+              className="relative flex flex-none flex-wrap w-full md:w-4/6 px-5"
               key={item.title}
             >
               <div className="overflow-hidden lg:w-full">
