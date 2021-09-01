@@ -34,7 +34,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.mdxComp {
+.__patch {
   @apply max-w-4xl;
 }
 

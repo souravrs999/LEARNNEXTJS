@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -30,7 +31,7 @@ export default function Content({ posts }) {
               <div className="flex text-sm mt-4 space-x-5">
                 <p className="font-bold dark:text-white">{post.tags}</p>
                 <p className="font-normal text-gray-500 dark:text-gray-400">
-                  12 Jun 2020
+                  {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
                 </p>
               </div>
               {/* title */}

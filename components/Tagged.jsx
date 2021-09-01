@@ -10,7 +10,7 @@ export function Tagged({ posts }) {
           className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-5"
           key={post.title}
         >
-          <div className="overflow-hidden w-full lg:w-3/4">
+          <div className="overflow-hidden w-full lg:w-3/5">
             <Image
               src="/img/placeholder-800x514.png"
               width={800}
@@ -28,7 +28,7 @@ export function Tagged({ posts }) {
                 July 2, 2020
               </span>
             </div>
-            <h2 className="text-md font-bold dark:text-gray-100">
+            <h2 className="text-base font-bold dark:text-gray-100">
               Your most unhappy customers are your greatest source of learning.
             </h2>
             <div className="flex items-center">

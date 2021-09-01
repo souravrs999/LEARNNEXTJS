@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "date-fns": "^2.23.0",
     "embla-carousel": "^4.5.3",
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.4",

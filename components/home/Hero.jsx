@@ -3,6 +3,7 @@ import { useEmblaCarousel } from "embla-carousel/react";
 import { trdata } from "../../data/trdata";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { parseISO, format } from "date-fns";
 
 export default function Hero({ posts }) {
   const [emblaRef, embla] = useEmblaCarousel({
@@ -67,7 +68,7 @@ export default function Hero({ posts }) {
                 <div className="flex text-sm mt-4 space-x-5 lg:mx-20">
                   <p className="font-bold dark:text-white">{post.tags}</p>
                   <p className="font-normal text-gray-500 dark:text-gray-400">
-                    12 Jun 2020
+                    {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
                   </p>
                 </div>
                 {/* title */}
@@ -80,9 +81,7 @@ export default function Hero({ posts }) {
                 </Link>
                 <Link href={`/blog/${post.slug}`}>
                   <a className="cursor-pointer">
-                    <p className="text-sm text-gray-500 text-justify">
-                      {post.summary}
-                    </p>
+                    <p className="text-gray-500 text-justify">{post.summary}</p>
                   </a>
                 </Link>
                 <div className="flex items-center">
@@ -97,10 +96,10 @@ export default function Hero({ posts }) {
                   </div>
                   <div className="flex flex-col mx-4 space-y-1">
                     <strong className="text-sm dark:text-gray-100">
-                      Sergy Campbell
+                      {post.author}
                     </strong>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      CEO & Founder
+                      {post.designation}
                     </p>
                   </div>
                 </div>

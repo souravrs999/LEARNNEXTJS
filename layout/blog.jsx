@@ -5,7 +5,7 @@ import Container from "@/components/Container";
 export default function BlogLayout({ children, matter }) {
   return (
     <Container>
-      <div className="py-12 mx-auto max-w-4xl px-5">
+      <div className="py-12 mx-auto px-5 __patch">
         <div className="flex flex-col items-center justify-center space-y-3">
           {/* author image */}
           <div className="w-20 h-20">
