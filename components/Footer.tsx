@@ -1,6 +1,7 @@
-import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
+import Link from "next/link";
 import { socialLinks } from "util/socialLinks";
-function Footer() {
+
+export default function Footer() {
   return (
     <footer className="py-12">
       <div className="mx-auto  w-full px-18 text-center">
@@ -23,23 +24,25 @@ function Footer() {
         {/* copyright text */}
         <div className="px-10 space-y-2">
           <p className="text-gray-400 text-sm">
-            Copyright @ 2021 All rights reserved | This template is made with
-            love by colorlib
+            Copyright @ {new Date().getFullYear()} All rights reserved
+            LEARNNEXTJS
           </p>
           <div className="flex justify-center text-gray-400 space-x-2">
-            <a href="#" className="hover:underline hover:text-yellow-500">
-              Terms & Conditions{" "}
-            </a>
+            <Link href="/terms-and-conditions">
+              <a href="#" className="hover:underline hover:text-yellow-500">
+                Terms & Conditions{" "}
+              </a>
+            </Link>
             <span>/</span>
-            <a href="#" className="hover:underline hover:text-yellow-500">
-              {" "}
-              Privacy Policy
-            </a>
+            <Link href="/privacy">
+              <a href="#" className="hover:underline hover:text-yellow-500">
+                {" "}
+                Privacy Policy
+              </a>
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-
-export default Footer;

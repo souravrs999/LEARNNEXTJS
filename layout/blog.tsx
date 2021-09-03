@@ -1,18 +1,25 @@
 import Image from "next/image";
+import { format, parseISO } from "date-fns";
 
 import Container from "@/components/Container";
 
 export default function BlogLayout({ children, matter }) {
   return (
-    <Container>
+    <Container
+      title={`${matter.title} - LEARNNEXT`}
+      description={matter.summary}
+      image={`https://learnnextjs-ruby.vercel.app${matter.image}`}
+      date={new Date(matter.publishedAt).toISOString()}
+      type="article"
+    >
       <div className="py-12 mx-auto px-5 __patch">
         <div className="flex flex-col items-center justify-center space-y-3">
           {/* author image */}
-          <div className="w-20 h-20">
+          <div>
             <Image
               src="/img/avatar-placeholder-360x360.png"
-              height={80}
-              width={80}
+              height={50}
+              width={50}
               alt="avatar image"
               className="rounded-full"
             />
@@ -23,7 +30,7 @@ export default function BlogLayout({ children, matter }) {
               {matter.author}
             </p>
             <span className="text-gray-500 dark:text-gray-400">
-              {matter.publishedAt}
+              {format(parseISO(matter.publishedAt), "MMMM dd, yyyy")}
             </span>
           </div>
           {/* blog title and description*/}
@@ -37,15 +44,17 @@ export default function BlogLayout({ children, matter }) {
           {/* cover image */}
           <div className="pt-5">
             <Image
-              src={matter.image_cover}
+              src={matter.image}
               width={800}
               height={514}
               alt="blog cover image"
               className="rounded-xl"
+              placeholder="blur"
+              blurDataURL="/img/placeholder-100x64.png"
             />
           </div>
           {/* blog content */}
-          <div className="mdxComp flex flex-col justify-center text-lg space-y-3 text-gray-500 dark:text-gray-400 mt-5 w-full">
+          <div className="mdxComp flex flex-col justify-center text-base space-y-3 text-gray-500 dark:text-gray-400 mt-5 w-full">
             {children}
           </div>
         </div>

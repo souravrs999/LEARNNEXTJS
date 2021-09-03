@@ -1,6 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
-
 import Container from "@/components/Container";
 import Hero from "@/components/home/Hero";
 import Content from "@/components/home/Content";
@@ -9,20 +6,24 @@ import Popular from "@/components/Popular";
 import { Tagged } from "@/components/Tagged";
 import Cta from "@/components/CallToAction";
 
-export default function Home({ posts }) {
+import { postProps } from "types/postProps";
+
+export default function Home(props: postProps) {
   return (
     <Container>
-      <Hero posts={posts} />
-      <Content posts={posts} />
-      <Popular posts={posts} />
+      <Hero posts={props.posts} />
+      <Content posts={props.posts} />
+      <Popular posts={props.posts} />
 
       <div className="py-12 mx-auto max-w-6xl">
         <div className="flex flex-wrap px-5">
           <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2">
-            <Tagged posts={posts.slice(0, 3)} />
+            <h2 className="font-bold text-xl dark:text-white">Recent</h2>
+            <Tagged posts={props.posts.slice(0, 3)} />
           </div>
           <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2 py-10 lg:py-0">
-            <Tagged posts={posts.slice(0, 3)} />
+            <h2 className="font-bold text-xl dark:text-white">Most Viewed</h2>
+            <Tagged posts={props.posts.slice(0, 3)} />
           </div>
         </div>
       </div>

@@ -2,11 +2,13 @@ import { format, parseISO } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Content({ posts }) {
+import { postProps } from "types/postProps";
+
+export default function Content(props: postProps) {
   return (
     <div className="py-12 mx-auto max-w-6xl">
       <div className="flex flex-wrap space-y-7 lg:space-y-0">
-        {posts.map((post) => (
+        {props.posts.map((post) => (
           // item
           <div
             className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-5"
@@ -16,11 +18,13 @@ export default function Content({ posts }) {
               <Link href={`/blog/${post.slug}`}>
                 <a>
                   <Image
-                    src={post.image_cover}
+                    src={post.image}
                     height={512}
                     width={800}
                     className="rounded-lg"
                     alt="cover image"
+                    placeholder="blur"
+                    blurDataURL="/img/placeholder-100x64.png"
                   />
                 </a>
               </Link>

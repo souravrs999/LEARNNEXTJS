@@ -2,13 +2,15 @@ import Image from "next/image";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { useState, useEffect, useCallback } from "react";
 
-export default function Popular({ posts }) {
+import { postProps } from "types/postProps";
+
+export default function Popular(props: postProps) {
   const [emblaRef, embla] = useEmblaCarousel({
     skipSnaps: false,
     inViewThreshold: 0.7,
   });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [scrollSnaps, setScrollSnaps] = useState<any[]>([]);
 
   const scrollTo = useCallback(
     (index) => embla && embla.scrollTo(index),
@@ -38,7 +40,7 @@ export default function Popular({ posts }) {
 
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {posts.map((item) => (
+          {props.posts.map((item) => (
             // carousel slider
             <div
               className="relative flex flex-none flex-wrap w-full md:w-4/6 px-5"
@@ -46,11 +48,13 @@ export default function Popular({ posts }) {
             >
               <div className="overflow-hidden lg:w-full">
                 <Image
-                  src={item.image_cover}
+                  src={item.image}
                   height={514}
                   width={800}
                   className="rounded-lg"
                   alt="cover image"
+                  placeholder="blur"
+                  blurDataURL="/img/placeholder-100x64.png"
                 />
               </div>
               {/* content */}
@@ -94,7 +98,7 @@ export default function Popular({ posts }) {
         </div>
       </div>
       <div className="flex items-center justify-center mt-10 space-x-2">
-        {scrollSnaps.map((_, idx) => (
+        {scrollSnaps.map((_, idx: number) => (
           <button
             className={`w-2 h-2 rounded-full ${
               idx === selectedIndex ? "bg-yellow-500" : "bg-gray-300"

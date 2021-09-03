@@ -1,38 +1,38 @@
+import { format, parseISO } from "date-fns";
 import Image from "next/image";
+import { postProps } from "types/postProps";
 
-export function Tagged({ posts }) {
+export function Tagged(props: postProps) {
   return (
     <>
-      <h2 className="font-bold text-xl dark:text-white">Sports</h2>
-
-      {posts.map((post) => (
+      {props.posts.map((post) => (
         <div
           className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-5"
           key={post.title}
         >
-          <div className="overflow-hidden w-full lg:w-3/5">
+          <div className="overflow-hidden w-full lg:w-1/3">
             <Image
-              src="/img/placeholder-800x514.png"
+              src="/img/placeholder-400x257.png"
               width={800}
               height={514}
               alt="tagged images"
               className="rounded-xl"
+              placeholder="blur"
+              blurDataURL="/img/placeholder-100x64.png"
             />
           </div>
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-5">
-              <p className="text-sm font-bold dark:text-white">
-                Business, Travel
-              </p>
+              <p className="text-sm font-bold dark:text-white">{post.tags}</p>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                July 2, 2020
+                {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
               </span>
             </div>
             <h2 className="text-base font-bold dark:text-gray-100">
-              Your most unhappy customers are your greatest source of learning.
+              {post.title}
             </h2>
             <div className="flex items-center">
-              <div className="h-12 w-12">
+              <div className="h-8 w-8">
                 <Image
                   src="/img/avatar-placeholder-360x360.png"
                   height="260"
@@ -43,10 +43,10 @@ export function Tagged({ posts }) {
               </div>
               <div className="flex flex-col mx-4 space-y-1">
                 <strong className="text-sm dark:text-white">
-                  Sergy Campbell
+                  {post.author}
                 </strong>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  CEO & Founder
+                  {post.designation}
                 </p>
               </div>
             </div>

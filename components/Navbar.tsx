@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { FaFacebookF, FaTwitter, FaInstagram, FaGithub } from "react-icons/fa";
 import { navLinks } from "util/navLinks";
 import { useTheme } from "next-themes";
 import { socialLinks } from "util/socialLinks";
 
-function Navbar() {
-  const [collapsed, setCollapsed] = useState(true);
-  const [mounted, setMounted] = useState(false);
+export default function Navbar() {
+  const [collapsed, setCollapsed] = useState<boolean>(true);
+  const [mounted, setMounted] = useState<boolean>(false);
   const { resolvedTheme, setTheme } = useTheme();
-
-  const [searchQuery, setSearchQuery] = useState();
 
   useEffect(() => setMounted(true), []);
 
@@ -103,7 +100,7 @@ function Navbar() {
             </Link>
           </div>
           <div className="order-3 md:order-1 md:w-3/12 w-full md:mb-0 mb-4">
-            <form action={`/query/${searchQuery}`} className="relative m-0">
+            <form action="/" className="relative m-0">
               <span className="absolute top-3 left-4 text-gray-400">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -124,9 +121,7 @@ function Navbar() {
                 type="text"
                 placeholder="Search..."
                 className="pl-10 h-10 text-sm border border-gray-300 dark:bg-dark-muted dark:border-dark-muted rounded-full pr-6 text-gray-500 dark:text-gray-100 w-full"
-                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              {console.log(searchQuery)}
             </form>
           </div>
           {/* social icons */}
@@ -168,5 +163,3 @@ function Navbar() {
     </>
   );
 }
-
-export default Navbar;

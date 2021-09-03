@@ -8,8 +8,9 @@ function Container(props) {
   const { children, ...customMeta } = props;
   const router = useRouter();
   const meta = {
-    title: "this is the title",
-    description: "this is description",
+    title: "LEARNNEXT - All about NextJS",
+    description:
+      "LEARNNEXT is a collection of Blog's and Article's for NextJS a React Framework for Production from the Vercel team, learn, improve and develop your skill as a NextJS developer.",
     image: "https://localhost:3000/static/images/banner.png",
     type: "website",
     ...customMeta,

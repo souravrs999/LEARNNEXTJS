@@ -1,22 +1,24 @@
 import Image from "next/image";
 import { useEmblaCarousel } from "embla-carousel/react";
-import { trdata } from "../../data/trdata";
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { parseISO, format } from "date-fns";
 
-export default function Hero({ posts }) {
+import { postProps } from "types/postProps";
+
+export default function Hero(props: postProps) {
   const [emblaRef, embla] = useEmblaCarousel({
     align: "start",
     loop: true,
     skipSnaps: false,
     inViewThreshold: 0.7,
   });
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState([]);
+
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [scrollSnaps, setScrollSnaps] = useState<any[]>([]);
 
   const scrollTo = useCallback(
-    (index) => embla && embla.scrollTo(index),
+    (index: number) => embla && embla.scrollTo(index),
     [embla]
   );
 
@@ -43,7 +45,7 @@ export default function Hero({ posts }) {
 
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {posts.map((post) => (
+          {props.posts.map((post) => (
             // carousel slider
             <div
               className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
@@ -53,11 +55,13 @@ export default function Hero({ posts }) {
                 <Link href={`/blog/${post.slug}`}>
                   <a>
                     <Image
-                      src={post.image_cover}
+                      src={post.image}
                       height={514}
                       width={800}
                       className="rounded-lg"
                       alt="cover image"
+                      placeholder="blur"
+                      blurDataURL="/img/placeholder-100x64.png"
                     />
                   </a>
                 </Link>
@@ -109,7 +113,7 @@ export default function Hero({ posts }) {
         </div>
       </div>
       <div className="flex items-center justify-center mt-5 space-x-2">
-        {scrollSnaps.map((_, idx) => (
+        {scrollSnaps.map((_, idx: number) => (
           <button
             className={`w-2 h-2 rounded-full ${
               idx === selectedIndex ? "bg-yellow-500" : "bg-gray-300"
