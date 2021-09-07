@@ -1,6 +1,7 @@
 export interface viewProps {
-  viewCounts: {
-    find?(arg0: (_c: any) => any);
-    viewCounts?: any[];
+  viewCount: {
+    _id?: string;
+    slug?: string;
+    views?: number;
   };
 }

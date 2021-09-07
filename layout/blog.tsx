@@ -2,8 +2,16 @@ import Image from "next/image";
 import { format, parseISO } from "date-fns";
 
 import Container from "@/components/Container";
+import { useEffect } from "react";
 
 export default function BlogLayout({ children, matter }) {
+  useEffect(() => {
+    function registerView() {
+      fetch(`/api/views/${matter.slug}`, { method: "POST" });
+    }
+    registerView();
+  }, [matter.slug]);
+
   return (
     <Container
       title={`${matter.title} - LEARNNEXT`}

@@ -23,9 +23,6 @@ export async function getFileBySlug(slug: string) {
     join(process.cwd(), POST_PATH, `${slug}.mdx`),
     "utf8"
   );
-  const viewCount = await fetch(`${server}/api/views/${slug}`).then((res) =>
-    res.json()
-  );
 
   const { data, content } = matter(source);
   const mdxSource = await serialize(content, {
@@ -48,7 +45,6 @@ export async function getFileBySlug(slug: string) {
     frontMatter: {
       wordCount: source.split(/\s+/gu).length,
       readingTime: readingTime(source),
-      viewCount: viewCount | 1,
       slug: slug || null,
       ...data,
     },
@@ -57,9 +53,6 @@ export async function getFileBySlug(slug: string) {
 
 export async function getAllFilesFrontMatter() {
   const files = readdirSync(join(process.cwd(), POST_PATH));
-  const viewCount = await fetch(`${server}/api/views/`).then((res) =>
-    res.json()
-  );
 
   return files.reduce((allPosts, postSlug) => {
     const source = readFileSync(
@@ -73,9 +66,6 @@ export async function getAllFilesFrontMatter() {
         ...data,
         slug: postSlug.replace(".mdx", ""),
         readingTime: readingTime(source),
-        viewCount:
-          viewCount.find((c) => c.slug === postSlug.replace(".mdx", "")) | 1,
-        // viewCount: viewCount,
       },
       ...allPosts,
     ];

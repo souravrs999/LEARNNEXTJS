@@ -1,6 +1,6 @@
 export interface postProps {
   filter?(arg0: (post: any) => any);
-  posts: {
+  posts?: {
     title?: string;
     publishedAt?: string;
     summary?: string;
