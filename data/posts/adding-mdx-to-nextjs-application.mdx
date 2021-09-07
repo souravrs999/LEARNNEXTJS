@@ -1,0 +1,290 @@
+---
+title: "Adding MDX to your NextJS application"
+publishedAt: "2021-02-05"
+summary: "A detailed walthrough for setting up and using MDX in your NextJS application."
+image: "/img/blog/adding-embla-carousel-to-nextjs-application-800x514.jpg"
+author: "Dark Stalker"
+tags: "NextJS, Embla, Carousel"
+designation: "Backend Dev"
+---
+
+### Why Embla Carousel?
+
+[Embla Carousel](https://www.embla-carousel.com/) is a library agnostic, dependency free and lightweight carousel library with fluid motion and great swipe precision. Its 100% open source and you can build awesome carousels by extending Embla Carousel with your own CSS and JavaScript. It work's in all modern browser's including IE11.
+
+In it's developer [David Cetinkaya's](https://github.com/davidcetinkaya) word's.
+
+<QuotedText>
+  Embla's purpose is to provide a low level carousel and allow developers to
+  extend it by using its available methods. Extend it with some very basic
+  JavaScript and build awesome physics simulated carousels. It's dependency free
+  and 100% open source.
+</QuotedText>
+
+### Ease of Use
+
+Embla Carousel is pretty easy to use, although Embla dosen't come with a lot of customization's out of the box like pagination dot's and slider arrow's you can easily add them to your project with Embla's intuitive api.
+
+### Getting started
+
+Before we start using Embla Carousel in our NextJS application let's just setup our project.
+
+### Installation
+
+```bash
+//npm
+npm install embla-carousel --save
+
+//yarn
+yarn add embla-carousel --save
+```
+
+now that we have installed Embla Carousel let's go ahead and remove all the default styling and content from the ** index.jsx ** file of our NextJS application.
+
+we will be trying to build an LEARNNEXT'S Trending blog post's carousel with some pagination type dot's to cycle between our image slide's, so first let's just bring in all the slide element's like Image, Title etc.. that we want
+to be displayed into our ** index.jsx ** file these data can be directly from our local storage or from an Api and let's add some minor styling to it.
+
+<BlogImg
+  src={`/img/screenshots/Screenshot_20210903_093524.webp`}
+  width={1183}
+  height={573}
+  alt="LEANNEXT Carousel image"
+/>
+
+let's start with importing Embla carousel to our ** index.jsx ** file and adding some customization's that we will need.
+
+```JavaScript
+import Image from "next/image";
+import { useEmblaCarousel } from "embla-carousel/react";
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+
+export default function Hero(props) {
+
+  // emblaRef will be a reference to our carousel viewport
+  const [emblaRef, embla] = useEmblaCarousel({
+
+    align: "start",
+    // aligns the first slide to the start
+    // of the viewport else will align it to the middle.
+
+    loop: true,
+    // we need the carousel to loop to the
+    // first slide once it reaches the last slide.
+
+    skipSnaps: false,
+    // Allow the carousel to skip scroll snaps if
+    // it's dragged vigorously.
+
+    inViewThreshold: 0.7,
+    // percentage of a slide that need's to be visible
+    // inorder to be considered in view, 0.7 is 70%.
+  });
+
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scrollSnaps, setScrollSnaps] = useState([]);
+
+  // this function allow's us to scroll to the slide whose
+  // id correspond's to the id of the navigation dot when we
+  // click on it.
+
+  const scrollTo = useCallback(
+    (index) => embla && embla.scrollTo(index),
+    [embla]
+  );
+
+  // set the id of the current slide to active id
+  // we need it to correctly highlight it's corresponding
+  // navigation dot.
+
+  const onSelect = useCallback(() => {
+    if (!embla) return;
+    setSelectedIndex(embla.selectedScrollSnap());
+  }, [embla, setSelectedIndex]);
+
+  // make sure embla is mounted and return true operation's
+  // can be only performed on it if it's successfully mounted.
+
+  useEffect(() => {
+    if (!embla) return;
+    onSelect();
+    setScrollSnaps(embla.scrollSnapList());
+    embla.on("select", onSelect);
+  }, [embla, setScrollSnaps, onSelect]);
+
+  return (...)
+```
+
+next let's just set up the proper styling for our carousel component, our carousel
+will contain ** 3 ** main components.
+
+- ** Carousel Viewport ** (whose inner children will be draggable and with overflow as hidden)
+- ** Carousel Container ** (will be a container enclosing our slides as flex-row)
+- ** Carousel Slides ** (contains all the slide components)
+
+```JavaScript
+return (
+    <div className="py-12 mx-auto max-w-6xl px-5">
+      {/* title */}
+      <div className="flex justify-center items-center pb-10">
+        <h2 className="text-center text-black dark:text-gray-100 text-4xl font-bold">
+          Trending
+        </h2>
+      </div>
+
+      // Carousel viewport
+      <div className="overflow-hidden" ref={emblaRef}>
+      // Carousel container
+        <div className="flex">
+        // Carousel slide's
+          {props.posts.map((post) => (
+            <div
+              className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
+              key={post.title}
+            >
+              <div className="overflow-hidden cursor-pointer lg:w-1/2">
+                <Link href={`/blog/${post.slug}`}>
+                  <a>
+                    <Image
+                      src={post.image_cover}
+                      height={514}
+                      width={800}
+                      className="rounded-lg"
+                      alt="cover image"
+                      placeholder="blur"
+                      blurDataURL={post.image_cover}
+                    />
+                  </a>
+                </Link>
+              </div>
+              {/* content */}
+              <div className="flex flex-col space-y-4 lg:w-4/5 lg:space-x-20 lg:justify-center">
+                {/* tags and date */}
+                <div className="flex text-sm mt-4 space-x-5 lg:mx-20">
+                  <p className="font-bold dark:text-white">{post.tags}</p>
+                  <p className="font-normal text-gray-500 dark:text-gray-400">
+                    {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
+                  </p>
+                </div>
+                {/* title */}
+                <Link href={`/blog/${post.slug}`}>
+                  <a className="cursor-pointer">
+                    <h2 className="text-3xl lg:text-4xl font-bold dark:text-gray-100">
+                      {post.title}
+                    </h2>
+                  </a>
+                </Link>
+                <Link href={`/blog/${post.slug}`}>
+                  <a className="cursor-pointer">
+                    <p className="text-gray-500 text-justify">{post.summary}</p>
+                  </a>
+                </Link>
+                <div className="flex items-center">
+                  <div className="h-12 w-12">
+                    <Image
+                      src="/img/avatar-placeholder-360x360.png"
+                      height="260"
+                      width="260"
+                      alt="avatar image"
+                      className="rounded-full"
+                    />
+                  </div>
+                  <div className="flex flex-col mx-4 space-y-1">
+                    <strong className="text-sm dark:text-gray-100">
+                      {post.author}
+                    </strong>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {post.designation}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      ...
+        ))}
+      </div>
+    </div>
+  );
+```
+
+well everything's taking form now we have our slide component's properly styled with an Image on the left side and the Blog detail's like Title, Published Date, Description, Author etc.. on the right side.
+The slide component will take up the full size of the viewport so that only one slide is visible at a time also since we added the referrence to our Carousel viewport our slide's are also draggable which provide's a good user experience.
+
+Now let's add some pagination dot's which give's the user an idea of the number of slide's that are present and also provide's a way to quicklyl navigate to each of those slide's by clicking on the corresponding dot's.
+
+```JavaScript
+<div className="flex items-center justify-center mt-5 space-x-2">
+  {scrollSnaps.map((_, idx) => (
+    <button
+      className={`w-2 h-2 rounded-full ${
+        idx === selectedIndex ? "bg-yellow-500" : "bg-gray-300"
+      }`}
+      key={idx}
+      onClick={() => scrollTo(idx)}
+    />
+  ))}
+</div>
+```
+
+We map through each slide in scrollSnaps and get the id for each slide, then we create button's for each of those slide's and check's if their id's match if they do change the color of the dot to an active color than the rest,
+finally add an onClick event and if the user click's on a particular dot then pass the id of the dot to the ** scrollTo ** function which will scroll to the appropriate slide.
+
+Now let's think about a situation in which you do not require navigation dot's but instead is thinking of implementing a ** Next ** and ** Previous ** button to scoll through the slide's, well we got you covered for that too.
+
+<BlogImg
+  src={`/img/screenshots/Screenshot_20210903_102825.webp`}
+  width={1339}
+  height={503}
+  alt="GameStats Carousel image"
+/>
+
+well in this type of carousel we got two button's to scoll between slide's and the only difference is that we need to call the ** scrollPrev ** and ** scrollNext ** method, and can remove some unwated code of our ** index.jsx ** file.
+
+For more detail's about the Option's, Method's and Event's supported by Embla Carousel please see the [Docs](https://www.embla-carousel.com/api/)
+
+```JavaScript
+import { useEmblaCarousel } from "embla-carousel/react";
+import { useCallback } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+function Hero() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+    skipSnaps: false,
+    inViewThreshold: 0.7,
+  });
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  return (...)
+```
+
+and finally let's add the ** onClick ** event's to both our button's to enable the scrolling function.
+
+```JavaScript
+// Next Button
+<button
+  class="p-5 rounded-lg"
+  type="button"
+  onClick={scrollNext} />
+
+// Previous Button
+<button
+  class="p-5 rounded-lg"
+  type="button"
+  onClick={scrollPrev} />
+
+```
+
+And voila that's it you have learned how to create two differen't type's of Carousel's with the help of Embla Carousel it's pretty simple and you can customize it to your heart's content. You can add your own unique style's and build some creative way's to showcase your product's.
+
+In closing this was all about how to integrate Embla Carousel with your NextJS application to build a simple and lightweight carousel, for your application need's.

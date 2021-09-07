@@ -24,6 +24,7 @@ export default function BlogLayout({ children, matter }) {
               className="rounded-full"
             />
           </div>
+
           {/* author details */}
           <div className="text-sm text-center">
             <p className="text-black dark:text-white font-bold">

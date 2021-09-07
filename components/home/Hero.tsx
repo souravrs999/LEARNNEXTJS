@@ -5,6 +5,7 @@ import Link from "next/link";
 import { parseISO, format } from "date-fns";
 
 import { postProps } from "types/postProps";
+import { SortByDate } from "util/sortPosts";
 
 export default function Hero(props: postProps) {
   const [emblaRef, embla] = useEmblaCarousel({
@@ -34,6 +35,8 @@ export default function Hero(props: postProps) {
     embla.on("select", onSelect);
   }, [embla, setScrollSnaps, onSelect]);
 
+  const _tposts = SortByDate(props.posts);
+
   return (
     <div className="py-12 mx-auto max-w-6xl px-5">
       {/* title */}
@@ -45,51 +48,47 @@ export default function Hero(props: postProps) {
 
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {props.posts.map((post) => (
+          {_tposts.map((post) => (
             // carousel slider
             <div
               className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
               key={post.title}
             >
-              <div className="overflow-hidden cursor-pointer lg:w-1/2">
-                <Link href={`/blog/${post.slug}`}>
-                  <a>
-                    <Image
-                      src={post.image}
-                      height={514}
-                      width={800}
-                      className="rounded-lg"
-                      alt="cover image"
-                      placeholder="blur"
-                      blurDataURL="/img/placeholder-100x64.png"
-                    />
-                  </a>
-                </Link>
+              <div className="overflow-hidden lg:w-1/2">
+                <Image
+                  src={post.image}
+                  height={514}
+                  width={800}
+                  className="rounded-lg"
+                  alt="cover image"
+                  placeholder="blur"
+                  blurDataURL="/img/placeholder-100x64.png"
+                />
               </div>
               {/* content */}
-              <div className="flex flex-col space-y-4 lg:w-4/5 lg:space-x-20 lg:justify-center">
+              <div className="flex flex-col space-y-3 lg:w-4/5 lg:space-x-20 lg:justify-center">
                 {/* tags and date */}
                 <div className="flex text-sm mt-4 space-x-5 lg:mx-20">
-                  <p className="font-bold dark:text-white">{post.tags}</p>
+                  <p className="text-white font-bold">{post.tags}</p>
+                  <span className="text-white font-bold">
+                    {post.readingTime.text}
+                  </span>
                   <p className="font-normal text-gray-500 dark:text-gray-400">
                     {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
                   </p>
+                  <span className="text-white font-bold"></span>
                 </div>
                 {/* title */}
                 <Link href={`/blog/${post.slug}`}>
                   <a className="cursor-pointer">
-                    <h2 className="text-3xl lg:text-4xl font-bold dark:text-gray-100">
+                    <h2 className="text-2xl font-bold dark:text-gray-100">
                       {post.title}
                     </h2>
                   </a>
                 </Link>
-                <Link href={`/blog/${post.slug}`}>
-                  <a className="cursor-pointer">
-                    <p className="text-gray-500 text-justify">{post.summary}</p>
-                  </a>
-                </Link>
+                <p className="text-gray-500 text-justify">{post.summary}</p>
                 <div className="flex items-center">
-                  <div className="h-12 w-12">
+                  <div className="h-10 w-10">
                     <Image
                       src="/img/avatar-placeholder-360x360.png"
                       height="260"

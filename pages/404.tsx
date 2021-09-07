@@ -1,7 +1,7 @@
 import Container from "@/components/Container";
 import Link from "next/link";
 
-export default function Error() {
+export default function ResourceNotFoundError() {
   return (
     <Container>
       <div className="mx-auto max-w-4xl flex flex-col px-5 items-center py-24 space-y-10">
