@@ -1,4 +1,9 @@
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+
 module.exports = {
+  target: "serverless",
+  webpack5: true,
   experimental: {
     modern: true,
     esmExternals: true,
@@ -8,6 +13,16 @@ module.exports = {
     domains: [],
   },
   webpack: (config, { dev, isServer }) => {
+    // Fixes npm packages that depends on 'fs' module
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+    }
+    // copy the static blog files
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: [{ from: "data", to: "data" }],
+      })
+    );
     // Replace React with Preact in production build
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {

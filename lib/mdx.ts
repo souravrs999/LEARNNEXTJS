@@ -10,17 +10,18 @@ import remarkSlug from "remark-slug";
 import remarkCodeTitles from "remark-code-titles";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-import { server } from "util/config";
-
-const POST_PATH = "/data/posts";
+let BASE_PATH = process.cwd();
+if (process.env.NODE_ENV === "production") {
+  BASE_PATH = join(process.cwd(), ".next/server/chunks");
+}
 
 export async function getFiles() {
-  return readdirSync(join(process.cwd(), POST_PATH));
+  return readdirSync(join(BASE_PATH, "/data/posts/"));
 }
 
 export async function getFileBySlug(slug: string) {
   const source = readFileSync(
-    join(process.cwd(), POST_PATH, `${slug}.mdx`),
+    join(BASE_PATH, "/data/posts", `${slug}.mdx`),
     "utf8"
   );
 
@@ -52,11 +53,11 @@ export async function getFileBySlug(slug: string) {
 }
 
 export async function getAllFilesFrontMatter() {
-  const files = readdirSync(join(process.cwd(), POST_PATH));
+  const files = readdirSync(join(BASE_PATH, "/data/posts/"));
 
   return files.reduce((allPosts, postSlug) => {
     const source = readFileSync(
-      join(process.cwd(), POST_PATH, postSlug),
+      join(BASE_PATH, "/data/posts", postSlug),
       "utf8"
     );
     const { data } = matter(source);
