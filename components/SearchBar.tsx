@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Search() {
+export default function SearchBar() {
   const [searchQuery, setSearchQuery] = useState();
   return (
     <form

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { navLinks } from "util/navLinks";
 import { useTheme } from "next-themes";
 import { socialLinks } from "util/socialLinks";
-import Search from "./Search";
+import SearchBar from "./SearchBar";
 
 export default function Navbar() {
   const [collapsed, setCollapsed] = useState<boolean>(true);
@@ -101,7 +101,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="order-3 md:order-1 md:w-3/12 w-full md:mb-0 mb-4">
-            <Search />
+            <SearchBar />
           </div>
           {/* social icons */}
           <div className="order-2 md:order-3 text-right md:w-3/12 w-full mt-2 md:mb-0 mb-4">

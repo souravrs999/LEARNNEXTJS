@@ -4,24 +4,24 @@ import Image from "next/image";
 import { format, parseISO } from "date-fns";
 import Link from "next/link";
 
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import { getAllFilesFrontMatter, getFileBySlug, getFiles } from "@/lib/mdx";
 import { postProps } from "types/postProps";
 
 export default function Search(props: postProps) {
   const router = useRouter();
 
-  function filterPosts(posts: any, query: any) {
+  function filterPosts(posts: any, query: string) {
     if (!query || query == "undefined") {
       return posts;
     }
 
     return posts.filter((post) => {
       const postTitleString = post.title.toLowerCase();
-      return postTitleString.includes(query);
+      return postTitleString.includes(query.toLowerCase());
     });
   }
 
-  const filteredPost = filterPosts(props.posts, router.query.sq);
+  const filteredPost = filterPosts(props.posts, router.query.sq.toString());
 
   return (
     <Container>
@@ -35,7 +35,7 @@ export default function Search(props: postProps) {
         </h5>
         {filteredPost.map((item) => (
           <div
-            className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-10 py-4"
+            className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-10 p-4 border border-gray-300 dark:border-dark-muted rounded-xl"
             key={item.title}
           >
             <div className="overflow-hidden w-full lg:w-1/3">
@@ -57,6 +57,9 @@ export default function Search(props: postProps) {
                 <span className="text-sm text-gray-500 dark:text-gray-400">
                   {format(parseISO(item.publishedAt), "MMMM dd, yyyy")}
                 </span>
+                <span className="text-sm text-black dark:text-white">
+                  {item.readingTime.text}
+                </span>
               </div>
               <Link href={`/blog/${item.slug}`}>
                 <a>
@@ -69,7 +72,7 @@ export default function Search(props: postProps) {
                 {item.summary}
               </p>
               <div className="flex items-center">
-                <div className="h-12 w-12">
+                <div className="h-10 w-10">
                   <Image
                     src="/img/avatar-placeholder-360x360.png"
                     height="260"

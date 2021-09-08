@@ -12,7 +12,7 @@ import { SortByDate } from "util/sortPosts";
 export default function Home({ posts }: postProps) {
   return (
     <Container>
-      <Hero posts={posts} />
+      <Hero posts={posts.slice(0, 5)} />
       <Content posts={posts} />
       <Popular posts={posts} />
 
