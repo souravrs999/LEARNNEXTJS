@@ -12,7 +12,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 let BASE_PATH = process.cwd();
 if (process.env.NODE_ENV === "production") {
-  BASE_PATH = join(process.cwd(), ".next/serverless/chunks");
+  BASE_PATH = join(process.cwd(), ".next/server/chunks");
 }
 
 export async function getFiles() {
