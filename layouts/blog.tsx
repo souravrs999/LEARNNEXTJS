@@ -16,7 +16,7 @@ export default function BlogLayout({ children, matter }) {
     <Container
       title={`${matter.title} - LEARNNEXT`}
       description={matter.summary}
-      image={`https://learnnextjs-ruby.vercel.app${matter.image}`}
+      image={`https://learnnext-blog.vercel.app${matter.image}`}
       date={new Date(matter.publishedAt).toISOString()}
       type="article"
     >

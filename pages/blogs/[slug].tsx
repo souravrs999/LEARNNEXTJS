@@ -3,7 +3,7 @@ import { getFiles, getFileBySlug } from "@/lib/mdx";
 import MDXComponent from "@/components/MDXComponent";
 import BlogLayout from "@/layouts/blog";
 
-export default function Blog({ mdxSource, frontMatter }) {
+export default function BlogSlug({ mdxSource, frontMatter }) {
   return (
     <BlogLayout matter={frontMatter}>
       <MDXRemote {...mdxSource} components={{ ...MDXComponent }} />

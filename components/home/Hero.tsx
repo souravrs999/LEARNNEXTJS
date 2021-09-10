@@ -69,8 +69,10 @@ export default function Hero(props: postProps) {
               <div className="flex flex-col space-y-3 lg:w-4/5 lg:space-x-20 lg:justify-center">
                 {/* tags and date */}
                 <div className="flex text-sm mt-4 space-x-5 lg:mx-20">
-                  <p className="text-white font-bold">{post.tags}</p>
-                  <span className="text-white font-bold">
+                  <p className="text-black dark:text-white font-bold">
+                    {post.tags}
+                  </p>
+                  <span className="text-black dark:text-white">
                     {post.readingTime.text}
                   </span>
                   <p className="font-normal text-gray-500 dark:text-gray-400">
@@ -79,7 +81,7 @@ export default function Hero(props: postProps) {
                   <span className="text-white font-bold"></span>
                 </div>
                 {/* title */}
-                <Link href={`/blog/${post.slug}`}>
+                <Link href={`/blogs/${post.slug}`}>
                   <a className="cursor-pointer">
                     <h2 className="text-2xl font-bold dark:text-gray-100">
                       {post.title}

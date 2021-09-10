@@ -10,18 +10,18 @@ export function Tagged(props: postProps) {
           className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-5"
           key={post.title}
         >
-          <div className="overflow-hidden w-full lg:w-1/3">
+          <div className="overflow-hidden w-full md:w-1/3">
             <Image
-              src="/img/placeholder-400x257.png"
+              src="/img/banner-400x257.png"
               width={800}
               height={514}
               alt="tagged images"
               className="rounded-xl"
               placeholder="blur"
-              blurDataURL="/img/placeholder-100x64.png"
+              blurDataURL="/img/banner-100x64.png"
             />
           </div>
-          <div className="flex flex-col space-y-3">
+          <div className="flex flex-col space-y-3 md:w-2/3">
             <div className="flex items-center space-x-5">
               <p className="text-sm font-bold dark:text-white">{post.tags}</p>
               <span className="text-sm text-gray-500 dark:text-gray-400">

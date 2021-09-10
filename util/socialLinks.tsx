@@ -3,7 +3,7 @@ import { FaFacebookF, FaGithub, FaInstagram, FaTwitter } from "react-icons/fa";
 export const socialLinks = [
   {
     social: "Facebook",
-    link: "https://facebook.com",
+    link: "https://www.facebook.com/Learnnext-110050848084112/",
     icon: <FaFacebookF />,
   },
   {
@@ -15,10 +15,5 @@ export const socialLinks = [
     social: "Instagram",
     link: "https://instagram.com",
     icon: <FaInstagram />,
-  },
-  {
-    social: "Github",
-    link: "https://github.com",
-    icon: <FaGithub />,
   },
 ];

@@ -4,15 +4,15 @@ export const navLinks = [
     target: "/",
   },
   {
-    link: "Categories",
-    target: "/categories",
+    link: "Blogs",
+    target: "/blogs",
   },
   {
-    link: "Travel",
-    target: "/travel",
+    link: "Snippets",
+    target: "/snippets",
   },
   {
-    link: "Contact",
-    target: "/contact",
+    link: "Templates",
+    target: "/templates",
   },
 ];

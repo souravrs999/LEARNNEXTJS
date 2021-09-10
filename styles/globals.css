@@ -82,3 +82,7 @@ pre {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+code {
+  @apply text-purple-400;
+}

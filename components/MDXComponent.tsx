@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import BlogImg from "./BlogImg";
-import ConsCard from "./ConsCard";
-import ProsCard from "./ProsCard";
 import QuotedText from "./QuotedText";
 
 const CustomLink = (props) => {
@@ -24,8 +22,6 @@ const MDXComponent = {
   Image,
   BlogImg,
   a: CustomLink,
-  ConsCard,
-  ProsCard,
   QuotedText,
 };
 

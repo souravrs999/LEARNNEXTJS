@@ -15,7 +15,7 @@ export default function Content(props: postProps) {
             key={post.title}
           >
             <div className="overflow-hidden lg:w-auto cursor-pointer">
-              <Link href={`/blog/${post.slug}`}>
+              <Link href={`/blogs/${post.slug}`}>
                 <a>
                   <Image
                     src={post.image}
@@ -39,9 +39,9 @@ export default function Content(props: postProps) {
                 </p>
               </div>
               {/* title */}
-              <Link href={`/blog/${post.slug}`}>
+              <Link href={`/blogs/${post.slug}`}>
                 <a className="cursor-pointer">
-                  <h2 className="text-2xl lg:text-xl font-bold dark:text-gray-100">
+                  <h2 className="text-xl font-bold dark:text-gray-100">
                     {post.title}
                   </h2>
                 </a>

@@ -12,6 +12,14 @@ module.exports = {
   images: {
     domains: [],
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: securityHeaders,
+      },
+    ];
+  },
   webpack: (config, { dev, isServer }) => {
     // Fixes npm packages that depends on 'fs' module
     if (!isServer) {
@@ -37,7 +45,7 @@ module.exports = {
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com https://gmail.us5.list-manage.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com https://www.googletagmanager.com https://gmail.us5.list-manage.com;
   child-src *.youtube.com *.google.com *.twitter.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src * blob: data:;

@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import Hero from "@/components/home/Hero";
 import Content from "@/components/home/Content";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
-import Popular from "@/components/Popular";
+
 import { Tagged } from "@/components/Tagged";
 import Cta from "@/components/CallToAction";
 
@@ -14,7 +14,6 @@ export default function Home({ posts }: postProps) {
     <Container>
       <Hero posts={posts.slice(0, 5)} />
       <Content posts={posts} />
-      <Popular posts={posts} />
 
       <div className="py-12 mx-auto max-w-6xl">
         <div className="flex flex-wrap px-5">

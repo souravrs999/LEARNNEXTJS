@@ -49,7 +49,7 @@ export default function Search(props: postProps) {
                 blurDataURL="/img/placeholder-100x64.png"
               />
             </div>
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-3 lg:w-2/3">
               <div className="flex items-center space-x-5">
                 <p className="text-sm font-bold text-black dark:text-white">
                   {item.tags}
@@ -61,7 +61,7 @@ export default function Search(props: postProps) {
                   {item.readingTime.text}
                 </span>
               </div>
-              <Link href={`/blog/${item.slug}`}>
+              <Link href={`/blogs/${item.slug}`}>
                 <a>
                   <h2 className="text-md font-bold cursor-pointer">
                     {item.title}

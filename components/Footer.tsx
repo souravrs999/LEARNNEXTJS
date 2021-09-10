@@ -1,7 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
+import { useTheme } from "next-themes";
 import { socialLinks } from "util/socialLinks";
 
 export default function Footer() {
+  const { resolvedTheme } = useTheme();
+
   return (
     <footer className="py-12">
       <div className="mx-auto  w-full px-18 text-center">
@@ -23,11 +27,11 @@ export default function Footer() {
         </div>
         {/* copyright text */}
         <div className="px-10 space-y-2">
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-500 text-sm">
             Copyright @ {new Date().getFullYear()} All rights reserved
             LEARNNEXTJS
           </p>
-          <div className="flex justify-center text-gray-400 space-x-2">
+          <div className="flex justify-center text-gray-500 space-x-2">
             <Link href="/terms-and-conditions">
               <a href="#" className="hover:underline hover:text-yellow-500">
                 Terms & Conditions{" "}
@@ -40,6 +44,19 @@ export default function Footer() {
                 Privacy Policy
               </a>
             </Link>
+          </div>
+          <div className="flex justify-center items-center space-x-3 pt-5">
+            <span className="text-gray-500 dark:text-gray-400">
+              Powered By:{" "}
+            </span>
+            <Image
+              src={`/vendor/vercel-logotype-${
+                resolvedTheme === "light" ? "dark" : "light"
+              }.svg`}
+              width={100}
+              height={15}
+              alt="Vercel Logo"
+            />
           </div>
         </div>
       </div>
