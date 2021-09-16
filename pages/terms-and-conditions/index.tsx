@@ -14,7 +14,7 @@ export default function Terms() {
         <p className="text-base text-gray-500 dark:text-gray-400 text-justify">
           These terms and conditions outline the rules and regulations for the
           use of LEARNNEXTs Website, located at
-          https://learnnext-ruby.vercel.app.
+          https://learnnext-blog.vercel.app.
           <br />
           <br />
           By accessing this website we assume you accept these terms and
