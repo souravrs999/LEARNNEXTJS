@@ -59,7 +59,7 @@ export default function BlogLayout({ children, matter }) {
               alt="blog cover image"
               className="rounded-xl"
               placeholder="blur"
-              blurDataURL="/img/placeholder-100x64.png"
+              blurDataURL="/img/banner-100x64.png"
             />
           </div>
           {/* blog content */}

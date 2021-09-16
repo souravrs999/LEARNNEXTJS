@@ -3,15 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { postProps } from "types/postProps";
+import { SortByDate } from "util/sortPosts";
 
 export default function Content(props: postProps) {
+  const _tposts = SortByDate(props.posts);
+
   return (
     <div className="py-12 mx-auto max-w-6xl">
       <div className="flex flex-wrap space-y-7 lg:space-y-0">
-        {props.posts.map((post) => (
+        {_tposts.map((post) => (
           // item
           <div
-            className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-5"
+            className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-3"
             key={post.title}
           >
             <div className="overflow-hidden lg:w-auto cursor-pointer">
@@ -24,7 +27,7 @@ export default function Content(props: postProps) {
                     className="rounded-lg"
                     alt="cover image"
                     placeholder="blur"
-                    blurDataURL="/img/placeholder-100x64.png"
+                    blurDataURL="/img/banner-100x64.png"
                   />
                 </a>
               </Link>
@@ -50,7 +53,7 @@ export default function Content(props: postProps) {
                 {post.summary}
               </p>
               <div className="flex items-center">
-                <div className="h-12 w-12">
+                <div className="h-10 w-10">
                   <Image
                     src="/img/avatar-placeholder-360x360.png"
                     height="260"

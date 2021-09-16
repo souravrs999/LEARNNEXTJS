@@ -46,7 +46,7 @@ export default function Search(props: postProps) {
                 alt="tagged images"
                 className="rounded-xl"
                 placeholder="blur"
-                blurDataURL="/img/placeholder-100x64.png"
+                blurDataURL="/img/banner-100x64.png"
               />
             </div>
             <div className="flex flex-col space-y-3 lg:w-2/3">
@@ -99,6 +99,6 @@ export default function Search(props: postProps) {
 }
 
 export async function getServerSideProps() {
-  const posts = await getAllFilesFrontMatter();
+  const posts = await getAllFilesFrontMatter("posts");
   return { props: { posts } };
 }

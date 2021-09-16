@@ -18,7 +18,7 @@ export default async function handler(
       .collection("viewCount")
       .findOne({ slug: req.query.slug });
 
-    const posts: string[] = await getFiles().then((res) =>
+    const posts: string[] = await getFiles("posts").then((res) =>
       res.map((_idx) => {
         return _idx.replace(/\.mdx/, "");
       })

@@ -62,7 +62,7 @@ export default function Hero(props: postProps) {
                   className="rounded-lg"
                   alt="cover image"
                   placeholder="blur"
-                  blurDataURL="/img/placeholder-100x64.png"
+                  blurDataURL="/img/banner-100x64.png"
                 />
               </div>
               {/* content */}

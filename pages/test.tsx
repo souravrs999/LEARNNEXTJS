@@ -1,39 +1,50 @@
+import SearchBar from "@/components/SearchBar";
 import ThemeToggler from "@/components/ThemeToggler";
 import Image from "next/image";
+import React, { useState } from "react";
 import { SiNextDotJs, SiReact, SiTailwindcss } from "react-icons/si";
+import { navLinks } from "util/navLinks";
+import { socialLinks } from "util/socialLinks";
+import Link from "next/link";
 
 export default function test() {
+  // const [collapsed, setCollapsed] = useState(true);
   return (
     <div className="flex h-screen justify-center items-center bg-gradient-to-r from-green-400 to-blue-500">
       <div className="flex flex-col space-y-10 items-center">
-        <div className="flex bg-white dark:bg-dark-muted rounded-lg">
-          <Image
-            src="/img/banner-400x257.png"
-            width={400}
-            height={257}
-            className="rounded-l-lg"
-          />
+        <div className="container mx-auto py-12 px-4">
+          <div className="inline-grid max-w-xs sm:max-w-xs lg:max-w-lg lg:flex bg-white dark:bg-dark-muted rounded-lg shadow-lg pb-6 lg:pb-0">
+            <div className="relative w-full lg:w-1/2 lg:p-4">
+              <Image
+                src="/img/snippets/tailwind-img-512x512.jpg"
+                width={512}
+                height={512}
+                alt="image"
+                layout="responsive"
+                className="rounded-t-lg lg:rounded-lg"
+              />
+            </div>
 
-          <div className="flex flex-col w-3/4 max-w-sm border-l justify-center space-y-1 px-5">
-            <div className="flex text-gray-500 dark:text-gray-400">
-              <span>10 Nov, 2020</span>
+            <div className="w-full lg:w-2/3 p-4">
+              <div className="inline-grid">
+                <span className="text-xs text-dark-muted dark:text-white opacity-50">
+                  20 Nov, 2020
+                </span>
+                <p className="font-semibold text-xl text-dark-muted dark:text-gray-100">
+                  Tailwind Dark Mode
+                </p>
+                <p className="text-sm my-4 text-dark-muted dark:text-white opacity-75">
+                  Adding Dark Mode to your NextJS application with TailwindCSS
+                  and next-themes
+                </p>
+                <div className="flex space-x-5">
+                  <SiTailwindcss className="text-dark-muted dark:text-white" />
+                  <SiReact className="text-dark-muted dark:text-white" />
+                  <SiNextDotJs className="text-dark-muted dark:text-white" />
+                </div>
+              </div>
             </div>
-            <h2 className="text-black dark:text-white">Tailwind Dark mode</h2>
-            <p className="text-gray-500 dark:text-gray-400 pb-3">
-              Adding a ThemeToggler to Tailwind with next-themes.
-            </p>
-            <div className="flex flex-row space-x-5">
-              <SiTailwindcss className="text-dark-muted dark:text-white" />
-              <SiReact className="text-dark-muted dark:text-white" />
-              <SiNextDotJs className="text-dark-muted dark:text-white" />
-            </div>
-            <p className="text-xs font-bold text-gray-400 pt-3">
-              #Tailwind, #Nextjs, #React
-            </p>
           </div>
-        </div>
-        <div>
-          <ThemeToggler />
         </div>
       </div>
     </div>

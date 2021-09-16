@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/pages/test.tsx
 
 # next.js
 /.next/

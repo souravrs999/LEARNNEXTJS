@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import "@/styles/prism-highlighting.css";
+import "@/styles/nord.css";
 
 import Router from "next/router";
 import React, { useEffect } from "react";

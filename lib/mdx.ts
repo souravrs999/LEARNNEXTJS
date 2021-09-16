@@ -11,17 +11,17 @@ import remarkCodeTitles from "remark-code-titles";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
 let BASE_PATH = process.cwd();
-if (process.env.NODE_ENV === "production") {
-  BASE_PATH = join(process.cwd(), ".next/server/chunks");
+// if (process.env.NODE_ENV === "production") {
+//   BASE_PATH = join(process.cwd(), ".next/server/chunks");
+// }
+
+export async function getFiles(type: string) {
+  return readdirSync(join(BASE_PATH, "data", type));
 }
 
-export async function getFiles() {
-  return readdirSync(join(BASE_PATH, "/data/posts"));
-}
-
-export async function getFileBySlug(slug: string) {
+export async function getFileBySlug(slug: string, type: string) {
   const source = readFileSync(
-    join(BASE_PATH, "/data/posts", `${slug}.mdx`),
+    join(BASE_PATH, "data", type, `${slug}.mdx`),
     "utf8"
   );
 
@@ -52,12 +52,12 @@ export async function getFileBySlug(slug: string) {
   };
 }
 
-export async function getAllFilesFrontMatter() {
-  const files = readdirSync(join(BASE_PATH, "/data/posts"));
+export async function getAllFilesFrontMatter(type: string) {
+  const files = readdirSync(join(BASE_PATH, "data", type));
 
   return files.reduce((allPosts, postSlug) => {
     const source = readFileSync(
-      join(BASE_PATH, "/data/posts", postSlug),
+      join(BASE_PATH, "data", type, postSlug),
       "utf8"
     );
     const { data } = matter(source);

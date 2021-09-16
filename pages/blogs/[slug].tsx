@@ -12,7 +12,7 @@ export default function BlogSlug({ mdxSource, frontMatter }) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getFiles();
+  const posts = await getFiles("posts");
 
   return {
     paths: posts.map((p) => ({
@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const post = await getFileBySlug(params.slug);
+  const post = await getFileBySlug(params.slug, "posts");
 
   return { props: { ...post }, revalidate: 60 * 60 * 1 };
 }

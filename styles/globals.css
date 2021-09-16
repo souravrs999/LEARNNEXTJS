@@ -86,3 +86,15 @@ pre {
 code {
   @apply text-purple-400;
 }
+
+.mdxComp ol {
+  @apply list-inside list-disc;
+}
+
+.mdxComp li {
+  @apply p-3;
+}
+
+.mdxComp code[class*="language-"] {
+  @apply text-sm;
+}
