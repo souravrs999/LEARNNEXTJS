@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "node ./scripts/generate-sitemap.mjs"
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
     "copy-webpack-plugin": "^9.0.1",
     "date-fns": "^2.23.0",
     "embla-carousel": "^4.5.3",
+    "globby": "^12.0.2",
     "gray-matter": "^4.0.3",
     "html-entities": "^2.3.2",
     "mdx-prism": "^0.3.4",
@@ -21,6 +23,7 @@
     "next-mdx-remote": "^3.0.4",
     "next-themes": "^0.0.15",
     "preact": "^10.5.14",
+    "prettier": "^2.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
@@ -41,5 +44,11 @@
     "remark-slug": "^7.0.0",
     "tailwindcss": "^2.2.7",
     "typescript": "^4.4.2"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none"
   }
 }
