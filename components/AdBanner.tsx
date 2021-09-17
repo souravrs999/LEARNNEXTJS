@@ -1,19 +1,15 @@
-import { useEffect } from "react";
+import AdSense from "react-ssr-adsense";
+
+interface Window {
+  adsbygoogle: any;
+}
 
 export default function AdBanner() {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   return (
-    <ins
+    <AdSense
       className="adsbygoogle adbanner-customize"
       data-ad-client="ca-pub-5775610330008624"
-      data-ad-slot="1"
+      data-ad-slot="7806394673"
     />
   );
 }
