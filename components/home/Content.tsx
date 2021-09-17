@@ -17,13 +17,14 @@ export default function Content(props: postProps) {
             className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-3"
             key={post.title}
           >
-            <div className="overflow-hidden lg:w-auto cursor-pointer">
+            <div className="overflow-hidden w-full cursor-pointer rounded-lg border border-gray-300 dark:border-none p-1">
               <Link href={`/blogs/${post.slug}`}>
                 <a>
                   <Image
                     src={post.image}
                     height={512}
                     width={800}
+                    layout="responsive"
                     className="rounded-lg"
                     alt="cover image"
                     placeholder="blur"
@@ -50,7 +51,7 @@ export default function Content(props: postProps) {
                 </a>
               </Link>
               <p className="text-sm text-gray-500 dark:text-gray-400 text-justify cursor-pointer">
-                {post.summary}
+                {post.summary.slice(0, 90)} ...
               </p>
               <div className="flex items-center">
                 <div className="h-10 w-10">

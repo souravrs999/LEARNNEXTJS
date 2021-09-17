@@ -10,13 +10,14 @@ export function Tagged(props: postProps) {
           className="flex flex-wrap md:flex-nowrap w-full items-center space-x-0 md:space-x-5"
           key={post.title}
         >
-          <div className="overflow-hidden w-full md:w-1/3">
+          <div className="overflow-hidden w-full md:w-1/3 border border-gray-300 dark:border-none rounded-lg p-1">
             <Image
               src="/img/banner-400x257.png"
               width={800}
               height={514}
               alt="tagged images"
               className="rounded-xl"
+              layout="responsive"
               placeholder="blur"
               blurDataURL="/img/banner-100x64.png"
             />

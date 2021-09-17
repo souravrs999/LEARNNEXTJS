@@ -5,7 +5,7 @@ import { postProps } from "types/postProps";
 
 export default function Blog({ posts }: postProps) {
   return (
-    <Container>
+    <Container title="All Blogs and Articles available in LEARNNEXT - LEARNNEXT">
       <div className="flex justify-center items-center py-5">
         <h2 className="text-center text-black dark:text-gray-100 text-4xl font-bold">
           All Blogs

@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 
 export default function Privacy() {
   return (
-    <Container>
+    <Container title="Privacy Policy - LEARNNEXT">
       <div className="mx-auto max-w-4xl px-5 flex flex-col w-full py-12 space-y-5">
         <h2 className="text-4xl text-black dark:text-white">Privacy Policy</h2>
         <p className="text-base text-gray-500 dark:text-gray-400 text-justify">

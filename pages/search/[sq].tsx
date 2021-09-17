@@ -24,7 +24,13 @@ export default function Search(props: postProps) {
   const filteredPost = filterPosts(props.posts, router.query.sq.toString());
 
   return (
-    <Container>
+    <Container
+      title={`Search results for ${
+        !router.query.sq || router.query.sq == "undefined"
+          ? "All"
+          : router.query.sq
+      }`}
+    >
       <div className="mx-auto max-w-4xl px-5 py-12 flex flex-col w-full space-y-5">
         <h5 className="text-md text-black dark:text-white uppercase">
           search results for{" "}

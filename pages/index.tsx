@@ -8,6 +8,7 @@ import Cta from "@/components/CallToAction";
 
 import { postProps } from "types/postProps";
 import { SortByDate } from "util/sortPosts";
+import AdBanner from "@/components/AdBanner";
 
 export default function Home({ posts }: postProps) {
   return (
@@ -31,6 +32,9 @@ export default function Home({ posts }: postProps) {
       {/* call to action */}
       <div className="py-12 mx-auto max-w-6xl">
         <Cta />
+        <div className="py-5 overflow-hidden block">
+          <AdBanner />
+        </div>
       </div>
     </Container>
   );

@@ -54,13 +54,14 @@ export default function Hero(props: postProps) {
               className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
               key={post.title}
             >
-              <div className="overflow-hidden lg:w-1/2">
+              <div className="overflow-hidden w-full lg:w-1/2 border border-gray-300 dark:border-none rounded-lg p-1">
                 <Image
                   src={post.image}
                   height={514}
                   width={800}
-                  className="rounded-lg"
+                  layout="responsive"
                   alt="cover image"
+                  className="rounded-lg"
                   placeholder="blur"
                   blurDataURL="/img/banner-100x64.png"
                 />
