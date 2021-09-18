@@ -1,28 +1,28 @@
-import fs from "fs";
-import matter from "gray-matter";
-import { join } from "path";
-import readingTime from "reading-time";
-import { serialize } from "next-mdx-remote/serialize";
-import mdxPrism from "mdx-prism";
-import { readdirSync, readFileSync } from "fs";
+import fs from 'fs';
+import matter from 'gray-matter';
+import { join } from 'path';
+import readingTime from 'reading-time';
+import { serialize } from 'next-mdx-remote/serialize';
+import mdxPrism from 'mdx-prism';
+import { readdirSync, readFileSync } from 'fs';
 
-import remarkSlug from "remark-slug";
-import remarkCodeTitles from "remark-code-titles";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import remarkSlug from 'remark-slug';
+import remarkCodeTitles from 'remark-code-titles';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 let BASE_PATH = process.cwd();
-if (process.env.NODE_ENV === "production") {
-  BASE_PATH = join(process.cwd(), ".next/server/chunks");
-}
+// if (process.env.NODE_ENV === 'production') {
+//   BASE_PATH = join(process.cwd(), '.next/server/chunks');
+// }
 
 export async function getFiles(type: string) {
-  return readdirSync(join(BASE_PATH, "data", type));
+  return readdirSync(join(BASE_PATH, 'data', type));
 }
 
 export async function getFileBySlug(slug: string, type: string) {
   const source = readFileSync(
-    join(BASE_PATH, "data", type, `${slug}.mdx`),
-    "utf8"
+    join(BASE_PATH, 'data', type, `${slug}.mdx`),
+    'utf8'
   );
 
   const { data, content } = matter(source);
@@ -34,11 +34,11 @@ export async function getFileBySlug(slug: string, type: string) {
         rehypeAutolinkHeadings,
         {
           properties: {
-            className: ["anchor"],
-          },
-        },
-      ],
-    },
+            className: ['anchor']
+          }
+        }
+      ]
+    }
   });
 
   return {
@@ -47,28 +47,28 @@ export async function getFileBySlug(slug: string, type: string) {
       wordCount: source.split(/\s+/gu).length,
       readingTime: readingTime(source),
       slug: slug || null,
-      ...data,
-    },
+      ...data
+    }
   };
 }
 
 export async function getAllFilesFrontMatter(type: string) {
-  const files = readdirSync(join(BASE_PATH, "data", type));
+  const files = readdirSync(join(BASE_PATH, 'data', type));
 
   return files.reduce((allPosts, postSlug) => {
     const source = readFileSync(
-      join(BASE_PATH, "data", type, postSlug),
-      "utf8"
+      join(BASE_PATH, 'data', type, postSlug),
+      'utf8'
     );
     const { data } = matter(source);
 
     return [
       {
         ...data,
-        slug: postSlug.replace(".mdx", ""),
-        readingTime: readingTime(source),
+        slug: postSlug.replace('.mdx', ''),
+        readingTime: readingTime(source)
       },
-      ...allPosts,
+      ...allPosts
     ];
   }, []);
 }

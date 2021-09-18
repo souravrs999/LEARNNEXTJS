@@ -5,3 +5,11 @@ export function SortByDate(arr: any[]) {
     return _ad - _bd;
   });
 }
+
+export function SortByViews(arr: any[]) {
+  return arr.sort((a, b) => {
+    var _av: number = a.views;
+    var _bv: number = b.views;
+    return _bv - _av;
+  });
+}

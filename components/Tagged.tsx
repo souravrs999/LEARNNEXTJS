@@ -1,6 +1,6 @@
-import { format, parseISO } from "date-fns";
-import Image from "next/image";
-import { postProps } from "types/postProps";
+import { format, parseISO } from 'date-fns';
+import Image from 'next/image';
+import { postProps } from 'types/postProps';
 
 export function Tagged(props: postProps) {
   return (
@@ -12,7 +12,7 @@ export function Tagged(props: postProps) {
         >
           <div className="overflow-hidden w-full md:w-1/3 border border-gray-300 dark:border-none rounded-lg p-1">
             <Image
-              src="/img/banner-400x257.png"
+              src={post.image}
               width={800}
               height={514}
               alt="tagged images"
@@ -26,7 +26,7 @@ export function Tagged(props: postProps) {
             <div className="flex items-center space-x-5">
               <p className="text-sm font-bold dark:text-white">{post.tags}</p>
               <span className="text-sm text-gray-500 dark:text-gray-400">
-                {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
+                {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
               </span>
             </div>
             <h2 className="text-base font-bold dark:text-gray-100">

@@ -1,14 +1,14 @@
-import Container from "@/components/Container";
-import Hero from "@/components/home/Hero";
-import Content from "@/components/home/Content";
-import { getAllFilesFrontMatter } from "@/lib/mdx";
+import Container from '@/components/Container';
+import Hero from '@/components/home/Hero';
+import Content from '@/components/home/Content';
+import { getAllFilesFrontMatter } from '@/lib/mdx';
 
-import { Tagged } from "@/components/Tagged";
-import Cta from "@/components/CallToAction";
+import { Tagged } from '@/components/Tagged';
+import Cta from '@/components/CallToAction';
 
-import { postProps } from "types/postProps";
-import { SortByDate } from "util/sortPosts";
-import AdBanner from "@/components/AdBanner";
+import { postProps } from 'types/postProps';
+import { SortByDate } from 'util/sortPosts';
+import AdBanner from '@/components/AdBanner';
 
 export default function Home({ posts }: postProps) {
   return (
@@ -32,15 +32,15 @@ export default function Home({ posts }: postProps) {
       {/* call to action */}
       <div className="py-12 mx-auto max-w-6xl">
         <Cta />
-        <div className="py-5 overflow-hidden block">
+        {/* <div className="py-5 overflow-hidden block">
           <AdBanner />
-        </div>
+        </div> */}
       </div>
     </Container>
   );
 }
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter("posts");
+  const posts = await getAllFilesFrontMatter('posts');
   return { props: { posts } };
 }

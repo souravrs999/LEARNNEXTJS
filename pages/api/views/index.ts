@@ -1,5 +1,5 @@
-import clientPromise from "@/lib/mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import clientPromise from '@/lib/mongodb';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 interface viewType {
   slug?: string;
@@ -14,7 +14,7 @@ export default async function handler(
     const client: any = await clientPromise;
     const viewCounts: viewType = await client
       .db()
-      .collection("viewCount")
+      .collection('viewCount')
       .find()
       .toArray();
 

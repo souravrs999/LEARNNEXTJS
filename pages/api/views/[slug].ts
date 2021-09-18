@@ -1,6 +1,6 @@
-import { getFiles } from "@/lib/mdx";
-import clientPromise from "@/lib/mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import { getFiles } from '@/lib/mdx';
+import clientPromise from '@/lib/mongodb';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 interface viewType {
   slug?: string;
@@ -15,12 +15,12 @@ export default async function handler(
     const client: any = await clientPromise;
     const viewCounts: viewType = await client
       .db()
-      .collection("viewCount")
+      .collection('viewCount')
       .findOne({ slug: req.query.slug });
 
-    const posts: string[] = await getFiles("posts").then((res) =>
+    const posts: string[] = await getFiles('posts').then((res) =>
       res.map((_idx) => {
-        return _idx.replace(/\.mdx/, "");
+        return _idx.replace(/\.mdx/, '');
       })
     );
 
@@ -28,15 +28,15 @@ export default async function handler(
       // this function will run when we add a new post and will add it to db
       const newField = client
         .db()
-        .collection("viewCount")
+        .collection('viewCount')
         .insertOne({ slug: req.query.slug, views: 1 });
     }
 
-    if (req.method === "POST") {
+    if (req.method === 'POST') {
       //increment the view count
       const updateField = client
         .db()
-        .collection("viewCount")
+        .collection('viewCount')
         .updateOne(
           { slug: req.query.slug },
           { $set: { views: viewCounts.views + 1 } }
