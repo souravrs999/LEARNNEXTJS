@@ -45,17 +45,13 @@ module.exports = {
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com
-  https://www.google-analytics.com
-  https://ssl.google-analytics.com
-  https://gmail.us5.list-manage.com
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com https://gmail.us5.list-manage.com https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com;
   child-src *.youtube.com *.google.com *.twitter.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
-  img-src * blob: data: https://www.google-analytics.com
-  https://ssl.gstatic.com
+  img-src * blob: data: ;
   media-src 'none';
   connect-src *;
-  font-src 'self' https://fonts.gstatic.com data:;
+  font-src 'self';
 `;
 
 const securityHeaders = [
