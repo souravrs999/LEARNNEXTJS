@@ -1,13 +1,15 @@
-import Image from "next/image";
-import { format, parseISO } from "date-fns";
+import Image from 'next/image';
+import { format, parseISO } from 'date-fns';
 
-import Container from "@/components/Container";
-import { useEffect } from "react";
+import Container from '@/components/Container';
+import { useEffect } from 'react';
+import SocialSharable from '@/components/Sharable';
+import Recommended from '@/components/Recommended';
 
 export default function BlogLayout({ children, matter }) {
   useEffect(() => {
     function registerView() {
-      fetch(`/api/views/${matter.slug}`, { method: "POST" });
+      fetch(`/api/views/${matter.slug}`, { method: 'POST' });
     }
     registerView();
   }, [matter.slug]);
@@ -32,14 +34,13 @@ export default function BlogLayout({ children, matter }) {
               className="rounded-full"
             />
           </div>
-
           {/* author details */}
           <div className="text-sm text-center">
             <p className="text-black dark:text-white font-bold">
               {matter.author}
             </p>
             <span className="text-gray-500 dark:text-gray-400">
-              {format(parseISO(matter.publishedAt), "MMMM dd, yyyy")}
+              {format(parseISO(matter.publishedAt), 'MMMM dd, yyyy')}
             </span>
           </div>
           {/* blog title and description*/}
@@ -49,7 +50,6 @@ export default function BlogLayout({ children, matter }) {
           <p className="text-xl text-gray-500 dark:text-gray-400 text-center pt-3">
             {matter.summary}
           </p>
-
           {/* cover image */}
           <div className="pt-5">
             <Image
@@ -66,6 +66,8 @@ export default function BlogLayout({ children, matter }) {
           <div className="mdxComp flex flex-col justify-center text-base space-y-3 text-gray-500 dark:text-gray-400 mt-5 w-full">
             {children}
           </div>
+          <SocialSharable title={matter.title} slug={matter.slug} />
+          <Recommended />
         </div>
       </div>
     </Container>

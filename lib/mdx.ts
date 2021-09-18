@@ -11,9 +11,9 @@ import remarkCodeTitles from 'remark-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 let BASE_PATH = process.cwd();
-if (process.env.NODE_ENV === 'production') {
-  BASE_PATH = join(process.cwd(), '.next/server/chunks');
-}
+// if (process.env.NODE_ENV === 'production') {
+//   BASE_PATH = join(process.cwd(), '.next/server/chunks');
+// }
 
 export async function getFiles(type: string) {
   return readdirSync(join(BASE_PATH, 'data', type));
