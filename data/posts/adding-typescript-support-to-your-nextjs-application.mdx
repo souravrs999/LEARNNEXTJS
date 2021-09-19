@@ -1,0 +1,132 @@
+---
+title: 'Adding TypeScript suppport to your NextJS application'
+publishedAt: '2021-09-19'
+summary: 'A detailed walthrough for using TypeScript with your NextJS application.'
+image: '/img/blog/adding-typescript-support-to-nextjs-application-800x514.jpg'
+author: 'Dark Stalker'
+tags: 'NextJS, TypeScript'
+designation: 'Backend Dev'
+---
+
+## Why Typescript
+
+[TypeScript](https://www.typescriptlang.org/) is a strongly typed programming language which builds on JavaScript
+giving you better tooling at any scale. As TypeScript is a superset of JavaScript, existing JavaScript programs are
+also valid TypeScript programs.
+
+## Ease of Use
+
+One of the big benefits of TypeScript is that it enables IDE's to provide a richer environment for spotting common errors
+as you type the code.
+
+For a large JavaScript project, adopting TypeScript might result in more robust software, while still being deployable where
+a regular JavaScript application would run.
+
+It is open source, and you get the clever intellisense as you type if you use a supported IDE like Microsoft's
+[Visual Studio Code](https://code.visualstudio.com/).
+
+NextJS provides an integrated TypeScript experience out of the box which makes our life's much easier.
+
+## Installation
+
+Let's begin by opening your Terminal and running the following command
+
+```bash
+npx create-next-app next-typescript-example && cd next-typescript-example
+```
+
+this will create a new NextJS project directory named `next-typescript-example` and change to that directory.
+
+Create a new `tsconfig.json` file in the root of your directory.
+
+```bash
+touch tsconfig.json
+```
+
+Now, try restarting the developement server (`npm run dev` or `yarn dev`). It
+should spit out some warnings like so.
+
+<QuotedText>
+  It looks like you're trying to use TypeScript but do not have the required
+  package(s) installed.
+
+Please install typescript, @types/react, and @types/node by running:
+
+            yarn add --dev typescript @types/react @types/node
+
+</QuotedText>
+
+this is because we have not installed TypeScript or its accompnying types for our project, so lets
+go ahead and install them.
+
+```bash
+# If you're using npm
+npm install --save-dev typescript @types/react @types/node
+
+# If you're using yarn
+yarn add --dev typescript @types/react @types/node
+```
+
+Now restart the development server again, NextJS will automaticall populate the `tsconfig.json` file and have created the `next-env.d.ts`
+files, try not to change anything within this file, now you've added Typescript to your NextJS app.
+
+Now let's rename the files to `ts` and `tsx` files, a `.tsx` files is a TypeScript file written using JSX syntax.
+Try to be consistent with naming of the files in your project although a `.ts` file may export a TSX Component it is not
+considered as a good convention to do so and might create confusions with your collegues when you are working in a major Project.
+
+```bash
+pages/api/*.js      --> pages/api/*.ts
+pages/_app.js       --> pages/_app.tsx
+pages/index.js      --> pages/index.tsx
+pages/_document.js  --> pages/_document.tsx
+```
+
+with that done go to your `pages/_app.ts` file and use the built-in type `AppProps`, like so:
+
+```TypeScript
+import { AppProps } from 'next/app'
+
+function App({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />
+}
+
+export default App
+```
+
+with that we've converted our JavaScript NextJS app to a TypeScript one. here are some most commonly used NextJS specific types
+that you will run into.
+
+** Data Fetching Methods **
+
+`getStaticProps`, `getStaticPaths`, `getServerSideProps` types:
+
+```TypeScript
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+
+export const getStaticProps: GetStaticProps = async context => {
+  // ...
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // ...
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  // ...
+}
+
+```
+
+** API Routes **
+
+`Request`, `Response` types:
+
+```TypeScript
+import { NextApiRequest, NextApiResponse } from 'next'
+
+export default (req: NextApiRequest, res: NextApiResponse) => {
+  // ...
+}
+```
+
+That's it! Your app is now powered by Typescript. you can learn more about using NextJS in TypesScript by referring to NextJS official [TypeScript documentation](https://nextjs.org/docs/basic-features/typescript).

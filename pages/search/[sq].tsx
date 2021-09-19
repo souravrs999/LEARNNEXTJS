@@ -1,17 +1,17 @@
-import Container from "@/components/Container";
-import { useRouter } from "next/router";
-import Image from "next/image";
-import { format, parseISO } from "date-fns";
-import Link from "next/link";
+import Container from '@/components/Container';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+import { format, parseISO } from 'date-fns';
+import Link from 'next/link';
 
-import { getAllFilesFrontMatter, getFileBySlug, getFiles } from "@/lib/mdx";
-import { postProps } from "types/postProps";
+import { getAllFilesFrontMatter, getFileBySlug, getFiles } from '@/lib/mdx';
+import { postProps } from 'types/postProps';
 
 export default function Search(props: postProps) {
   const router = useRouter();
 
   function filterPosts(posts: any, query: string) {
-    if (!query || query == "undefined") {
+    if (!query || query == 'undefined') {
       return posts;
     }
 
@@ -26,16 +26,16 @@ export default function Search(props: postProps) {
   return (
     <Container
       title={`Search results for ${
-        !router.query.sq || router.query.sq == "undefined"
-          ? "All"
+        !router.query.sq || router.query.sq == 'undefined'
+          ? 'All'
           : router.query.sq
       }`}
     >
       <div className="mx-auto max-w-4xl px-5 py-12 flex flex-col w-full space-y-5">
         <h5 className="text-md text-black dark:text-white uppercase">
-          search results for{" "}
+          search results for{' '}
           <span className="text-bold">
-            &apos; {router.query.sq == "undefined" ? "all" : router.query.sq}{" "}
+            &apos; {router.query.sq == 'undefined' ? 'all' : router.query.sq}{' '}
             &apos;
           </span>
         </h5>
@@ -61,7 +61,7 @@ export default function Search(props: postProps) {
                   {item.tags}
                 </p>
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  {format(parseISO(item.publishedAt), "MMMM dd, yyyy")}
+                  {format(parseISO(item.publishedAt), 'MMMM dd, yyyy')}
                 </span>
                 <span className="text-sm text-black dark:text-white">
                   {item.readingTime.text}
@@ -105,6 +105,6 @@ export default function Search(props: postProps) {
 }
 
 export async function getServerSideProps() {
-  const posts = await getAllFilesFrontMatter("posts");
+  const posts = await getAllFilesFrontMatter('posts');
   return { props: { posts } };
 }

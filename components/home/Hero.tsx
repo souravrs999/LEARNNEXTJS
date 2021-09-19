@@ -1,18 +1,18 @@
-import Image from "next/image";
-import { useEmblaCarousel } from "embla-carousel/react";
-import { useState, useEffect, useCallback } from "react";
-import Link from "next/link";
-import { parseISO, format } from "date-fns";
+import Image from 'next/image';
+import { useEmblaCarousel } from 'embla-carousel/react';
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import { parseISO, format } from 'date-fns';
 
-import { postProps } from "types/postProps";
-import { SortByDate } from "util/sortPosts";
+import { postProps } from 'types/postProps';
+import { SortByDate } from 'util/sortPosts';
 
 export default function Hero(props: postProps) {
   const [emblaRef, embla] = useEmblaCarousel({
-    align: "start",
+    align: 'start',
     loop: true,
     skipSnaps: false,
-    inViewThreshold: 0.7,
+    inViewThreshold: 0.7
   });
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -32,7 +32,7 @@ export default function Hero(props: postProps) {
     if (!embla) return;
     onSelect();
     setScrollSnaps(embla.scrollSnapList());
-    embla.on("select", onSelect);
+    embla.on('select', onSelect);
   }, [embla, setScrollSnaps, onSelect]);
 
   const _tposts = SortByDate(props.posts);
@@ -54,7 +54,7 @@ export default function Hero(props: postProps) {
               className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
               key={post.title}
             >
-              <div className="overflow-hidden w-full lg:w-1/2 border border-gray-300 dark:border-none rounded-lg p-1">
+              <div className="overflow-hidden w-full lg:w-1/2 border border-gray-300 dark:border-dark-muted rounded-lg p-1">
                 <Image
                   src={post.image}
                   height={514}
@@ -77,7 +77,7 @@ export default function Hero(props: postProps) {
                     {post.readingTime.text}
                   </span>
                   <p className="font-normal text-gray-500 dark:text-gray-400">
-                    {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
+                    {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
                   </p>
                   <span className="text-white font-bold"></span>
                 </div>
@@ -89,7 +89,9 @@ export default function Hero(props: postProps) {
                     </h2>
                   </a>
                 </Link>
-                <p className="text-gray-500 text-justify">{post.summary}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-justify">
+                  {post.summary}
+                </p>
                 <div className="flex items-center">
                   <div className="h-10 w-10">
                     <Image
@@ -117,8 +119,9 @@ export default function Hero(props: postProps) {
       <div className="flex items-center justify-center mt-5 space-x-2">
         {scrollSnaps.map((_, idx: number) => (
           <button
+            aria-label="pagination dots"
             className={`w-2 h-2 rounded-full ${
-              idx === selectedIndex ? "bg-yellow-500" : "bg-gray-300"
+              idx === selectedIndex ? 'bg-yellow-500' : 'bg-gray-300'
             }`}
             key={idx}
             onClick={() => scrollTo(idx)}

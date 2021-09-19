@@ -1,12 +1,12 @@
-import { format, parseISO } from "date-fns";
-import Image from "next/image";
-import Link from "next/link";
+import { format, parseISO } from 'date-fns';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { postProps } from "types/postProps";
-import { SortByDate } from "util/sortPosts";
+import { postProps } from 'types/postProps';
+import { SortByDateDesc } from 'util/sortPosts';
 
 export default function Content(props: postProps) {
-  const _tposts = SortByDate(props.posts);
+  const _tposts = SortByDateDesc(props.posts);
 
   return (
     <div className="py-12 mx-auto max-w-6xl">
@@ -17,7 +17,7 @@ export default function Content(props: postProps) {
             className="relative flex flex-none flex-wrap w-full lg:w-4/12 px-5 py-3"
             key={post.title}
           >
-            <div className="overflow-hidden w-full cursor-pointer rounded-lg border border-gray-300 dark:border-none p-1">
+            <div className="overflow-hidden w-full cursor-pointer rounded-lg border border-gray-300 dark:border-dark-muted p-1">
               <Link href={`/blogs/${post.slug}`}>
                 <a>
                   <Image
@@ -39,7 +39,7 @@ export default function Content(props: postProps) {
               <div className="flex text-sm mt-4 space-x-5">
                 <p className="font-bold dark:text-white">{post.tags}</p>
                 <p className="font-normal text-gray-500 dark:text-gray-400">
-                  {format(parseISO(post.publishedAt), "MMMM dd, yyyy")}
+                  {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
                 </p>
               </div>
               {/* title */}
@@ -67,7 +67,9 @@ export default function Content(props: postProps) {
                   <strong className="text-sm dark:text-white">
                     {post.author}
                   </strong>
-                  <p className="text-xs text-gray-500">{post.designation}</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    {post.designation}
+                  </p>
                 </div>
               </div>
             </div>

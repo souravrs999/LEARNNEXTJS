@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { navLinks } from "util/navLinks";
-import { socialLinks } from "util/socialLinks";
-import SearchBar from "./SearchBar";
-import ThemeToggler from "./ThemeToggler";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { navLinks } from 'util/navLinks';
+import { socialLinks } from 'util/socialLinks';
+import SearchBar from './SearchBar';
+import ThemeToggler from './ThemeToggler';
 
 export default function Navbar() {
   const [collapsed, setCollapsed] = useState(true);
@@ -13,12 +13,15 @@ export default function Navbar() {
       {/* sliding mobile menu */}
       <div
         className={`w-80 md:w-1/3 lg:w-1/5 h-full fixed right-0 z-50 pt-5 shadow-2xl bg-white dark:bg-dark-primary transform transition ease-in-out duration-500 ${
-          collapsed ? "translate-x-full" : "translate-x-0"
+          collapsed ? 'translate-x-full' : 'translate-x-0'
         }`}
       >
         <div className="w-full float-left px-5">
           <div className="float-right mt-6 block relative h-8 -top-7">
-            <button onClick={() => setCollapsed(!collapsed)}>
+            <button
+              aria-label="close menu button"
+              onClick={() => setCollapsed(!collapsed)}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-8 w-8 dark:text-gray-200"
@@ -69,6 +72,7 @@ export default function Navbar() {
             <div className="flex text-right text-gray-900 dark:text-gray-100 top-1.5 relative space-x-3">
               {socialLinks.map((item) => (
                 <a
+                  aria-label={item.social}
                   href={item.link}
                   target="_blank"
                   rel="noreferrer"
@@ -82,7 +86,10 @@ export default function Navbar() {
 
             {/* Hamburger menu button */}
             <div className="relative ml-auto float-right text-gray-800 text-right -mt-5">
-              <button onClick={() => setCollapsed(!collapsed)}>
+              <button
+                onClick={() => setCollapsed(!collapsed)}
+                aria-label="open menu button"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8 dark:text-gray-200"

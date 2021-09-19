@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { useTheme } from "next-themes";
-import { socialLinks } from "util/socialLinks";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import { socialLinks } from 'util/socialLinks';
 
 export default function Footer() {
   const { resolvedTheme } = useTheme();
@@ -13,6 +13,7 @@ export default function Footer() {
         <div className="flex items-center justify-center text-center mb-12 w-full space-x-4">
           {socialLinks.map((item) => (
             <a
+              aria-label={item.social}
               href={item.link}
               target="_blank"
               rel="noreferrer"
@@ -27,31 +28,37 @@ export default function Footer() {
         </div>
         {/* copyright text */}
         <div className="px-10 space-y-2">
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 dark:text-gray-400 text-sm pb-1">
             Copyright @ {new Date().getFullYear()} All rights reserved
             LEARNNEXTJS
           </p>
-          <div className="flex justify-center text-gray-500 space-x-2">
+          <a
+            href="mailto:learnnext@gmail.com"
+            className="text-gray-500 dark:text-gray-400"
+          >
+            Contact: learnnextjs@gmail.com
+          </a>
+          <div className="flex justify-center text-gray-500 dark:text-gray-400 space-x-2">
             <Link href="/terms-and-conditions">
               <a href="#" className="hover:underline hover:text-yellow-500">
-                Terms & Conditions{" "}
+                Terms & Conditions{' '}
               </a>
             </Link>
             <span>/</span>
             <Link href="/privacy">
               <a href="#" className="hover:underline hover:text-yellow-500">
-                {" "}
+                {' '}
                 Privacy Policy
               </a>
             </Link>
           </div>
           <div className="flex justify-center items-center space-x-3 pt-5">
             <span className="text-gray-500 dark:text-gray-400">
-              Powered By:{" "}
+              Powered By:{' '}
             </span>
             <Image
               src={`/vendor/vercel-logotype-${
-                resolvedTheme === "light" ? "dark" : "light"
+                resolvedTheme === 'light' ? 'dark' : 'light'
               }.svg`}
               width={100}
               height={15}
