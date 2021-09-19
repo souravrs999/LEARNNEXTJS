@@ -46,15 +46,15 @@ touch tsconfig.json
 Now, try restarting the developement server (`npm run dev` or `yarn dev`). It
 should spit out some warnings like so.
 
-<QuotedText>
-  It looks like you're trying to use TypeScript but do not have the required
-  package(s) installed.
+```bash
+# It looks like you're trying to use TypeScript but do not have the required
+# package(s) installed.
 
-Please install typescript, @types/react, and @types/node by running:
+# Please install typescript, @types/react, and @types/node by running:
 
-            yarn add --dev typescript @types/react @types/node
+# yarn add --dev typescript @types/react @types/node
 
-</QuotedText>
+```
 
 this is because we have not installed TypeScript or its accompnying types for our project, so lets
 go ahead and install them.
