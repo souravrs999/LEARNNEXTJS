@@ -4,31 +4,31 @@
 
 @font-face {
   font-display: swap;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  src: url(/font/Poppins-Regular.woff2) format("woff2");
+  src: url(/font/Poppins-Regular.woff2) format('woff2');
 }
 @font-face {
   font-display: swap;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  src: url(/font/Poppins-Bold.woff2) format("woff2");
+  src: url(/font/Poppins-Bold.woff2) format('woff2');
 }
 @font-face {
   font-display: swap;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
-  src: url(/font/Poppins-SemiBold.woff2) format("woff2");
+  src: url(/font/Poppins-SemiBold.woff2) format('woff2');
 }
 @font-face {
   font-display: swap;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 900;
-  src: url(/font/Poppins-Black.woff2) format("woff2");
+  src: url(/font/Poppins-Black.woff2) format('woff2');
 }
 html {
   scroll-behavior: smooth;
@@ -95,6 +95,6 @@ code {
   @apply p-3;
 }
 
-.mdxComp code[class*="language-"] {
+.mdxComp code[class*='language-'] {
   @apply text-sm;
 }
