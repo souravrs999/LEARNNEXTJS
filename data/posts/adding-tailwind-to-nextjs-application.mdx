@@ -1,11 +1,11 @@
 ---
-title: "Adding TailwindCSS to your NextJS application"
-publishedAt: "2021-09-09"
-summary: "A detailed walthrough for setting up and using TailwindCSS a utility-first CSS framework in your NextJS application."
-image: "/img/blog/adding-tailwind-to-nextjs-application-800x514.jpg"
-author: "Dark Stalker"
-tags: "NextJS, Tailwind"
-designation: "Backend Dev"
+title: 'Adding TailwindCSS to your NextJS application'
+publishedAt: '2021-09-09'
+summary: 'A detailed walkthrough for setting up and using TailwindCSS a utility-first CSS framework in your NextJS application.'
+image: '/img/blog/adding-tailwind-to-nextjs-application-800x514.jpg'
+author: 'Dark Stalker'
+tags: 'NextJS, Tailwind'
+designation: 'Backend Dev'
 ---
 
 ## What is TailwindCSS ?
@@ -97,7 +97,7 @@ this will import tailwinds base, components and utilites for use to use on our p
 
 ```jsx
 // pages/_app.js
-import "../styles/globals.css";
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
@@ -140,9 +140,9 @@ Now in our ** \_app.js ** file wrap the component within `next-themes` ThemeProv
 
 ```jsx
 // pages/_app.js
-import "../styles/globals.css";
+import '../styles/globals.css';
 
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from 'next-themes';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -159,8 +159,8 @@ with that done let's create a ** ThemeToggler ** component, for that let's open 
 
 ```jsx
 // ThemeToggler.jsx
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export default function ThemeToggler() {
   const [mounted, setMounted] = useState(false);
@@ -173,7 +173,7 @@ export default function ThemeToggler() {
       aria-label="Toggle Dark Mode"
       type="button"
       className="w-10 h-10 p-3 bg-gray-200 rounded dark:bg-dark-muted"
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
       {mounted && (
         <svg
@@ -183,7 +183,7 @@ export default function ThemeToggler() {
           stroke="currentColor"
           className="w-4 h-4 text-gray-800 dark:text-gray-200"
         >
-          {resolvedTheme === "dark" ? (
+          {resolvedTheme === 'dark' ? (
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -1,5 +1,6 @@
 import { format, parseISO } from 'date-fns';
 import Image from 'next/image';
+import Link from 'next/link';
 import { postProps } from 'types/postProps';
 
 export function Tagged(props: postProps) {
@@ -29,29 +30,13 @@ export function Tagged(props: postProps) {
                 {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
               </span>
             </div>
-            <h2 className="text-base font-bold dark:text-gray-100">
-              {post.title}
-            </h2>
-
-            {/* <div className="flex items-center">
-              <div className="h-8 w-8">
-                <Image
-                  src="/img/avatar-placeholder-360x360.png"
-                  height="260"
-                  width="260"
-                  alt="avatar image"
-                  className="rounded-full"
-                />
-              </div>
-              <div className="flex flex-col mx-4 space-y-1">
-                <strong className="text-sm dark:text-white">
-                  {post.author}
-                </strong>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {post.designation}
-                </p>
-              </div>
-            </div> */}
+            <Link href={`/blogs/${post.slug}`}>
+              <a className="cursor-pointer">
+                <h2 className="text-base font-bold dark:text-gray-100">
+                  {post.title}
+                </h2>
+              </a>
+            </Link>
           </div>
         </div>
       ))}

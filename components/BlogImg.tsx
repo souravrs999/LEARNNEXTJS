@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function BlogImg(props) {
   return (
@@ -6,9 +6,10 @@ export default function BlogImg(props) {
       <Image
         src={props.src}
         alt={props.alt}
-        {...props}
+        layout="responsive"
         placeholder="blur"
         blurDataURL="/img/banner-800x514.png"
+        {...props}
       />
     </div>
   );

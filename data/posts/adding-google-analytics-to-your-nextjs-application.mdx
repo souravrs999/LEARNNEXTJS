@@ -1,11 +1,11 @@
 ---
-title: "Adding Google Analytics to your NextJS application"
-publishedAt: "2021-09-15"
-summary: "A detailed walthrough for setting up and using Google Analytics in your NextJS application."
-image: "/img/blog/adding-google-anlaytics-to-nextjs-application-800x514.jpg"
-author: "Dark Stalker"
-tags: "NextJS, Google, Analytics"
-designation: "Backend Dev"
+title: 'Adding Google Analytics to your NextJS application'
+publishedAt: '2021-09-15'
+summary: 'A detailed walkthrough for setting up and using Google Analytics in your NextJS application.'
+image: '/img/blog/adding-google-anlaytics-to-nextjs-application-800x514.jpg'
+author: 'Dark Stalker'
+tags: 'NextJS, Google, Analytics'
+designation: 'Backend Dev'
 ---
 
 ### Why Google Analytics?
@@ -82,19 +82,19 @@ export const event = ({ action, category, label, value }) => {
 with that out of the way go to our `_app.jsx` file and add these lines.
 
 ```javascript
-import Router from "next/router";
-import React, { useEffect } from "react";
+import Router from 'next/router';
+import React, { useEffect } from 'react';
 
-import * as gtag from "@/lib/gtag";
+import * as gtag from '@/lib/gtag';
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       gtag.pageview(url);
     };
-    Router.events.on("routeChangeComplete", handleRouteChange);
+    Router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
-      Router.events.off("routeChangeComplete", handleRouteChange);
+      Router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, []);
 
@@ -106,9 +106,9 @@ we use Router here to allow gtag to track pageviews and events individually. so 
 And now let's add the tracking code snippet to our `_document.jsx` file
 
 ```javascript
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import { GA_TRACKING_ID } from "@/lib/gtag";
+import { GA_TRACKING_ID } from '@/lib/gtag';
 
 class MyDocument extends Document {
   render() {
@@ -133,7 +133,7 @@ class MyDocument extends Document {
               the SameSite warining that will be throwed -->
               cookie_flags: 'SameSite=None;Secure'
             });
-          `,
+          `
             }}
           />
         </Head>

@@ -63,7 +63,7 @@ export default function BlogLayout({ children, matter }) {
             />
           </div>
           {/* blog content */}
-          <div className="mdxComp flex flex-col justify-center text-base space-y-3 text-gray-500 dark:text-gray-400 mt-5 w-full">
+          <div className="mdxComp flex flex-col justify-center text-base space-y-5 text-gray-500 dark:text-gray-400 mt-5 w-full">
             {children}
           </div>
           <SocialSharable title={matter.title} slug={matter.slug} />
