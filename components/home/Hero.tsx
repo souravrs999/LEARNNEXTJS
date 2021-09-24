@@ -7,6 +7,10 @@ import { parseISO, format } from 'date-fns';
 import { postProps } from 'types/postProps';
 import { SortByDate } from 'util/sortPosts';
 
+import RecursiveTimeout from './recursiveTimeout';
+
+const AUTOPLAY_INTERVAL = 4000; // 4 seconds
+
 export default function Hero(props: postProps) {
   const [emblaRef, embla] = useEmblaCarousel({
     align: 'start',
@@ -18,9 +22,23 @@ export default function Hero(props: postProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [scrollSnaps, setScrollSnaps] = useState<any[]>([]);
 
+  const autoplay = useCallback(() => {
+    if (!embla) return;
+    if (embla.canScrollNext()) {
+      embla.scrollNext();
+    } else {
+      embla.scrollTo(0);
+    }
+  }, [embla]);
+
+  const { play, stop } = RecursiveTimeout(autoplay, AUTOPLAY_INTERVAL);
+
   const scrollTo = useCallback(
-    (index: number) => embla && embla.scrollTo(index),
-    [embla]
+    (index: number) => {
+      embla && embla.scrollTo(index);
+      stop();
+    },
+    [embla, stop]
   );
 
   const onSelect = useCallback(() => {
@@ -35,26 +53,30 @@ export default function Hero(props: postProps) {
     embla.on('select', onSelect);
   }, [embla, setScrollSnaps, onSelect]);
 
+  useEffect(() => {
+    play();
+  }, [play]);
+
   const _tposts = SortByDate(props.posts);
 
   return (
-    <div className="py-12 mx-auto max-w-6xl px-5">
+    <div className="px-5 py-12 mx-auto max-w-6xl">
       {/* title */}
       <div className="flex justify-center items-center pb-10">
-        <h2 className="text-center text-black dark:text-gray-100 text-4xl font-bold">
+        <h2 className="text-4xl font-bold text-center text-black dark:text-gray-100">
           Trending
         </h2>
       </div>
 
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex">
+        <div className="flex" onMouseOver={stop} onMouseLeave={play}>
           {_tposts.map((post) => (
             // carousel slider
             <div
-              className="relative flex flex-none flex-wrap lg:flex-nowrap w-full mx-10"
+              className="flex relative flex-wrap flex-none mx-10 w-full lg:flex-nowrap"
               key={post.title}
             >
-              <div className="overflow-hidden w-full lg:w-1/2 border border-gray-300 dark:border-dark-muted rounded-lg p-1">
+              <div className="overflow-hidden p-1 w-full rounded-lg border border-gray-300 lg:w-1/2 dark:border-dark-muted">
                 <Image
                   src={post.image}
                   height={514}
@@ -69,8 +91,8 @@ export default function Hero(props: postProps) {
               {/* content */}
               <div className="flex flex-col space-y-3 lg:w-4/5 lg:space-x-20 lg:justify-center">
                 {/* tags and date */}
-                <div className="flex text-sm mt-4 space-x-5 lg:mx-20">
-                  <p className="text-black dark:text-white font-bold">
+                <div className="flex mt-4 space-x-5 text-sm lg:mx-20">
+                  <p className="font-bold text-black dark:text-white">
                     {post.tags}
                   </p>
                   <span className="text-black dark:text-white">
@@ -79,7 +101,7 @@ export default function Hero(props: postProps) {
                   <p className="font-normal text-gray-500 dark:text-gray-400">
                     {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
                   </p>
-                  <span className="text-white font-bold"></span>
+                  <span className="font-bold text-white"></span>
                 </div>
                 {/* title */}
                 <Link href={`/blogs/${post.slug}`}>
@@ -89,11 +111,11 @@ export default function Hero(props: postProps) {
                     </h2>
                   </a>
                 </Link>
-                <p className="text-gray-500 dark:text-gray-400 text-justify">
+                <p className="text-justify text-gray-500 dark:text-gray-400">
                   {post.summary}
                 </p>
                 <div className="flex items-center">
-                  <div className="h-10 w-10">
+                  <div className="w-10 h-10">
                     <Image
                       src="/img/avatar-placeholder-360x360.png"
                       height="260"
@@ -116,7 +138,7 @@ export default function Hero(props: postProps) {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center mt-5 space-x-2">
+      <div className="flex justify-center items-center mt-5 space-x-2">
         {scrollSnaps.map((_, idx: number) => (
           <button
             aria-label="pagination dots"
