@@ -57,7 +57,7 @@ export default function Hero(props: postProps) {
     play();
   }, [play]);
 
-  const _tposts = SortByDate(props.posts);
+  const _tposts = props.posts ? SortByDate(props.posts) : [];
 
   return (
     <div className="px-5 py-12 mx-auto max-w-6xl">

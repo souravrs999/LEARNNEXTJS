@@ -36,6 +36,18 @@
 
   <url>
     <loc
+      >https://learnnext-blog.vercel.app/blogs/adding-typescript-support-to-your-nextjs-application</loc
+    >
+  </url>
+
+  <url>
+    <loc
+      >https://learnnext-blog.vercel.app/blogs/using-chartjs-in-your-nextjs-application</loc
+    >
+  </url>
+
+  <url>
+    <loc
       >https://learnnext-blog.vercel.app/blogs/using-preact-with-nextjs-application</loc
     >
   </url>

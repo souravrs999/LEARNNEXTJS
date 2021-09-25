@@ -1,11 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import BlogImg from "./BlogImg";
-import QuotedText from "./blog/QuotedText";
+import Link from 'next/link';
+import Image from 'next/image';
+import BlogImg from './BlogImg';
+import QuotedText from './blog/QuotedText';
 
 const CustomLink = (props) => {
   const href = props.href;
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+  const isInternalLink = href && (href.startsWith('/') || href.startsWith('#'));
 
   if (isInternalLink) {
     return (
@@ -22,7 +22,7 @@ const MDXComponent = {
   Image,
   BlogImg,
   a: CustomLink,
-  QuotedText,
+  QuotedText
 };
 
 export default MDXComponent;
