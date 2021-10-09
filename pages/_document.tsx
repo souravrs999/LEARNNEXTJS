@@ -1,6 +1,6 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import { GA_TRACKING_ID } from "@/lib/gtag";
+import { GA_TRACKING_ID } from '@/lib/gtag';
 
 class MyDocument extends Document {
   render() {
@@ -22,13 +22,9 @@ class MyDocument extends Document {
               page_path: window.location.pathname,
               cookie_flags: 'SameSite=None;Secure'
             });
-          `,
+          `
             }}
           />
-          {/* <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          /> */}
           <link href="/favicon/favicon.ico" rel="favicon" />
           <link href="/favicon/site.webmanifest" rel="manifest" />
           <link
