@@ -3,8 +3,12 @@ title: 'Adding TailwindCSS to your NextJS application'
 publishedAt: '2021-09-09'
 summary: 'A detailed walkthrough for setting up and using TailwindCSS a utility-first CSS framework in your NextJS application.'
 image: '/img/blog/adding-tailwind-to-nextjs-application-800x514.jpg'
-author: 'Dark Stalker'
-tags: '#Tailwind'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Tailwind
+  - Styling
+  - CSS
 designation: 'Backend Dev'
 ---
 
@@ -22,24 +26,28 @@ Implementing Tailwind CSS will eliminate all the above-mentioned issues. Tailwin
 
 Let's start our project with installing TailwindCSS and it's dependencies
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you're using npm
 npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 
 # If your're using yarn
 yarn add -D tailwindcss@latest postcss@latest autoprefixer@latest
 ```
+</CodeBlock>
 
-Next we will generate ** tailwind.config.js ** file and ** postcss.config.js ** files which can be used to customize Tailwind even further, you can easily create this file by running
+Next we will generate _tailwind.config.js_ file and _postcss.config.js_ files which can be used to customize Tailwind even further, you can easily create this file by running
 
-```bash
+<CodeBlock>
+```bash:Terminal
 npx tailwindcss init -p
 ```
+</CodeBlock>
 
-This will create a minimal ** tailwind.config.js ** file at the root of your project.
+This will create a minimal _tailwind.config.js_ file at the root of your project.
 
-```JavaScript
-// tailwind.config.js
+<CodeBlock>
+```JavaScript:tailwind.config.js
 module.exports = {
   purge: [],
   darkMode: false,
@@ -52,17 +60,18 @@ module.exports = {
   plugins: [],
 }
 ```
+</CodeBlock>
 
-It will also create a ** postcss.config.js ** file that includes `tailwindcss` and `autoprefixer` already configured we won't be using any other plugins for this project so we will leave this file as is.
+It will also create a _postcss.config.js_ file that includes _tailwindcss_ and _autoprefixer_ already configured we won't be using any other plugins for this project so we will leave this file as is.
 
 ## Purging unused CSS
 
 TailwindCSS comes with built-in support to purge the unused CSS and only use one's that we use in our project thus reducing our bundle size.
 
-In our ** tailwind.config.js ** file add the locations of our files so ** Purge CSS ** can include these files too .
+In our _tailwind.config.js_ file add the locations of our files so _Purge CSS_ can include these files too .
 
-```JavaScript
-  // tailwind.config.js
+<CodeBlock>
+```JavaScript:tailwind.config.js
   module.exports = {
    purge: [
      './pages/**/*.{js,ts,jsx,tsx}',
@@ -79,24 +88,26 @@ In our ** tailwind.config.js ** file add the locations of our files so ** Purge 
     plugins: [],
   }
 ```
+</CodeBlock>
 
-All files within these directorie's with the extensions ** .js **,** .ts **,** .jsx **,** .tsx ** will be picked up by Purge CSS.
+All files within these directorie's with the extensions **.js**,**.ts**,**.jsx**,**.tsx** will be picked up by Purge CSS.
 
 ## Adding Tailwind to globals.css
 
-Open the ** ./styles/globals.css ** file that NextJS generates for you by default and add these to it.
+Open the _./styles/globals.css_ file that NextJS generates for you by default and add these to it.
 
-```css
-/* ./styles/globals.css */
+<CodeBlock>
+```css:styles/globals.css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
+</CodeBlock>
 
-this will import tailwinds base, components and utilites for use to use on our project, and make sure you correctly import your ** globals.css ** file in your ** \_app.js ** file.
+this will import tailwinds base, components and utilites for use to use on our project, and make sure you correctly import your _globals.css_ file in your _\_app.js_ file.
 
-```jsx
-// pages/_app.js
+<CodeBlock>
+```jsx:pages/_app.js
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
@@ -105,26 +116,29 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
+</CodeBlock>
 
 ## Dark Mode support
 
 Let's also try to add Dark Mode support to our NextJS application which is a good addition to have in our application since most people prefer to use Dark mode over Light mode.
 
-> To quickly switch between Dark Mode and Light Mode we will be using ** next-themes ** so let's install it quickly.
+> To quickly switch between Dark Mode and Light Mode we will be using **next-themes** so let's install it quickly.
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you use npm
 npm install next-themes
 
 # If you use yarn
 yarn add next-themes
 ```
+</CodeBlock>
 
-Now in our ** tailwind.config.js ** file let's replace `darkMode` value with `class` instead of `false`.
-We will be using Tailwinds ** dark ** variant that let's you style differently when dark mode is enabled.
+Now in our _tailwind.config.js_ file let's replace _darkMode_ value with _class_ instead of _false_.
+We will be using Tailwinds _dark_ variant that let's you style differently when dark mode is enabled.
 
-```JavaScript
-// tailwind.config.js
+<CodeBlock>
+```JavaScript:tailwind.config.js
   module.exports = {
    purge: [
      './pages/**/*.{js,ts,jsx,tsx}',
@@ -135,11 +149,12 @@ We will be using Tailwinds ** dark ** variant that let's you style differently w
   }
 
 ```
+</CodeBlock>
 
-Now in our ** \_app.js ** file wrap the component within `next-themes` ThemeProvider with `attribute` as class.
+Now in our _\_app.js_ file wrap the component within _next-themes_ ThemeProvider with _attribute_ as class.
 
-```jsx
-// pages/_app.js
+<CodeBlock>
+```jsx:pages/_app.js
 import '../styles/globals.css';
 
 import { ThemeProvider } from 'next-themes';
@@ -154,11 +169,12 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp;
 ```
+</CodeBlock>
 
-with that done let's create a ** ThemeToggler ** component, for that let's open a new file ** ThemeToggler.jsx ** and add these to the file.
+with that done let's create a _ThemeToggler_ component, for that let's open a new file _ThemeToggler.jsx_ and add these to the file.
 
-```jsx
-// ThemeToggler.jsx
+<CodeBlock>
+```jsx:ThemeToggler.jsx
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -204,8 +220,9 @@ export default function ThemeToggler() {
   );
 }
 ```
+</CodeBlock>
 
-Finally let's add the appropriate styling for the dark mode to your components, this can be done by adding `dark:` prefix to your styling with that our components ready let's test it out.
+Finally let's add the appropriate styling for the dark mode to your components, this can be done by adding _dark:_ prefix to your styling with that our components ready let's test it out.
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210910_103122.png`}
@@ -214,7 +231,7 @@ Finally let's add the appropriate styling for the dark mode to your components, 
   alt="tailwind light mode card"
 />
 
-_ Card with Tailwind Light mode _
+_Card with Tailwind Light mode_
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210910_103131.png`}
@@ -223,7 +240,7 @@ _ Card with Tailwind Light mode _
   alt="tailwind dark mode card"
 />
 
-_ Card with Tailwind Dark mode _
+_Card with Tailwind Dark mode_
 
 And that's it, we just added TailwindCSS to our NextJS application and also added Dark Mode support to it.
 If you would like to know more about customizing and configuring TailwindCSS you can read more at [Tailwind Docs](https://tailwindcss.com/docs)

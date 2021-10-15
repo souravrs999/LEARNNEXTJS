@@ -10,6 +10,7 @@ export default function BlogImg(props) {
         placeholder="blur"
         blurDataURL="/img/banner-800x514.png"
         {...props}
+        className="rounded"
       />
     </div>
   );

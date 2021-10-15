@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaCheck, FaFacebookF, FaShareAlt, FaTwitter } from 'react-icons/fa';
+import { FaFacebookF, FaShareAlt, FaTwitter, FaCheck } from 'react-icons/fa';
 
 export default function SocialSharable({ title, slug }) {
   const [showAlert, setShowAlert] = useState(false);
@@ -36,27 +36,25 @@ export default function SocialSharable({ title, slug }) {
   }
 
   return (
-    <div className="mt-5 pt-5 border-t border-gray-300 dark:border-dark-muted w-full">
-      <h2 className="text-base text-gray-500">Share</h2>
-      <div className="flex flex-row space-x-5 text-black dark:text-white">
-        <span onClick={fbShare}>
-          <FaFacebookF />
+    <div className="flex flex-col pb-12 mx-5 space-y-5">
+      <h1 className="text-2xl font-bold text-slate-light">Share this blog.</h1>
+      <div className="flex space-x-5 text-navy-green">
+        <span onClick={fbShare} className="w-5 h-5 hover:text-navy-green">
+          <FaFacebookF className="social-icon" />
         </span>
-        <span onClick={twShare}>
-          <FaTwitter />
+        <span onClick={twShare} className="w-5 h-5 hover:text-navy-green">
+          <FaTwitter className="social-icon" />
         </span>
-        <span>
-          <FaShareAlt onClick={CopiedLinkMsg} />
+        <span className="w-5 h-5 hover:text-navy-green">
+          <FaShareAlt onClick={CopiedLinkMsg} className="social-icon" />
         </span>
       </div>
-      {/* alert */}
+
       {showAlert ? (
-        <div className="animate-pulse fixed flex items-center space-x-2 top-5 right-5 border dark:border-dark-muted rounded-lg shadow bg-white dark:bg-dark-muted px-5 py-3">
-          <p className="text-gray-500 dark:text-gray-400">
-            Link copied succesfully
-          </p>
-          <span className="p-1 rounded-full bg-green-300">
-            <FaCheck className="text-white" />
+        <div className="flex fixed top-5 right-5 items-center px-5 py-3 space-x-2 rounded shadow bg-navy-light">
+          <p className="text-slate">Link copied succesfully</p>
+          <span className="p-1 rounded-full bg-navy-dark">
+            <FaCheck className="text-navy-green" />
           </span>
         </div>
       ) : (

@@ -3,12 +3,15 @@ title: 'Adding Embla Carousel to your NextJS application'
 publishedAt: '2021-09-12'
 summary: 'A detailed walkthrough for setting up and using Embla Carousel in your NextJS application.'
 image: '/img/blog/adding-embla-carousel-to-nextjs-application-800x514.jpg'
-author: 'Dark Stalker'
-tags: '#Embla, #Carousel'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Embla
+  - Carousel
 designation: 'Backend Dev'
 ---
 
-### Why Embla Carousel?
+## Why Embla Carousel?
 
 [Embla Carousel](https://www.embla-carousel.com/) is a library agnostic, dependency free and lightweight carousel library with fluid motion and great swipe precision. Its 100% open source and you can build awesome carousels by extending Embla Carousel with your own CSS and JavaScript. It work's in all modern browser's including IE11.
 
@@ -21,28 +24,30 @@ In it's developer [David Cetinkaya's](https://github.com/davidcetinkaya) word's.
   and 100% open source.
 </QuotedText>
 
-### Ease of Use
+## Ease of Use
 
 Embla Carousel is pretty easy to use, although Embla dosen't come with a lot of customization's out of the box like pagination dot's and slider arrow's you can easily add them to your project with Embla's intuitive api.
 
-### Getting started
+## Getting started
 
 Before we start using Embla Carousel in our NextJS application let's just setup our project.
 
-### Installation
+## Installation
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you're using npm
 npm install embla-carousel --save
 
 # If you're using yarn
 yarn add embla-carousel --save
 ```
+</CodeBlock>
 
-now that we have installed Embla Carousel let's go ahead and remove all the default styling and content from the ** index.jsx ** file of our NextJS application.
+now that we have installed Embla Carousel let's go ahead and remove all the default styling and content from the _index.jsx_ file of our NextJS application.
 
 we will be trying to build an LEARNNEXT'S Trending blog post's carousel with some pagination type dot's to cycle between our image slide's, so first let's just bring in all the slide element's like Image, Title etc.. that we want
-to be displayed into our ** index.jsx ** file these data can be directly from our local storage or from an Api and let's add some minor styling to it.
+to be displayed into our _index.jsx_ file these data can be directly from our local storage or from an Api and let's add some minor styling to it.
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210903_093524.webp`}
@@ -51,9 +56,10 @@ to be displayed into our ** index.jsx ** file these data can be directly from ou
   alt="LEANNEXT Carousel image"
 />
 
-let's start with importing Embla carousel to our ** index.jsx ** file and adding some customization's that we will need.
+let's start with importing Embla carousel to our _index.jsx_ file and adding some customization's that we will need.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 import Image from "next/image";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { useState, useEffect, useCallback } from "react";
@@ -113,16 +119,24 @@ export default function Hero(props) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (...)
+}
 ```
+</CodeBlock>
 
 next let's just set up the proper styling for our carousel component, our carousel
-will contain ** 3 ** main components.
+will contain **3** main components.
 
-- ** Carousel Viewport ** (whose inner children will be draggable and with overflow as hidden)
-- ** Carousel Container ** (will be a container enclosing our slides as flex-row)
-- ** Carousel Slides ** (contains all the slide components)
+**Carousel Viewport**
+  - (whose inner children will be draggable and with overflow as hidden)
 
-```JavaScript
+**Carousel Container**
+  - (will be a container enclosing our slides as flex-row)
+
+**Carousel Slides**
+  - (contains all the slide components)
+
+<CodeBlock>
+```JavaScript:index.js
 return (
     <div className="py-12 mx-auto max-w-6xl px-5">
       {/* title */}
@@ -203,19 +217,18 @@ return (
           ))}
         </div>
       </div>
-      ...
-        ))}
-      </div>
     </div>
-  );
+  )
 ```
+</CodeBlock>
 
 well everything's taking form now we have our slide component's properly styled with an Image on the left side and the Blog detail's like Title, Published Date, Description, Author etc.. on the right side.
 The slide component will take up the full size of the viewport so that only one slide is visible at a time also since we added the referrence to our Carousel viewport our slide's are also draggable which provide's a good user experience.
 
 Now let's add some pagination dot's which give's the user an idea of the number of slide's that are present and also provide's a way to quicklyl navigate to each of those slide's by clicking on the corresponding dot's.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 <div className="flex items-center justify-center mt-5 space-x-2">
   {scrollSnaps.map((_, idx) => (
     <button
@@ -228,11 +241,12 @@ Now let's add some pagination dot's which give's the user an idea of the number 
   ))}
 </div>
 ```
+</CodeBlock>
 
 We map through each slide in scrollSnaps and get the id for each slide, then we create button's for each of those slide's and check's if their id's match if they do change the color of the dot to an active color than the rest,
-finally add an onClick event and if the user click's on a particular dot then pass the id of the dot to the ** scrollTo ** function which will scroll to the appropriate slide.
+finally add an onClick event and if the user click's on a particular dot then pass the id of the dot to the _scrollTo_ function which will scroll to the appropriate slide.
 
-Now let's think about a situation in which you do not require navigation dot's but instead is thinking of implementing a ** Next ** and ** Previous ** button to scoll through the slide's, well we got you covered for that too.
+Now let's think about a situation in which you do not require navigation dot's but instead is thinking of implementing a **Next** and **Previous** button to scoll through the slide's, well we got you covered for that too.
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210903_102825.webp`}
@@ -241,17 +255,18 @@ Now let's think about a situation in which you do not require navigation dot's b
   alt="GameStats Carousel image"
 />
 
-well in this type of carousel we got two button's to scoll between slide's and the only difference is that we need to call the ** scrollPrev ** and ** scrollNext ** method, and can remove some unwated code of our ** index.jsx ** file.
+well in this type of carousel we got two button's to scoll between slide's and the only difference is that we need to call the _scrollPrev_ and _scrollNext_ method, and can remove some unwated code of our _index.jsx_ file.
 
 For more detail's about the Option's, Method's and Event's supported by Embla Carousel please see the [Docs](https://www.embla-carousel.com/api/)
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 import { useEmblaCarousel } from "embla-carousel/react";
 import { useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-function Hero() {
+function Home() {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
@@ -266,11 +281,14 @@ function Hero() {
   }, [emblaApi]);
 
   return (...)
+}
 ```
+</CodeBlock>
 
-and finally let's add the ** onClick ** event's to both our button's to enable the scrolling function.
+and finally let's add the _onClick_ event's to both our button's to enable the scrolling function.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 // Next Button
 <button
   class="p-5 rounded-lg"
@@ -282,8 +300,8 @@ and finally let's add the ** onClick ** event's to both our button's to enable t
   class="p-5 rounded-lg"
   type="button"
   onClick={scrollPrev} />
-
 ```
+</CodeBlock>
 
 And voila that's it you have learned how to create two differen't type's of Carousel's with the help of Embla Carousel it's pretty simple and you can customize it to your heart's content. You can add your own unique style's and build some creative way's to showcase your product's.
 

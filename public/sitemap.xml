@@ -9,11 +9,17 @@
   </url>
 
   <url>
-    <loc>https://learnnext-blog.vercel.app/privacy/</loc>
+    <loc>https://learnnext-blog.vercel.app/privacy-policy/</loc>
   </url>
 
   <url>
     <loc>https://learnnext-blog.vercel.app/terms-and-conditions/</loc>
+  </url>
+
+  <url>
+    <loc
+      >https://learnnext-blog.vercel.app/blogs/adding-auto-scrolling-support-for-your-embla-next-carousel</loc
+    >
   </url>
 
   <url>

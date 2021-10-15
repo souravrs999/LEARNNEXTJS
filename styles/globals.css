@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-display: swap;
   font-family: 'Poppins';
   font-style: normal;
@@ -44,12 +44,12 @@ h3,
 h4,
 h5,
 h6 {
-  @apply text-black font-bold text-2xl py-3;
+  @apply py-3 text-2xl font-bold text-black;
   @apply dark:text-gray-100;
 }
 
 .mdxComp p {
-  @apply text-gray-500 text-lg;
+  @apply text-lg text-gray-500;
   @apply dark:text-gray-400;
 }
 
@@ -64,7 +64,7 @@ h6 {
 }
 
 .mdxComp a {
-  @apply text-gray-600 dark:text-gray-300 underline;
+  @apply text-gray-600 underline dark:text-gray-300;
 }
 
 .mdxComp img {
@@ -79,8 +79,8 @@ pre::-webkit-scrollbar {
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 code {
@@ -88,7 +88,7 @@ code {
 }
 
 .mdxComp ol {
-  @apply list-inside list-disc;
+  @apply list-disc list-inside;
 }
 
 .mdxComp li {
@@ -97,4 +97,168 @@ code {
 
 .mdxComp code[class*='language-'] {
   @apply text-sm;
+}
+*/
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Thin.ttf');
+  font-style: thin;
+  font-weight: 100;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-ExtraLight.ttf');
+  font-style: extra-light;
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Light.ttf');
+  font-style: light;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Regular.ttf');
+  font-style: regular;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Medium.ttf');
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-SemiBold.ttf');
+  font-style: semi-bold;
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Bold.ttf');
+  font-style: bold;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-ExtraBold.ttf');
+  font-style: extra-bold;
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Black.ttf');
+  font-style: black;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Fira_Code/FiraCode-Light.ttf');
+  font-style: light;
+  font-weight: 100;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.next-logo-animate {
+  stroke-dasharray: 6000;
+  stroke-dashoffset: 6000;
+  stroke-width: 5px;
+  animation: draw 12s linear forwards infinite;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 6000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.social-icon {
+  width: 100%;
+  height: 100%;
+}
+
+/* .link::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  transform: rotate(25deg);
+  border-radius: 100%;
+  background-color: #64ffda;
+} */
+
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre {
+  @apply overflow-x-scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.prose h2 {
+  @apply py-5 text-3xl font-black text-slate-light;
+}
+.prose p {
+  @apply py-1 text-base leading-relaxed text-slate;
+}
+
+.rehype-code-title {
+  @apply absolute top-5 right-5 font-mono font-bold text-slate-light;
+}
+.rehype-code-title + pre {
+  @apply mt-0 rounded-t-none;
+}
+
+.highlight-line {
+  @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500 dark:bg-gray-800;
+}
+.prose a {
+  @apply text-lg underline text-navy-green;
+}
+.prose em {
+  @apply px-3 py-1 font-mono rounded bg-navy-dark text-slate-light;
+}
+.prose strong {
+  @apply my-5 font-mono text-lg font-bold text-slate-light;
+}
+.prose ol {
+  @apply list-disc list-inside text-slate;
+}
+
+.prose li {
+  @apply p-3;
+}
+.prose ul {
+  @apply list-disc list-inside text-slate;
+}
+
+.prose li {
+  @apply p-3;
+}
+.prose blockquote {
+  @apply p-3 my-3 font-mono rounded bg-navy-dark;
+}
+.prose blockquote p {
+  @apply text-slate-light;
 }

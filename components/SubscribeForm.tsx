@@ -44,26 +44,28 @@ export default function SubscribeForm({ status, message, onValidated }) {
 
   return (
     <>
-      <div className="flex flex-wrap md:flex-nowrap items-center md:space-x-5 space-y-5 md:space-y-0">
+      <div className="flex items-center px-3 space-x-2 w-full rounded bg-navy-light">
         <input
-          className="h-12 w-full md:w-4/6 rounded-lg bg-white dark:bg-dark-muted border border-gray-400 dark:border-dark-muted text-gray-500 dark:text-gray-400 px-5"
+          className="p-5 w-2/3 rounded bg-navy-light focus:outline-none text-slate"
           type="email"
           value={email}
           placeholder="Enter your email"
           onChange={(e: any) => setEmail(e?.target?.value ?? 'null')}
         />
         <button
-          className="text-xs font-bold h-12 w-full md:w-2/6 rounded-full bg-yellow-600 hover:bg-white dark:hover:bg-dark-muted text-white hover:text-yellow-500 hover:shadow-md uppercase"
+          className="p-2 w-1/3 font-bold rounded text-navy-lighter bg-navy-green"
           onClick={handleSubmit}
         >
           SUBSCRIBE
         </button>
       </div>
       {status === 'success' && status !== 'error' && !error && (
-        <div className="mt-2 text-green-500 font-bold">{decode(message)}</div>
+        <div className="mt-2 font-mono text-sm text-navy-green">
+          {decode(message)} ehljsdoifuiosd
+        </div>
       )}
       {status === 'error' || error ? (
-        <div className="mt-2 text-red-500 font-bold">
+        <div className="mt-2 font-mono text-sm text-red-500">
           {error || Sanitize(message)}
         </div>
       ) : null}

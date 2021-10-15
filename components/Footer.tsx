@@ -1,72 +1,70 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
+
 import { socialLinks } from 'util/socialLinks';
 
-export default function Footer() {
-  const { resolvedTheme } = useTheme();
-
+const Footer = () => {
   return (
-    <footer className="py-12">
-      <div className="mx-auto  w-full px-18 text-center">
-        {/* social icons list */}
-        <div className="flex items-center justify-center text-center mb-12 w-full space-x-4">
+    <footer className="flex py-12 mx-auto max-w-6xl">
+      <div className="flex flex-col items-center mx-5 space-y-5 w-full">
+        <div className="flex mb-5 space-x-10 text-slate-light">
           {socialLinks.map((item) => (
             <a
-              aria-label={item.social}
               href={item.link}
-              target="_blank"
               rel="noreferrer"
-              className="cursor-pointer"
+              target="_blank"
+              className="w-5 h-5 hover:text-navy-green"
               key={item.social}
             >
-              <span className="w-10 h-10 bg-gray-200 dark:bg-dark-muted dark:text-white dark:hover:bg-yellow-500 hover:bg-yellow-500 hover:text-white flex items-center justify-center rounded-2xl">
-                {item.icon}
-              </span>
+              {item.icon}
             </a>
           ))}
         </div>
-        {/* copyright text */}
-        <div className="px-10 space-y-2">
-          <p className="text-gray-500 dark:text-gray-400 text-sm pb-1">
+        <div className="flex flex-col">
+          <p className="text-sm tracking-wide text-center text-slate">
             Copyright @ {new Date().getFullYear()} All rights reserved
             LEARNNEXTJS
           </p>
-          <a
-            href="mailto:learnnext@gmail.com"
-            className="text-gray-500 dark:text-gray-400"
-          >
-            Contact: learnnextjs@gmail.com
-          </a>
-          <div className="flex justify-center text-gray-500 dark:text-gray-400 space-x-2">
+          <div className="flex justify-center mt-4 space-x-3 text-sm tracking-widest">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5 text-navy-green"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="mailto:learnnextjs@gmail.com"
+              className="text-slate"
+            >
+              learnnextjs@gmail.com
+            </a>
+          </div>
+          <div className="flex justify-center mt-4 space-x-3 text-sm text-slate">
             <Link href="/terms-and-conditions">
-              <a href="#" className="hover:underline hover:text-yellow-500">
-                Terms & Conditions{' '}
+              <a className="hover:underline hover:text-navy-green">
+                Terms & Conditions
               </a>
             </Link>
             <span>/</span>
-            <Link href="/privacy">
-              <a href="#" className="hover:underline hover:text-yellow-500">
-                {' '}
+            <Link href="/privacy-policy">
+              <a className="hover:underline hover:text-navy-green">
                 Privacy Policy
               </a>
             </Link>
-          </div>
-          <div className="flex justify-center items-center space-x-3 pt-5">
-            <span className="text-gray-500 dark:text-gray-400">
-              Powered By:{' '}
-            </span>
-            <Image
-              src={`/vendor/vercel-logotype-${
-                resolvedTheme === 'light' ? 'dark' : 'light'
-              }.svg`}
-              width={100}
-              height={15}
-              alt="Vercel Logo"
-            />
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

@@ -1,30 +1,35 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  mode: "jit",
+  mode: 'jit',
   purge: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./layouts/**/*.{js, ts, jsx, tsx}",
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './layouts/**/*.{js, ts, jsx, tsx}'
   ],
-  darkMode: "class", // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
-      fontSize: {
-        "10xl": "10rem",
-      },
       fontFamily: {
-        sans: ["Poppins", ...fontFamily.sans],
+        sans: ['Inter', ...fontFamily.sans],
+        mono: ['Fira Code', ...fontFamily.mono]
       },
       colors: {
-        "dark-primary": "#171717",
-        "dark-muted": "#242424",
+        'navy-lighter': '#112240',
+        'navy-light': '#0a192f',
+        'navy-dark': '#020c1b',
+        'navy-green': '#64ffda',
+        'slate-light': '#ccd6f6',
+        slate: '#8892b0',
+        'mac-cls': '#FF605C',
+        'mac-min': '#FFBD44',
+        'mac-max': '#00CA4E'
       },
-      backgroundImage: (theme) => ({
-        "hero-pattern": "url('/img/bg-pattern.jpg')",
-      }),
-    },
+      fontSize: {
+        '10xl': '10rem'
+      }
+    }
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')]
 };

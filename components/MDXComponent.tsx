@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import BlogImg from './BlogImg';
-import QuotedText from './blog/QuotedText';
+import QuotedText from './QuotedText';
+import CodeBlock from './CodeBlock';
 
 const CustomLink = (props) => {
   const href = props.href;
@@ -22,7 +23,8 @@ const MDXComponent = {
   Image,
   BlogImg,
   a: CustomLink,
-  QuotedText
+  QuotedText,
+  CodeBlock
 };
 
 export default MDXComponent;

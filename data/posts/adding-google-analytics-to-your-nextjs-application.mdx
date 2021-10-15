@@ -3,12 +3,15 @@ title: 'Adding Google Analytics to your NextJS application'
 publishedAt: '2021-09-15'
 summary: 'A detailed walkthrough for setting up and using Google Analytics in your NextJS application.'
 image: '/img/blog/adding-google-anlaytics-to-nextjs-application-800x514.jpg'
-author: 'Dark Stalker'
-tags: '#Google, #Analytics'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Google
+  - Analytics
 designation: 'Backend Dev'
 ---
 
-### Why Google Analytics?
+## Why Google Analytics?
 
 If you have a website, you should be using [Google Analytics](https://analytics.withgoogle.com/),
 One of the first things you must do if you are launching a new site is get tracking set up for Google Analytics.
@@ -21,12 +24,12 @@ One of the first things you must do if you are launching a new site is get track
 4. Google Analytics works on the hybrid model meaning it offers the freemium service as well as paid service. Small business owner's can use this service for free
    without paying any amount or monthly charge. But if you want more advanced features then you will have to pay a fee.
 
-### Ease of Use
+## Ease of Use
 
 Google Analytics is a powerful analytics tool but it can be a bit complicated.
 If you are not a technically-inclined person, figuring out [how to use Google Analytics](https://support.google.com/analytics/answer/1008015?hl=en) can be quite a challenge.
 
-### Getting started
+## Getting started
 
 Before we start working on our NextJS application we need to set up a Google Analytics account. If your account's a new one then Google will redirect you to the Account setup page.
 
@@ -34,28 +37,33 @@ Before we start working on our NextJS application we need to set up a Google Ana
 2. Next create a Property name and set your Country, Timezone and the Currency.
 3. Fill up the Business Information page based on your needs and also make sure to check ** Measure customer engagement with my site or app ** with that done accept Google Analytics Terms of Service you will be brought
    to a Set up a data stream page.
-4. Next let's choose the platform as ** Web ** provide the Canonical Url of your website and a stream name so you can easilly identify it.
-5. Copy the measurement Id from the Web stream details page, The id will look something like this ** G-XXXXXXXXX **.
+4. Next let's choose the platform as **Web** provide the Canonical Url of your website and a stream name so you can easilly identify it.
+5. Copy the measurement Id from the Web stream details page, The id will look something like this _G-XXXXXXXXX_.
 
 with that done let's start working on our NextJS application. Create a simple NextJS application by running
 
-```bash
+<CodeBlock>
+```bash:Terminal
 npx create-next-app next-google-analytics
 ```
+</CodeBlock>
 
 This will create a broilerplate code for us to work with now go to the project directory created and let's start our devlopment server with
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you're using npm
 npm run dev
 
 # If you're using yarn
 yarn dev
 ```
+</CodeBlock>
 
-now create a `lib/gtag.js` file on the root of our directory and copy and paste the following to it.
+now create a _lib/gtag.js_ file on the root of our directory and copy and paste the following to it.
 
-```javascript
+<CodeBlock>
+```javascript:lib/gtag.js
 export const GA_TRACKING_ID = "G-XXXXXXXXXX";
 // if you don't want to place your id in this file you can add it to
 // the .env.local file and reference it in here like so
@@ -76,12 +84,13 @@ export const event = ({ action, category, label, value }) => {
     value: value,
   });
 };
-
 ```
+</CodeBlock>
 
-with that out of the way go to our `_app.jsx` file and add these lines.
+with that out of the way go to our _\_app.jsx_ file and add these lines.
 
-```javascript
+<CodeBlock>
+```javascript:_app.js
 import Router from 'next/router';
 import React, { useEffect } from 'react';
 
@@ -101,11 +110,13 @@ export default function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
 ```
+</CodeBlock>
 
 we use Router here to allow gtag to track pageviews and events individually. so when a Router event occur's gtag will use the current page's detail's instead of the default one.
-And now let's add the tracking code snippet to our `_document.jsx` file
+And now let's add the tracking code snippet to our _\_document.jsx_ file
 
-```javascript
+<CodeBlock>
+```javascript:_document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import { GA_TRACKING_ID } from '@/lib/gtag';
@@ -148,8 +159,9 @@ class MyDocument extends Document {
 
 export default MyDocument;
 ```
+</CodeBlock>
 
-we will use ** dangerouslySetInnerHTML ** to inject our tracking code snippet to the head of our website/application. With
+we will use **dangerouslySetInnerHTML** to inject our tracking code snippet to the head of our website/application. With
 that we have added our tracking code to our NextJS application successfully let's test it out by going to Google Analytic's Dashboard
 and check the Realtime tab which will show our current user session.
 

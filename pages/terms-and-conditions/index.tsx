@@ -1,17 +1,17 @@
-import Container from "@/components/Container";
+import Container from '@/components/Container';
 
 export default function Terms() {
   return (
     <Container title="Terms & Conditions - LEARNNEXT">
-      <div className="mx-auto max-w-4xl px-5 flex flex-col w-full py-12 space-y-5">
-        <h2 className="text-4xl text-black dark:text-white">
-          {" "}
+      <div className="flex flex-col px-5 py-12 mx-auto space-y-5 w-full max-w-4xl">
+        <h2 className="text-4xl font-black text-slate-light">
+          {' '}
           Terms and Conditions
         </h2>
-        <p className="text-lg font-bold text-left text-gray-500 dark:text-gray-400">
+        <p className="text-lg font-bold text-left text-slate-light">
           Welcome to LEARNNEXT!
         </p>
-        <p className="text-base text-gray-500 dark:text-gray-400 text-justify">
+        <p className="text-base text-justify text-slate">
           These terms and conditions outline the rules and regulations for the
           use of LEARNNEXTs Website, located at
           https://learnnext-blog.vercel.app.
@@ -39,10 +39,8 @@ export default function Terms() {
           and/or he/she or they, are taken as interchangeable and therefore as
           referring to same.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
-          Cookies
-        </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <h5 className="text-lg font-bold text-slate-light">Cookies</h5>
+        <p className="text-base text-slate">
           We employ the use of cookies. By accessing LEARNNEXT, you agreed to
           use cookies in agreement with the LEARNNEXTs Privacy Policy.
           <br />
@@ -53,10 +51,8 @@ export default function Terms() {
           our website. Some of our affiliate/advertising partners may also use
           cookies.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
-          License
-        </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <h5 className="text-lg font-bold text-slate-light">License</h5>
+        <p className="text-base text-slate">
           Unless otherwise stated, LEARNNEXT and/or its licensors own the
           intellectual property rights for all material on LEARNNEXT. All
           intellectual property rights are reserved. You may access this from
@@ -115,10 +111,10 @@ export default function Terms() {
           edit and authorize others to use, reproduce and edit any of your
           Comments in any and all forms, formats or media.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
+        <h5 className="text-lg font-bold text-slate-light">
           Hyperlinking to our Content
         </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <p className="text-base text-slate">
           The following organizations may link to our Website without prior
           written approval:
           <br />
@@ -200,18 +196,16 @@ export default function Terms() {
           No use of LEARNNEXTs logo or other artwork will be allowed for linking
           absent a trademark license agreement.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
-          iFrames
-        </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <h5 className="text-lg font-bold text-slate-light">iFrames</h5>
+        <p className="text-base text-slate">
           Without prior approval and written permission, you may not create
           frames around our Webpages that alter in any way the visual
           presentation or appearance of our Website.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
+        <h5 className="text-lg font-bold text-slate-light">
           Content Liability
         </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <p className="text-base text-slate">
           We shall not be hold responsible for any content that appears on your
           Website. You agree to protect and defend us against all claims that is
           rising on your Website. No link(s) should appear on any Website that
@@ -219,16 +213,12 @@ export default function Terms() {
           infringes, otherwise violates, or advocates the infringement or other
           violation of, any third party rights.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
-          Your Privacy
-        </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
-          Please read Privacy Policy
-        </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
+        <h5 className="text-lg font-bold text-slate-light">Your Privacy</h5>
+        <p className="text-base text-slate">Please read Privacy Policy</p>
+        <h5 className="text-lg font-bold text-slate-light">
           Reservation of Rights
         </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <p className="text-base text-slate">
           We reserve the right to request that you remove all links or any
           particular link to our Website. You approve to immediately remove all
           links to our Website upon request. We also reserve the right to amen
@@ -236,10 +226,10 @@ export default function Terms() {
           continuously linking to our Website, you agree to be bound to and
           follow these linking terms and conditions.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
+        <h5 className="text-lg font-bold text-slate-light">
           Removal of links from our website
         </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <p className="text-base text-slate">
           If you find any link on our Website that is offensive for any reason,
           you are free to contact and inform us any moment. We will consider
           requests to remove links but we are not obligated to or so or to
@@ -251,10 +241,8 @@ export default function Terms() {
           ensure that the website remains available or that the material on the
           website is kept up to date.
         </p>
-        <h5 className="text-lg font-bold text-black dark:text-white">
-          Disclaimer
-        </h5>
-        <p className="text-base text-gray-500 dark:text-gray-400">
+        <h5 className="text-lg font-bold text-slate-light">Disclaimer</h5>
+        <p className="text-base text-slate">
           To the maximum extent permitted by applicable law, we exclude all
           representations, warranties and conditions relating to our website and
           the use of this website. Nothing in this disclaimer will:

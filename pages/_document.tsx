@@ -25,6 +25,69 @@ class MyDocument extends Document {
           `
             }}
           />
+
+          {/* Preload fonts */}
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Thin.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Light.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-ExtraLight.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Medium.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Regular.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-SemiBold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Bold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-ExtraBold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Inter/Inter-Black.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          <link
+            rel="preload"
+            href="/fonts/Fira_Code/FiraCode-Light.ttf"
+            as="font"
+            crossOrigin=""
+          />
+          {/* / Preload fonts */}
           <link href="/favicon/favicon.ico" rel="favicon" />
           <link href="/favicon/site.webmanifest" rel="manifest" />
           <link
@@ -45,7 +108,7 @@ class MyDocument extends Document {
             type="image/png"
           />
         </Head>
-        <body className="bg-white dark:bg-dark-primary">
+        <body className="bg-navy-light">
           <Main />
           <NextScript />
         </body>
