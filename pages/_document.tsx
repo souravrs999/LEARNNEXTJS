@@ -27,7 +27,7 @@ class MyDocument extends Document {
           />
 
           {/* Preload fonts */}
-          <link
+          {/* <link
             rel="preload"
             href="/fonts/Inter/Inter-Thin.ttf"
             as="font"
@@ -96,7 +96,7 @@ class MyDocument extends Document {
             as="font"
             type="font/ttf"
             crossOrigin="anonymous"
-          />
+          /> */}
 
           {/* Favicons */}
           <link
