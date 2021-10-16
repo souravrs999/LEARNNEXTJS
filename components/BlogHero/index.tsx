@@ -21,7 +21,7 @@ const BlogHero = (props) => {
             className="md:rounded"
             placeholder="blur"
             blurDataURL="/img/blurData.png"
-            alt=""
+            alt="Blog cover image"
           />
         </div>
         <div className="right-0 top-full p-5 w-full md:rounded-l md:absolute md:w-2/3 md:top-1/4 bg-navy-lighter">

@@ -1,13 +1,19 @@
+import dynamic from 'next/dynamic';
+
 import Hero from '@/components/Hero';
-
 import { getAllFilesFrontMatter } from '@/lib/mdx';
-
 import { postProps } from 'types/postProps';
-import { SortByDate, SortByDateDesc } from 'util/sortPosts';
-import Stats from '@/components/Stats';
-import BlogCard from '@/components/BlogCard';
+import { SortByDateDesc } from 'util/sortPosts';
 import DefaultLayout from '@/layouts/default';
 import { getViewCounts } from 'helpers/viewConter';
+
+const BlogCard = dynamic(() => import('@/components/BlogCard'), {
+  ssr: false
+});
+
+const Stats = dynamic(() => import('@/components/Stats'), {
+  ssr: false
+});
 
 export default function Home({ posts }: postProps) {
   const viewCount = getViewCounts();
@@ -26,7 +32,7 @@ export default function Home({ posts }: postProps) {
       <section className="flex mx-auto my-12 max-w-6xl">
         <div className="flex flex-col mx-5 space-y-12 w-full">
           <h2 className="flex items-center py-5 space-x-2 text-2xl font-bold text-slate-light">
-            <span className="font-mono text-base text-navy-green">01.</span>
+            <span className="font-mono text-base text-navy-green">02.</span>
             <span className="" id="recent_posts">
               Recent Posts
             </span>

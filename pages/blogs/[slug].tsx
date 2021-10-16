@@ -1,8 +1,8 @@
-import { getFiles, getFileBySlug } from '@/lib/mdx';
-import MDXComponent from '@/components/MDXComponent';
-import BlogLayout from '@/layouts/blog';
 import { useMemo } from 'react';
 
+import { getFiles, getFileBySlug } from '@/lib/mdx';
+import MDXComponent from '@/components/MDXComponents';
+import BlogLayout from '@/layouts/blog';
 import { getMDXComponent } from 'mdx-bundler/client';
 
 export default function BlogSlug({ code, frontMatter }) {

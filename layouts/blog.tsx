@@ -1,11 +1,13 @@
-import Image from 'next/image';
-import { format, parseISO } from 'date-fns';
+import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
 import Container from '@/components/Container';
-import { useEffect } from 'react';
 import SocialSharable from '@/components/Sharable';
-import Recommended from '@/components/Recommended';
 import BlogHero from '@/components/BlogHero';
+
+const Suggested = dynamic(() => import('@/components/Suggested'), {
+  ssr: false
+});
 
 export default function BlogLayout({ children, matter }) {
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function BlogLayout({ children, matter }) {
       </section>
       <section className="flex flex-col py-12 mx-auto max-w-4xl">
         <SocialSharable title={matter.title} slug={matter.slug} />
-        <Recommended />
+        <Suggested />
       </section>
     </Container>
   );

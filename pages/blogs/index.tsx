@@ -1,13 +1,16 @@
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-
-import BlogCard from '@/components/BlogCard';
 
 import { getAllFilesFrontMatter } from '@/lib/mdx';
 import { postProps } from 'types/postProps';
 import { getViewCounts } from 'helpers/viewConter';
 import { SortByDateDesc } from 'util/sortPosts';
-import { useState } from 'react';
 import DefaultLayout from '@/layouts/default';
+
+const BlogCard = dynamic(() => import('@/components/BlogCard'), {
+  ssr: false
+});
 
 export default function Blog({ posts }: postProps) {
   const viewCount = getViewCounts();
