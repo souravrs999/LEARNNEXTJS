@@ -10,7 +10,6 @@ html {
 
 .next-logo-animate {
   stroke-dasharray: 6000;
-  stroke-dashoffset: 6000;
   stroke-width: 5px;
   animation: draw 12s linear forwards infinite;
 }

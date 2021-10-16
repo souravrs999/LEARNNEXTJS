@@ -12,7 +12,7 @@ export default function Navbar() {
           collapsed ? 'translate-x-full' : 'translate-x-0'
         }`}
       >
-        <div className="float-left mx-5 w-full">
+        <div className="float-left p-5 w-full">
           <div className="block float-right relative -top-7 mt-6 h-8">
             <button
               aria-label="close menu button"
@@ -37,11 +37,11 @@ export default function Navbar() {
         </div>
         {/* links list */}
         <div className="overflow-hidden relative px-10 pt-0 h-1/2">
-          <div className="flex flex-col space-y-5 text-sm text-slate-light">
+          <div className="flex flex-col space-y-5 text-slate-light">
             {navLinks.map((item, _idx) => (
               <Link href={item.target} key={item.link}>
                 <a className="flex items-center hover:text-white link">
-                  <span className="font-mono text-xs text-navy-green">
+                  <span className="font-mono text-sm text-navy-green">
                     0{_idx + 1}.
                   </span>
                   <span> {item.link}</span>
