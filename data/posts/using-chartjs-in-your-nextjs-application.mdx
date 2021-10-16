@@ -3,8 +3,10 @@ title: 'Using ChartJS a charting library in your NextJS application'
 publishedAt: '2021-09-20'
 summary: 'A detailed walkthrough for setting up and using ChartJS a simple yet flexible charting library in your NextJS application.'
 image: '/img/blog/using-chartjs-with-your-nextjs-application-800x514.jpg'
-author: 'Dark Stalker'
-tags: '#ChartJS'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Chartjs
 designation: 'Backend Dev'
 ---
 
@@ -17,27 +19,31 @@ and engaging charts into your website for free.
 
 ## Objective
 
-In this blog we will be trying to build a simple Cryptocurrency price website, and will be making use of ** chart.js ** to plot the price chart.
+In this blog we will be trying to build a simple Cryptocurrency price website, and will be making use of _chart.js_ to plot the price chart.
 
-we will also be making use of ** [CoinGeckos](https://www.coingecko.com/en) ** free [Cryptocurrency data API](https://www.coingecko.com/en/api) to fetch the data for our charts.
+we will also be making use of [CoinGeckos](https://www.coingecko.com/en) free [Cryptocurrency data API](https://www.coingecko.com/en/api) to fetch the data for our charts.
 
 ## Getting Started
 
-Let's get started by generating a basic ** next-app ** for us to work with using `create-next-app`
+Let's get started by generating a basic _next-app_ for us to work with using _create-next-app_
 
-```bash
+<CodeBlock>
+```bash:Terminal
 npx create-next-app next-chartjs-example
 ```
+</CodeBlock>
 
-Let's install the required ** chart.js ** dependency for our project by running:
+Let's install the required _chart.js_ dependency for our project by running:
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you're using npm
 npm install chart.js react-chartjs-2
 
 # If you're using yarn
 yarn add chart.js react-chartjs-2
 ```
+</CodeBlock>
 
 With that out of the way let's just create a simple block with the coins info currently it is hardcoded in,
 but you can use the data from the API to replace with these later. I'll be using TailwindCSS to style our component.
@@ -49,9 +55,10 @@ but you can use the data from the API to replace with these later. I'll be using
   alt="Cryptocurrency info Block"
 />
 
-Here's our `index.jsx` file we've added a simple info block.
+Here's our _index.jsx_ file we've added a simple info block.
 
-```jsx
+<CodeBlock>
+```jsx:index.js
 import { FaBitcoin } from 'react-icons/fa';
 import { FcAreaChart, FcBarChart, FcDoughnutChart } from 'react-icons/fc';
 
@@ -98,18 +105,20 @@ const Home = () => {
 
 export default Home;
 ```
+</CodeBlock>
 
-Now let's use `getServerSideProps` to fetch the day's Bitcoin price chart from ** CoinGecko's ** API.
+Now let's use _getServerSideProps_ to fetch the day's Bitcoin price chart from _CoinGecko's_ API.
 
 <QuotedText>
-  Note: we will be using `getServerSideProps` because Cryptocurrency prices
+  Note: we will be using _getServerSideProps_ because Cryptocurrency prices
   changes every few seconds and we want to provide the latest prices to the
   users on every request.
 </QuotedText>
 
-So in our `index.jsx` file let's add the logic to fetch the present day's prices.
+So in our _index.jsx_ file let's add the logic to fetch the present day's prices.
 
-```jsx
+<CodeBlock>
+```jsx:index.js
 export const getServerSideProps = async () => {
   const _cg_api = 'https://api.coingecko.com/api/v3';
 
@@ -124,10 +133,12 @@ export const getServerSideProps = async () => {
   };
 };
 ```
+</CodeBlock>
 
-Once that's been added our current `index.jsx` file should look something like this
+Once that's been added our current _index.jsx_ file should look something like this
 
-```jsx
+<CodeBlock>
+```jsx:index.js
 import { FaBitcoin } from 'react-icons/fa';
 import { FcAreaChart, FcBarChart, FcDoughnutChart } from 'react-icons/fc';
 
@@ -188,12 +199,12 @@ export const getServerSideProps = async () => {
 
 export default Home;
 ```
+</CodeBlock>
 
-Now let's create a `components/CoinPriceChart.jsx` file, we will customize and the look and feel of our Charts in this file.
+Now let's create a _components/CoinPriceChart.jsx_ file, we will customize and the look and feel of our Charts in this file.
 
-```jsx
-// CoinPriceChart.jsx
-
+<CodeBlock>
+```jsx:CoinPriceChart.jsx
 import { Line } from 'react-chartjs-2';
 
 // import our custom configuration for our chart
@@ -256,12 +267,12 @@ const CoinPriceChart = (props) => {
 
 export default CoinPriceChart;
 ```
+</CodeBlock>
 
-Let's also create a `compnents/ChartConfig.js` file to provide our customization options.
+Let's also create a _compnents/ChartConfig.js_ file to provide our customization options.
 
-```JavaScript
-// ChartConfig.js
-
+<CodeBlock>
+```JavaScript:ChartConfig.js
 export const Config = {
   plugins: {
 
@@ -290,13 +301,15 @@ export const Config = {
 };
 
 ```
+</CodeBlock>
 
 Now with all the necessary files done let's plug these component into our `index.jsx` files
 and see our result.
 
-So let's import `CoinPriceChart` component to our `index.jsx` file.
+So let's import _CoinPriceChart_ component to our _index.jsx_ file.
 
-```jsx
+<CodeBlock>
+```jsx:index.js
 import { FaBitcoin } from 'react-icons/fa';
 import { FcAreaChart, FcBarChart, FcDoughnutChart } from 'react-icons/fc';
 import CoinPriceChart from '../components/CoinPriceChart';
@@ -361,6 +374,7 @@ export const getServerSideProps = async () => {
 
 export default Home;
 ```
+</CodeBlock>
 
 And here we have our main page with a proper Price chart.
 

@@ -1,42 +1,62 @@
-import Container from '@/components/Container';
-import Hero from '@/components/home/Hero';
-import Content from '@/components/home/Content';
+import dynamic from 'next/dynamic';
+
+import Hero from '@/components/Hero';
 import { getAllFilesFrontMatter } from '@/lib/mdx';
-
-import { Tagged } from '@/components/Tagged';
-import Cta from '@/components/CallToAction';
-
 import { postProps } from 'types/postProps';
-import { SortByDate, SortByDateDesc } from 'util/sortPosts';
-import AdBanner from '@/components/AdBanner';
+import { SortByDateDesc } from 'util/sortPosts';
+import DefaultLayout from '@/layouts/default';
+import { getViewCounts } from 'helpers/viewConter';
+
+const BlogCard = dynamic(() => import('@/components/BlogCard'), {
+  ssr: false
+});
+
+const Stats = dynamic(() => import('@/components/Stats'), {
+  ssr: false
+});
 
 export default function Home({ posts }: postProps) {
+  const viewCount = getViewCounts();
   return (
-    <Container>
-      <Hero posts={posts.slice(0, 5)} />
-      <Content posts={posts} />
+    <DefaultLayout>
+      <section className="flex mx-auto mb-12 max-w-6xl h-screen">
+        <Hero />
+      </section>
 
-      <div className="py-12 mx-auto max-w-6xl">
-        <div className="flex flex-wrap px-5">
-          <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2">
-            <h2 className="font-bold text-xl dark:text-white">Recent</h2>
-            <Tagged posts={SortByDateDesc(posts).slice(0, 2)} />
-          </div>
-          <div className="flex flex-col w-full lg:w-1/2 space-y-7 px-2 py-10 lg:py-0">
-            <h2 className="font-bold text-xl dark:text-white">Recommended</h2>
-            <Tagged posts={SortByDate(posts).slice(0, 2)} />
+      {/* Analytics status for learnnext */}
+      <section className="flex mx-auto max-w-6xl">
+        <Stats />
+      </section>
+
+      {/* Latest posts section */}
+      <section className="flex mx-auto my-12 max-w-6xl">
+        <div className="flex flex-col mx-5 space-y-12 w-full">
+          <h2 className="flex items-center py-5 space-x-2 text-2xl font-bold text-slate-light">
+            <span className="font-mono text-base text-navy-green">02.</span>
+            <span className="" id="recent_posts">
+              Recent Posts
+            </span>
+            <span className="w-20 h-[1px] bg-navy-green"></span>
+          </h2>
+
+          <div className="grid grid-cols-1 gap-4 w-full lg:grid-cols-2">
+            {SortByDateDesc(posts)
+              .slice(0, 6)
+              .map((item, _idx) => (
+                <BlogCard
+                  {...posts[_idx]}
+                  views={
+                    viewCount
+                      ? viewCount.find((o) => o.slug === item.slug).views
+                      : '-'
+                  }
+                  key={item.slug}
+                />
+              ))}
           </div>
         </div>
-      </div>
-
-      {/* call to action */}
-      <div className="py-12 mx-auto max-w-6xl">
-        <Cta />
-        {/* <div className="py-5 overflow-hidden block">
-          <AdBanner />
-        </div> */}
-      </div>
-    </Container>
+      </section>
+    </DefaultLayout>
   );
 }
 

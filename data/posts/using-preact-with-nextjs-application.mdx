@@ -3,21 +3,24 @@ title: 'Using Preact with your NextJS application'
 publishedAt: '2021-09-08'
 summary: 'A detailed walkthrough for setting up and using Preact a lightweight altrenative to React in your NextJS application.'
 image: '/img/blog/using-preact-with-your-nextjs-application-800x514.jpg'
-author: 'Dark Stalker'
-tags: '#Preact'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Optimizations
+  - Preact
 designation: 'Backend Dev'
 ---
 
 ## Why Preact?
 
 [Preact](https://preactjs.com/) is a lightweight altrenative to React that focuses on perfomance. It houses an extensive compatibility layer with React to make
-sure your existing React code can be used in Preact. It's called ** preact/compat ** according to Preact's website it's bundle size is 3kB which is pretty
-low compared to the minified bundle of ** react + react-dom ** size of 128kB. If you care about squeezing out every last bit of perfomance for your project then
+sure your existing React code can be used in Preact. It's called *preact/compat* according to Preact's website it's bundle size is 3kB which is pretty
+low compared to the minified bundle of *react + react-dom* size of 128kB. If you care about squeezing out every last bit of perfomance for your project then
 Preact's the way to go, they prioritize perfomance and is one of the key feature's of Preact also Preact has no dependency.
 
 ## Ease of Use
 
-Replacing React with Preact in your project is pretty easy we are going to leverage ** Webpack's ** alias to do it.
+Replacing React with Preact in your project is pretty easy we are going to leverage *Webpack's* alias to do it.
 
 The process is pretty simple. First, we install preact and preact/compat with those dependencie's installed, we will configure
 webpack to alias React imports so they point to Preact instead.
@@ -26,19 +29,20 @@ webpack to alias React imports so they point to Preact instead.
 
 Let's start with installing our Preact dependencie's
 
-```bash
+<CodeBlock>
+```bash:Terminal
 # If you're using npm
 npm install preact
 
 # If you're using yarn
 yarn add preact
-```
+````
+</CodeBlock>
 
-now that we have our dependencies installed let's configure our ** next.config.js ** file to set alias for React, we are going to use Preact only on the Production Build.
+now that we have our dependencies installed let's configure our *next.config.js* file to set alias for React, we are going to use Preact only on the Production Build.
 
-```JavaScript
-// next.config.js
-
+<CodeBlock>
+```JavaScript:next.config.js
 module.exports = {
   reactStrictMode: true,
   images: {
@@ -56,19 +60,22 @@ module.exports = {
     return config;
   },
 };
-```
+````
+</CodeBlock>
 
-Now that our ** next.config.js ** file is properly configured let's just build our project to see the result's.
+Now that our *next.config.js* file is properly configured let's just build our project to see the result's.
 
-```bash
-//yarn
+<CodeBlock>
+```bash:Terminal
+#If you're using yarn
 yarn build
 
-//npm
+#If you're using npm
 npm run build
 ```
+</CodeBlock>
 
-Here's the build output for ** LEARNNEXT's ** build output with and without Preact.
+Here's the build output for *LEARNNEXT's* build output with and without Preact.
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210908_092501.png`}
@@ -77,7 +84,7 @@ Here's the build output for ** LEARNNEXT's ** build output with and without Prea
   height={471}
 />
 
-_ build output with Preact _
+_build output with Preact_
 
 <BlogImg
   src={`/img/screenshots/Screenshot_20210908_092643.png`}
@@ -86,7 +93,7 @@ _ build output with Preact _
   height={471}
 />
 
-_ build output without Preact _
+_build output without Preact_
 
 Notice the considerable difference in First Load JS size, this won't be perceivable in modern network connection's and
 devices but will considerably decrease the first load time for users that might be using 3G networks and congested network connections

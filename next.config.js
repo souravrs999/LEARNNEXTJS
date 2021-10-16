@@ -1,11 +1,7 @@
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  target: 'serverless',
-  webpack5: true,
   experimental: {
-    modern: true,
     esmExternals: true
   },
   reactStrictMode: true,
@@ -21,17 +17,6 @@ module.exports = {
     ];
   },
   webpack: (config, { dev, isServer }) => {
-    // Fixes npm packages that depends on 'fs' module
-    if (!isServer) {
-      config.resolve.fallback.fs = false;
-    }
-    // copy the static blog files
-    config.plugins.push(
-      new CopyPlugin({
-        patterns: [{ from: 'data', to: 'data' }]
-      })
-    );
-    // Replace React with Preact in production build
     if (!dev && !isServer) {
       Object.assign(config.resolve.alias, {
         react: 'preact/compat',
@@ -45,13 +30,13 @@ module.exports = {
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com https://gmail.us5.list-manage.com https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' fonts.googleapis.com https://gmail.us5.list-manage.com https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com;
   child-src *.youtube.com *.google.com *.twitter.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src * blob: data: ;
   media-src 'none';
   connect-src *;
-  font-src 'self';
+  font-src 'self' fonts.gstatic.com;
 `;
 
 const securityHeaders = [

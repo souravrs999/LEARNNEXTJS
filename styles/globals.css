@@ -2,99 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-display: swap;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/font/Poppins-Regular.woff2) format('woff2');
-}
-@font-face {
-  font-display: swap;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  src: url(/font/Poppins-Bold.woff2) format('woff2');
-}
-@font-face {
-  font-display: swap;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 600;
-  src: url(/font/Poppins-SemiBold.woff2) format('woff2');
-}
-@font-face {
-  font-display: swap;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 900;
-  src: url(/font/Poppins-Black.woff2) format('woff2');
-}
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 html {
   scroll-behavior: smooth;
 }
 
-.__patch {
-  @apply max-w-4xl;
+.next-logo-animate {
+  stroke-dasharray: 6000;
+  stroke-width: 5px;
+  animation: draw 12s linear forwards infinite;
 }
 
-.mdxComp h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply text-black font-bold text-2xl py-3;
-  @apply dark:text-gray-100;
+@keyframes draw {
+  from {
+    stroke-dashoffset: 6000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
-.mdxComp p {
-  @apply text-gray-500 text-lg;
-  @apply dark:text-gray-400;
+.social-icon {
+  width: 100%;
+  height: 100%;
 }
 
-.mdxComp strong {
-  @apply text-gray-500;
-  @apply dark:text-gray-300;
-}
-
-.mdxComp blockquote p {
-  @apply text-yellow-500;
-  @apply dark:text-yellow-500;
-}
-
-.mdxComp a {
-  @apply text-gray-600 dark:text-gray-300 underline;
-}
-
-.mdxComp img {
-  @apply rounded-xl;
-}
-
-.mdxComp pre {
-  @apply rounded-xl;
-}
 pre::-webkit-scrollbar {
   display: none;
 }
 
 pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  @apply overflow-x-scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-code {
-  @apply text-purple-400;
+.prose h2 {
+  @apply py-5 text-3xl font-black text-slate-light;
+}
+.prose p {
+  @apply py-1 text-base leading-relaxed text-slate;
 }
 
-.mdxComp ol {
-  @apply list-inside list-disc;
+.rehype-code-title {
+  @apply absolute top-5 right-5 font-mono font-bold text-slate-light;
+}
+.rehype-code-title + pre {
+  @apply mt-0 rounded-t-none;
 }
 
-.mdxComp li {
+.highlight-line {
+  @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500 dark:bg-gray-800;
+}
+.prose a {
+  @apply text-lg underline text-navy-green;
+}
+.prose em {
+  @apply px-3 py-1 font-mono rounded bg-navy-dark text-slate-light;
+}
+.prose strong {
+  @apply my-5 font-mono text-lg font-bold text-slate-light;
+}
+.prose ol {
+  @apply list-disc list-inside text-slate;
+}
+
+.prose li {
   @apply p-3;
 }
+.prose ul {
+  @apply list-disc list-inside text-slate;
+}
 
-.mdxComp code[class*='language-'] {
-  @apply text-sm;
+.prose li {
+  @apply p-3;
+}
+.prose blockquote {
+  @apply p-3 my-3 font-mono rounded bg-navy-dark;
+}
+.prose blockquote p {
+  @apply text-slate-light;
 }

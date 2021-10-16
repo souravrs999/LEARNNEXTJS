@@ -3,22 +3,24 @@ title: 'Auto advancing Carousel component in Next JS.'
 publishedAt: '2021-09-24'
 summary: 'A detailed walkthrough for implementing auto advancing feature for your Embla Carousel.'
 image: '/img/blog/auto-advancing-carousel-embla-800x514.png'
-author: 'Dark Stalker'
-tags: '#Embla, #Carousel'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - Embla
+  - Carousel
 designation: 'Backend Dev'
 ---
 
-### What is an Auto advancing/scrolling Carousel?
+## What is an Auto advancing/scrolling Carousel?
 
 An auto advancing carousel unlike a normal carousel cycle's throught it's content without any manual interaction from the user,
 they are mainly used to improve the visibility for a particular items or product. These type of carousels usually cycles through
 each of its content usually after a fixed amount of time.
 
-### Usability Issues
+## Usability Issues
 
 If you are planning to use and auto advancing/scrolling carousel in your website/application there are some key usability Issues
 that you must take into account:
-
 1. You should make sure that the user have control over the carousel interface no matter the type of carousel you are planning to use.
 2. Do not try to populate your carousel with more than what's required user's might not stick around to view the entireity of your carousel
    so make sure you only have few necessary slides.
@@ -27,18 +29,19 @@ that you must take into account:
 4. The UI elements or products that are present on the carousel slides should have more importance compared to others and should be used to
    draw in the users to it.
 
-### Getting started
+## Getting started
 
 With everythin out of the way let's get started by building our auto advancing/sliding carousel, we will be using Embla Carousel for this purpose.
 
 We will be reusing the Embla Carousel component in the starting of this series and the add the auto scrolling to it, If you havent read about how
-to setup an Embla Carousel component please follow the step's available [** Here **](/blogs/adding-embla-carousel-to-nextjs-application)
+to setup an Embla Carousel component please follow the step's available [Here](/blogs/adding-embla-carousel-to-nextjs-application)
 
 Once you have done that you now have a basic Embla Carousel component with navigation dots.
 
-Let's start with creating a `recursiveTimeout.js` file near your Carousel component and add this to it.
+Let's start with creating a _recursiveTimeout.js_ file near your Carousel component and add this to it.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:recursiveTimeout.js
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 function RecursiveTimeout(callback, delay) {
@@ -84,12 +87,14 @@ function RecursiveTimeout(callback, delay) {
 
 export default RecursiveTimeout;
 ```
+</CodeBlock>
 
 Now continuing from where we left off in our previous article about [adding
 Embla Carousel to your NextJS application](/blogs/adding-embla-carousel-to-nextjs-application)
-your `index.jsx` file should look like this.
+your index.jsx file should look like this.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 import Image from "next/image";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { useState, useEffect, useCallback } from "react";
@@ -125,12 +130,16 @@ export default function Hero(props) {
   }, [embla, setScrollSnaps, onSelect]);
 
   return (...)
+
+}
 ```
+</CodeBlock>
 
-Now let's import the recursiveTimeout function that we've just created in our `recursiveTimeout.js` file to our
-`index.jsx` file and create an ** autoplay ** function.
+Now let's import the recursiveTimeout function that we've just created in our _recursiveTimeout.js_ file to our
+_index.jsx_ file and create an _autoplay_ function.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 import Image from "next/image";
 import { useEmblaCarousel } from "embla-carousel/react";
 import { useState, useEffect, useCallback } from "react";
@@ -199,7 +208,9 @@ export default function Hero(props) {
   }, [play]);
 
   return (...)
+}
 ```
+</CodeBlock>
 
 And now we have a perfectly self advancing/scrolling carousel for our NextJS website/application.
 
@@ -217,13 +228,14 @@ And now we have a perfectly self advancing/scrolling carousel for our NextJS web
   on a particular slide.
 </QuotedText>
 
-To fix the above mentioned issue we can use ** onMouseOver ** and ** onMouseLeave ** events
+To fix the above mentioned issue we can use _onMouseOver_ and _onMouseLeave_ events
 to stop the scrolling animation of the Carousel if the user move's his mouse over the
 Carousel viewport and restart the animation when the mouse leave's the viewport.
 
-To do this let's add these events to our `index.jsx` file.
+To do this let's add these events to our _index.jsx_ file.
 
-```JavaScript
+<CodeBlock>
+```JavaScript:index.js
 // Carousel container with ref
 <div className="overflow-hidden" ref={emblaRef}>
     {/* Carousel viewport */}
@@ -242,5 +254,6 @@ To do this let's add these events to our `index.jsx` file.
     </div>
 </div>
 ```
+</CodeBlock>
 
 And that's it we have successfully created a Carousel and added auto advancing/scrolling capability to it.
