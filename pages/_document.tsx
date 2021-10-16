@@ -26,78 +26,6 @@ class MyDocument extends Document {
             }}
           />
 
-          {/* Preload fonts */}
-          {/* <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Thin.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Light.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-ExtraLight.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Medium.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Regular.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-SemiBold.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Bold.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-ExtraBold.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Inter/Inter-Black.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/Fira_Code/FiraCode-Light.ttf"
-            as="font"
-            type="font/ttf"
-            crossOrigin="anonymous"
-          /> */}
-
           {/* Favicons */}
           <link
             rel="apple-touch-icon"
@@ -180,6 +108,9 @@ class MyDocument extends Document {
             name="msapplication-config"
           />
           <meta name="theme-color" content="#64ffda" />
+
+          {/* Yandex verification */}
+          <meta name="yandex-verification" content="c91b1a8a5db3dc5c" />
         </Head>
         <body className="bg-navy-light">
           <Main />
