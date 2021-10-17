@@ -17,7 +17,7 @@ export default async function handler(
       .collection('viewCount')
       .findOne({ slug: req.query.slug });
 
-    if (viewCounts == null) {
+    if (viewCounts == null && req.method === 'POST') {
       // if viewCounts is null then the field dosen't
       // exist in the database so add it to the db with
       // view 1
