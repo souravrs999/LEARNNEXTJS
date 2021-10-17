@@ -1,4 +1,3 @@
-import { getFiles } from '@/lib/mdx';
 import clientPromise from '@/lib/mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -18,15 +17,11 @@ export default async function handler(
       .collection('viewCount')
       .findOne({ slug: req.query.slug });
 
-    const posts: string[] = await getFiles('posts').then((res) =>
-      res.map((_idx) => {
-        return _idx.replace(/\.mdx/, '');
-      })
-    );
-
-    if (viewCounts == null && posts.includes(req.query.slug.toString())) {
-      // this function will run when we add a new post and will add it to db
-      const newField = client
+    if (viewCounts == null) {
+      // if viewCounts is null then the field dosen't
+      // exist in the database so add it to the db with
+      // view 1
+      const newBlog = client
         .db()
         .collection('viewCount')
         .insertOne({ slug: req.query.slug, views: 1 });
