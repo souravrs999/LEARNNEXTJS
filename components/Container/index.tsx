@@ -43,8 +43,6 @@ function Container(props) {
         {meta.data && (
           <meta property="article:published_time" content={meta.date} />
         )}
-        {/* Propeller ads domain verification tag */}
-        <meta name="propeller" content="1a12680230e496442922a489571f5e80" />
       </Head>
       <Navbar />
       <main>{children}</main>

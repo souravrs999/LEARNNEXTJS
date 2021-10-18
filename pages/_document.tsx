@@ -108,9 +108,6 @@ class MyDocument extends Document {
             name="msapplication-config"
           />
           <meta name="theme-color" content="#64ffda" />
-
-          {/* Yandex verification */}
-          <meta name="yandex-verification" content="c91b1a8a5db3dc5c" />
         </Head>
         <body className="bg-navy-light">
           <Main />

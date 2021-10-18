@@ -1,6 +1,11 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
 const client = require('@mailchimp/mailchimp_marketing');
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   client.setConfig({
     apiKey: process.env.MAILCHIMP_API_KEY,
     server: 'us5'
