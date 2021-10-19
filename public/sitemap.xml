@@ -1,60 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://learnnext-blog.vercel.app/</loc>
-  </url>
-
-  <url>
-    <loc>https://learnnext-blog.vercel.app/blogs/</loc>
-  </url>
-
-  <url>
-    <loc>https://learnnext-blog.vercel.app/terms-and-conditions/</loc>
-  </url>
-
-  <url>
-    <loc>https://learnnext-blog.vercel.app/privacy-policy/</loc>
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/adding-auto-scrolling-support-for-your-embla-next-carousel</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/adding-embla-carousel-to-nextjs-application</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/adding-google-analytics-to-your-nextjs-application</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/adding-tailwind-to-nextjs-application</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/adding-typescript-support-to-your-nextjs-application</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/using-chartjs-in-your-nextjs-application</loc
-    >
-  </url>
-
-  <url>
-    <loc
-      >https://learnnext-blog.vercel.app/blogs/using-preact-with-nextjs-application</loc
-    >
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://learnnext-blog.vercel.app</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.528Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/500</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.528Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.528Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/privacy-policy</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.528Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/terms-and-conditions</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.528Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/adding-auto-scrolling-support-for-your-embla-next-carousel</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/adding-embla-carousel-to-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/adding-google-analytics-to-your-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/adding-tailwind-to-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/adding-typescript-support-to-your-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/using-chartjs-in-your-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
+<url><loc>https://learnnext-blog.vercel.app/blogs/using-preact-with-nextjs-application</loc><changefreq>daily</changefreq><priority>0.7</priority><lastmod>2021-10-19T03:27:50.529Z</lastmod></url>
 </urlset>

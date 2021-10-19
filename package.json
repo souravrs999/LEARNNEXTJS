@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "node ./scripts/generate-sitemap.mjs"
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@badrap/bar-of-progress": "^0.1.2",
@@ -39,17 +39,18 @@
     "eslint-config-next": "11.0.1",
     "globby": "^12.0.2",
     "gray-matter": "^4.0.3",
+    "next-sitemap": "^1.6.184",
     "postcss": "^8.3.6",
-    "reading-time": "^1.4.0",
     "prettier": "^2.4.1",
+    "reading-time": "^1.4.0",
     "rehype-autolink-headings": "^6.1.0",
+    "rehype-code-titles": "^1.0.3",
+    "rehype-prism-plus": "^1.1.0",
+    "rehype-slug": "^5.0.0",
     "remark-code-titles": "^0.1.2",
     "remark-slug": "^7.0.0",
     "tailwindcss": "^2.2.7",
-    "typescript": "^4.4.2",
-    "rehype-code-titles": "^1.0.3",
-    "rehype-prism-plus": "^1.1.0",
-    "rehype-slug": "^5.0.0"
+    "typescript": "^4.4.2"
   },
   "prettier": {
     "arrowParens": "always",
