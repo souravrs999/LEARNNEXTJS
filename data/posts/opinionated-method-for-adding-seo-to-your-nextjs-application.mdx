@@ -1,0 +1,302 @@
+---
+title: 'Opinionated method for adding SEO to your Nextjs application'
+publishedAt: '2021-10-19'
+summary: 'This blog talks about a method for adding proper SEO & Open Graph support for all the pages in your application by wrapping them inside a container.'
+image: '/img/blog/adding-seo-to-nextjs-application-800x514.jpg'
+author: 'Sourav Raveendran'
+tags:
+  - Nextjs
+  - SEO
+  - meta tags
+  - Open Graph
+designation: 'Backend Dev'
+---
+
+## What is SEO ?
+
+Search Engine Optimization (SEO) is the process of improving the quality
+and quantity of website traffic to a website or a webpage from search engines.
+SEO targets unpaid traffic (natural/organic results) rather than direct traffic
+or paid traffic. The goal of SEO is to create a strategy that will increase your rankings
+position in search engine results. The higher the ranking, the more traffic to your site.
+
+## Why should i care about SEO ?
+
+SEO is essential for you to get your business in front of your potential customers
+and clients. This means that when the user have a need and perform a search online,
+ you should make sure that your website get's place on top of the search result so
+that you can drive more traffic to your website and inturn build your Business/Agency.
+
+## What is Open Graph ?
+
+[Open Graph](https://ogp.me/) is an internet protocol that was originally created by Facebook
+to standardize the use of metadata within a webpage to represent the content of a pages.
+
+To turn your web pages into graph objects, you need to add basic metadata to your page.
+You will need to place _meta_ tags in the _head_ of your page we will be using a custom _Container_
+component to have a _head_ tag inside it where we will be placing all our _meta_ tags.
+
+<QuotedText>
+  Note: Next.js Head component requires the meta tags to have a name attribute.
+</QuotedText>
+
+Some of the most commonly used metatag properties are:
+  - _title_ : used to set the title of our page.
+  - _og:url_ : complete url for your current page.
+  - _og:type_ : type of your object like 'website'.
+  - _og:image_ : an image url for your page.
+  - _description_ : used to set a description for the page.
+  - _og:twitter:site_ : @username for the website used in the card footer.
+  - _og:twitter:card_ : the card type, usually 'summary', 'summary_large_image', 'app' or 'player'.
+  - _og:twitter:title_ : the title for the page which will be shown on the card.
+  - _og:twitter:image_ : cover image for the twitter card.
+  - _og:twitter:description_ : the description of the page which will be shown on the card.
+
+
+If you would like to know more about the different metatags that are supported by Open Graph protocol
+you can refer [Open Graph's website](https://ogp.me/)
+
+## Getting Started
+
+Let's get started by creating a new Next js project from scratch.
+
+<CodeBlock>
+```bash:Terminal
+npx create-next-app nextjs-seo
+```
+</CodeBlock>
+
+Now let's create a _Container_ component which we can use to wrap all our pages with.
+
+<CodeBlock>
+```javascript:Container.jsx
+import Head from 'next/head';
+
+function Container(props) {
+  const { children, ...customMeta } = props;
+
+  return (
+    <>
+      <Head>
+        {/* we will be placing our meta tags right here */}
+      </Head>
+      <main>{children}</main>
+    </>
+  );
+}
+
+export default Container;
+```
+</CodeBlock>
+
+If you want you can even place your _Navbar_ or _Footer_ components inside the _Container.jsx_file
+as well so that it acts as a shared layout between pages.
+
+Here _customMeta_ is also getting passed in so that we can change the meta tags for each page individually.
+
+Now let's provide some default info which will used if not custom tags are being provided.
+
+<CodeBlock>
+```javascript:Container.jsx
+import Head from 'next/head';
+
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
+function Container(props) {
+  const { children, ...customMeta } = props;
+
+  const meta = {
+    title: 'Page title',
+    description: "Page description",
+    image: 'url for page image' // eg: https://learnnext-blog.vercel.app/img/banner-800x514.png
+    type: 'website',
+    ...customMeta
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Your site name" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@yourbusiness" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter.description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        {meta.data && (
+          <meta property="article:published_time" content={meta.date} />
+        )}      
+      </Head>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
+}
+
+export default Container;
+
+```
+</CodeBlock>
+
+We can use the same data for recurring tags like _descripiton_ tag and _twitter:description_ tag,
+also we will add the _article:published_time_ tag useful for blogs and article related websites.
+We've also added the _robots_ tag which allows the search engine crawlers to follow and index our site.
+
+
+But wait we have not added the _og:url_ tag and the link tag for canonical url, that's because these
+vary from page to page so we cannot add a hardcoded value to it so instead we will use the _next/router_
+to get the path so that we can dynamically set the url's for each page.
+
+<CodeBlock>
+```javascript:Container.jsx
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
+function Container(props) {
+  const { children, ...customMeta } = props;
+  const router = useRouter();
+
+  const meta = {
+    title: 'Page title',
+    description: "Page description",
+    image: 'url for page image', // eg: https://learnnext-blog.vercel.app/img/banner-800x514.png
+    type: 'website',
+    ...customMeta
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+
+        <meta
+          property="og:url"
+          content={`https://next-seo.vercel.app${router.asPath}`}
+        />
+        <link
+          rel="canonical"
+          href={`https://next-seo.vercel.app${router.asPath}`}
+        />
+
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Your site name" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@yourbusiness" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter.description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        {meta.data && (
+          <meta property="article:published_time" content={meta.date} />
+        )}      
+      </Head>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
+}
+
+export default Container;
+```
+</CodeBlock>
+
+Now we have a _Container_ with meta tags added in so let's just see how we can
+use these wrapper for different pages. Let's take the index page for example
+
+Since our _index.jsx_ file is going to be a static file we can use the _Container_
+normally by wrapping the items with it _index.jsx_file will use the default value that
+we've provided.
+
+<CodeBlock>
+```javascript:index.jsx
+import Container from '@/components/Container';
+
+function Home() {
+  return (
+    <Container>
+      <div className="mx-auto flex max-w-6xl flex-col h-screen justify-center">
+        <div className="p-5 shadow-lg rounded-lg">
+          <h2 className="text-white text-4xl font-sans">
+            Next SEO
+          </h2>
+        </div>
+      </div>
+    </Container>
+  )
+}
+
+export default Home;
+```
+</CodeBlock>
+
+Now let's take the case in which we have a Dynamic route like a blog we would need
+the meta tags to have the title, image and description of our blog instead of the
+default value provided, we will pass in the title, description, image etc.. as
+props to the _Container_ these values can be either fetched from the local _MDX_ files
+or may be from a _CMS_ where you have uploaded your blogs.
+
+<CodeBlock>
+```javascript:[blog].jsx
+import Container from '@/components/Container';
+
+
+export default function Blog(props) {
+
+  return (
+    <Container
+      title={`${props.post.title}`}
+      description={props.post.summary}
+      image={`https://next-seo.vercel.app${props.post.image}`}
+      date={new Date(props.post.publishedAt).toISOString()}
+      type="article"
+    >
+      // Rest of your content
+      // ... 
+
+    </Container>
+  );
+}
+
+export async function getStaticPaths() {
+  
+  // some logic to get all post paths
+  return {
+    paths: posts.map((p) => ({
+      params: {
+        blog: path)
+      }
+    })),
+  };
+}
+
+export async function getStaticProps({ params }) {
+  
+  // some logic to get all your posts
+  return { props: { ...post } };
+}
+
+export default Blog;
+```
+</CodeBlock>
+
+And there you go we have successfully set the metatags for a dynamic blog post.
+If you'd like to see the changes and the tag's that are being appllied during devlopment
+you can use extensions like [SEO minion](https://seominion.com/) available for both firefox and chrome, you can
+inspect your page using this extension to verify the tag's are working correctly.
