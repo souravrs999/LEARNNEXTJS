@@ -26,6 +26,9 @@ class MyDocument extends Document {
             }}
           />
 
+          {/* Yandex verification */}
+          <meta name="yandex-verification" content="f1d8f87667dc1401" />
+
           {/* Favicons */}
           <link
             rel="apple-touch-icon"
