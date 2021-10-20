@@ -44,9 +44,9 @@ export default function SubscribeForm({ status, message, onValidated }) {
 
   return (
     <>
-      <div className="flex items-center px-3 space-x-2 w-full rounded bg-navy-light">
+      <div className="flex items-center w-full px-3 space-x-2 rounded bg-navy-light">
         <input
-          className="p-5 w-2/3 rounded bg-navy-light focus:outline-none text-slate"
+          className="w-2/3 p-5 rounded bg-navy-light focus:outline-none text-slate"
           type="email"
           value={email}
           placeholder="Enter your email"
@@ -55,7 +55,7 @@ export default function SubscribeForm({ status, message, onValidated }) {
         />
         <button
           aria-label="Subscribe to our Newsletter"
-          className="p-2 w-1/3 font-bold rounded text-navy-lighter bg-navy-green"
+          className="w-1/3 p-2 font-bold rounded text-navy-lighter bg-navy-green"
           onClick={handleSubmit}
         >
           SUBSCRIBE
@@ -63,7 +63,7 @@ export default function SubscribeForm({ status, message, onValidated }) {
       </div>
       {status === 'success' && status !== 'error' && !error && (
         <div className="mt-2 font-mono text-sm text-navy-green">
-          {decode(message)} ehljsdoifuiosd
+          {decode(message)}
         </div>
       )}
       {status === 'error' || error ? (
