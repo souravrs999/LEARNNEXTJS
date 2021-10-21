@@ -100,6 +100,7 @@ class MyDocument extends Document {
             href="/favicons/favicon-16x16.png"
           />
           <link rel="shortcut icon" href="/favicons/favicon.ico" />
+          <link rel="icon" href="/favicons/favicon.ico" />
           <link rel="manifest" href="/favicons/site.webmanifest" />
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta
