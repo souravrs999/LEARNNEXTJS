@@ -4,7 +4,7 @@ import Hero from '@/components/Hero';
 import { getAllFilesFrontMatter } from '@/lib/mdx';
 import { postProps } from 'types/postProps';
 import { SortByDateDesc } from 'util/sortPosts';
-import DefaultLayout from '@/layouts/default';
+import DefaultLayout from '@/layouts/Default';
 import { getViewCounts } from 'helpers/viewConter';
 
 const BlogCard = dynamic(() => import('@/components/BlogCard'), {

@@ -11,11 +11,11 @@ const Suggested = dynamic(() => import('@/components/Suggested'), {
 
 export default function BlogLayout({ children, matter }) {
   // register view for the blog after 10s
-  useEffect(() => {
-    setTimeout(() => {
-      fetch(`/api/views/${matter.slug}`, { method: 'POST' });
-    }, 10000);
-  }, [matter.slug]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetch(`/api/views/${matter.slug}`, { method: 'POST' });
+  //   }, 10000);
+  // }, [matter.slug]);
 
   return (
     <Container
@@ -25,13 +25,13 @@ export default function BlogLayout({ children, matter }) {
       date={new Date(matter.publishedAt).toISOString()}
       type="article"
     >
-      <section className="flex mx-auto my-12 max-w-6xl">
+      <section className="flex max-w-6xl mx-auto my-12">
         <BlogHero {...matter} />
       </section>
-      <section className="flex mx-auto max-w-4xl">
-        <article className="px-5 w-full prose">{children}</article>
+      <section className="flex max-w-4xl mx-auto">
+        <article className="w-full px-5 prose">{children}</article>
       </section>
-      <section className="flex flex-col py-12 mx-auto max-w-4xl">
+      <section className="flex flex-col max-w-4xl py-12 mx-auto">
         <SocialSharable title={matter.title} slug={matter.slug} />
         <Suggested />
       </section>

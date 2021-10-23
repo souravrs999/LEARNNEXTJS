@@ -6,7 +6,7 @@ import { getAllFilesFrontMatter } from '@/lib/mdx';
 import { postProps } from 'types/postProps';
 import { getViewCounts } from 'helpers/viewConter';
 import { SortByDateDesc } from 'util/sortPosts';
-import DefaultLayout from '@/layouts/default';
+import DefaultLayout from '@/layouts/Default';
 
 const BlogCard = dynamic(() => import('@/components/BlogCard'), {
   ssr: false

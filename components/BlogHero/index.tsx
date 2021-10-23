@@ -10,9 +10,9 @@ const BlogHero = (props) => {
   const viewCount = getViewCounts();
 
   return (
-    <div className="flex mx-5 w-full">
-      <div className="flex relative flex-col w-full">
-        <div className="w-full max-w-3xl h-auto">
+    <div className="flex w-full mx-5">
+      <div className="relative flex flex-col w-full">
+        <div className="w-full h-auto max-w-3xl">
           <Image
             src={props.image}
             width={800}
@@ -24,7 +24,7 @@ const BlogHero = (props) => {
             alt="Blog cover image"
           />
         </div>
-        <div className="right-0 top-full p-5 w-full md:rounded-l md:absolute md:w-2/3 md:top-1/4 bg-navy-lighter">
+        <div className="right-0 w-full p-5 top-full md:rounded-l md:absolute md:w-2/3 md:top-1/4 bg-navy-lighter">
           <div className="flex flex-col space-y-5">
             <div className="grid grid-cols-2 gap-1 md:grid-cols-3 text-navy-green">
               <div className="flex space-x-2">
@@ -55,7 +55,7 @@ const BlogHero = (props) => {
               <GoPerson className="w-4 h-4 text-navy-green" />
               <span>{props.author}</span>
             </div>
-            <div className="flex right-0 space-x-3 font-mono text-sm md:absolute md:-bottom-7 text-slate">
+            <div className="right-0 flex space-x-3 font-mono text-sm md:absolute md:-bottom-7 text-slate">
               {props.tags.map((tag) => (
                 <p key={tag}>{tag}</p>
               ))}

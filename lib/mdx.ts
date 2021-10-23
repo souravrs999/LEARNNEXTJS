@@ -10,18 +10,13 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
 
-let BASE_PATH = process.cwd();
-// if (process.env.NODE_ENV === 'production') {
-//   BASE_PATH = join(process.cwd(), '.next/server/chunks');
-// }
-
 export async function getFiles(type: string) {
-  return readdirSync(join(BASE_PATH, 'data', type));
+  return readdirSync(join(process.cwd(), 'data', type));
 }
 
 export async function getFileBySlug(slug: string, type: string) {
   const source = readFileSync(
-    join(BASE_PATH, 'data', type, `${slug}.mdx`),
+    join(process.cwd(), 'data', type, `${slug}.mdx`),
     'utf8'
   );
 
@@ -45,22 +40,6 @@ export async function getFileBySlug(slug: string, type: string) {
     }
   });
 
-  // const { data, content } = matter(source);
-  // const mdxSource = await serialize(content, {
-  //   mdxOptions: {
-  //     remarkPlugins: [remarkSlug, remarkCodeTitles],
-  //     rehypePlugins: [
-  //       mdxPrism,
-  //       rehypeAutolinkHeadings,
-  //       {
-  //         properties: {
-  //           className: ['anchor']
-  //         }
-  //       }
-  //     ]
-  //   }
-  // });
-
   return {
     code,
     frontMatter: {
@@ -73,11 +52,11 @@ export async function getFileBySlug(slug: string, type: string) {
 }
 
 export async function getAllFilesFrontMatter(type: string) {
-  const files = readdirSync(join(BASE_PATH, 'data', type));
+  const files = readdirSync(join(process.cwd(), 'data', type));
 
   return files.reduce((allPosts, postSlug) => {
     const source = readFileSync(
-      join(BASE_PATH, 'data', type, postSlug),
+      join(process.cwd(), 'data', type, postSlug),
       'utf8'
     );
     const { data } = matter(source);
