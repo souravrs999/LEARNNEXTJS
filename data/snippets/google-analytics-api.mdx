@@ -1,0 +1,92 @@
+---
+title: 'Google Analytics API'
+publishedAt: '2021-10-21'
+summary: 'Using Google Analytics API to get page data.'
+icon: ganalytics
+---
+
+<Step number={1} title="Create a Google Service Account" />
+
+- Go to Google Developer Console and create a new project if you haven't already.
+- On the sidebar click on **Credentials** and then **Create Credentials**
+- Select **Service Account** as type of credential.
+- Go back to the **Credentials** page and select **Service Accounts**
+- Select **Keys** tab and then **Add Key** then create a **JSON key**
+- Download and keep this **JSON key** safe.
+
+<Step number={2} title="Enable Google Analytics Data Api" />
+
+- On the sidebar click on **APIs & Services** and **ENABLE APIS AND SERVICES**
+- Search for **Google Analytics Data API** and enable it
+- Go to Analytics dashboard and click on **Admin** -> **Property User Management** -> **Add Users**
+- Add your service account email address (look in the JSON key for the email) and give it **Read and Analyze** access.
+
+<Step number={3} title="Install the @google-analytics/data package" />
+
+<CodeBlock>
+```bash:Terminal
+# If you're using npm
+npm install @google-analytics/data
+
+# If you're using yarn
+yarn add @google-analytics/data
+```
+</CodeBlock>
+
+- Set the **client_email**, **client_id** and **private_key** as env variables in your _.env.local_ file
+
+<Step number={4} title="Get the Data" />
+
+<CodeBlock>
+```Javascript:api/stats/index.js
+
+import { BetaAnalyticsDataClient } from '@google-analytics/data';
+
+export default async function handler(req, res) {
+
+  const analyticsDataClient = new BetaAnalyticsDataClient({
+    credentials: {
+      client_email: process.env.ANALYTICS_CLIENT_EMAIL,
+      private_key: process.env.ANALYTICS_PRIVATE_KEY.replace(/\\n/g, '\n')
+    },
+    projectId: process.env.ANALYTICS_PROJECT_ID
+  });
+
+  const propertyId = PROPERTY_ID; // place your property id here available in analytics console.
+  let today = new Date().getTime() - 60 * 60 * 24 * 60 * 1000;
+  let day = new Date(today).getDate();
+  let month = new Date(today).getMonth() + 1;
+  let year = new Date(today).getFullYear();
+
+  let dayFormat = `${year}-${month}-${day}`;
+
+  const totalReport = await analyticsDataClient.runReport({
+    property: 'properties/' + propertyId,
+    dateRanges: [
+      {
+        startDate: dayFormat,
+        endDate: 'today'
+      }
+    ],
+
+    metrics: [
+      {
+        name: 'screenpageViews'
+      },
+      {
+        name: 'engagementRate'
+      },
+      {
+        name: 'totalUsers'
+      }
+    ]
+  });
+
+  return res.status(200).json({
+    pageViews: totalReport[0].rows[0].metricValues[0].value,
+    engagmentRate: totalReport[0].rows[0].metricValues[1].value,
+    totalUsers: totalReport[0].rows[0].metricValues[2].value
+  });
+}
+```
+</CodeBlock>

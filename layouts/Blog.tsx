@@ -9,7 +9,18 @@ const Suggested = dynamic(() => import('@/components/Suggested'), {
   ssr: false
 });
 
-export default function BlogLayout({ children, matter }) {
+interface BlogType {
+  children: any;
+  matter?: {
+    slug?: string;
+    title?: string;
+    image?: string;
+    summary?: string;
+    publishedAt?: string;
+  };
+}
+
+export default function BlogLayout({ children, matter }: BlogType) {
   // register view for the blog after 10s
   useEffect(() => {
     setTimeout(() => {

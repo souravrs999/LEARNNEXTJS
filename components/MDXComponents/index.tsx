@@ -3,6 +3,7 @@ import Image from 'next/image';
 import BlogImg from './BlogImg';
 import QuotedText from './QuotedText';
 import CodeBlock from './CodeBlock';
+import Step from './Step';
 
 const CustomLink = (props) => {
   const href = props.href;
@@ -24,7 +25,8 @@ const MDXComponent = {
   BlogImg,
   a: CustomLink,
   QuotedText,
-  CodeBlock
+  CodeBlock,
+  Step
 };
 
 export default MDXComponent;

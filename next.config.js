@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   experimental: {
     esmExternals: true
@@ -30,7 +28,7 @@ module.exports = {
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' fonts.googleapis.com https://gmail.us5.list-manage.com https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' fonts.googleapis.com https://gmail.us5.list-manage.com *.google-analytics.com *.googletagmanager.com;
   child-src *.youtube.com *.google.com *.twitter.com;
   style-src 'self' 'unsafe-inline' *.googleapis.com;
   img-src * blob: data: ;

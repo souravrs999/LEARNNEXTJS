@@ -2,7 +2,11 @@ import Container from '@/components/Container';
 
 export default function Terms() {
   return (
-    <Container title="Terms & Conditions - LEARNNEXT">
+    <Container
+      title="Terms & Conditions - LEARNNEXT"
+      description="These terms and conditions outline the rules and regulations for the
+    use of LEARNNEXTs Website"
+    >
       <div className="flex flex-col px-5 py-12 mx-auto space-y-5 w-full max-w-4xl">
         <h2 className="text-4xl font-black text-slate-light">
           {' '}

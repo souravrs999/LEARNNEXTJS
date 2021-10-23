@@ -1,0 +1,131 @@
+---
+title: 'Parsing MDX files with mdx-bundler'
+publishedAt: '2021-10-23'
+summary: 'Compile and bundler MDX files with mdx-bundler'
+icon: mdx
+---
+
+<Step number={1} title={"Install the dependencies for mdx-bundler"} />
+
+<CodeBlock>
+```bash:Terminal
+# If you're using npm
+npm install mdx-bundler esbuild
+
+# If you're using yarn
+yarn add mdx-bundler esbuild
+```
+</CodeBlock>
+
+<Step number={2} title={"Create a directory with MDX files"} />
+
+<CodeBlock>
+```bash:Terminal
+\posts
+  \file-1.mdx
+  \file-2.mdx
+  \file-3.mdx
+```
+</CodeBlock>
+
+<Step number={3} title="Install necessary Plugins" />
+
+<CodeBlock>
+```bash:Terminal
+# If you're using npm
+npm install reading-time gray-matter rehype-slug rehype-code-titles rehype-autolink-headings rehype-prism-plus
+
+# If you're using yarn
+yarn add reading-time gray-matter rehype-slug rehype-code-titles rehype-autolink-headings rehype-prism-plus
+```
+</CodeBlock>
+
+- [reading-time](https://www.npmjs.com/package/reading-time) Estimate an article's reading time
+- [gray-matter](https://www.npmjs.com/package/gray-matter/v/0.5.2) Extend front-matter metadata
+- [rehype-slug](https://www.npmjs.com/package/rehype-slug) Plugin to add id's to headings
+- [rehype-code-titles](https://github.com/rockchalkwushock/rehype-code-titles) Plugin to add titles for code blocks
+- [rehype-prism-plus](https://www.npmjs.com/package/rehype-prism-plus/v/1.0.0) Plugin to add code highlighting
+- [rehype-autolink-headings](https://www.npmjs.com/package/rehype-autolink-headings) Plugin to automatically add link to headings
+
+<Step number={4} title="Parse all MDX files" />
+
+<CodeBlock>
+```Javascript:mdx.js
+import matter from 'gray-matter';
+import { join } from 'path';
+import readingTime from 'reading-time';
+import { readdirSync, readFileSync } from 'fs';
+
+import { bundleMDX } from 'mdx-bundler';
+
+import rehypeSlug from 'rehype-slug';
+import rehypeCodeTitles from 'rehype-code-titles';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrism from 'rehype-prism-plus';
+
+export async function getFiles() {
+  return readdirSync(join(process.cwd(), 'posts'));
+}
+
+export async function getFileBySlug(slug) {
+  const source = readFileSync(
+    join(process.cwd(), 'posts', `${slug}.mdx`),
+    'utf8'
+  );
+
+  const { code, frontmatter } = await bundleMDX(source, {
+    xdmOptions(options) {
+      options.rehypePlugins = [
+
+        // some good and popular plugins
+        ...(options?.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeCodeTitles,
+        rehypePrism,
+        [
+          rehypeAutolinkHeadings,
+          {
+            properties: {
+              className: ['heading_title']
+            }
+          }
+        ]
+      ];
+      return options;
+    }
+  });
+
+  return {
+    code,
+    frontMatter: {
+      wordCount: source.split(/\s+/gu).length,
+      readingTime: readingTime(source),
+      slug: slug || null,
+      ...frontmatter
+    }
+  };
+}
+
+export async function getAllFilesFrontMatter() {
+  const files = readdirSync(join(process.cwd(), 'posts'));
+
+  return files.reduce((allPosts, postSlug) => {
+    const source = readFileSync(
+      join(process.cwd(), 'posts', postSlug),
+      'utf8'
+    );
+    const { data } = matter(source);
+
+    return [
+      {
+        ...data,
+        slug: postSlug.replace('.mdx', ''),
+        readingTime: readingTime(source)
+      },
+      ...allPosts
+    ];
+  }, []);
+}
+
+```
+</CodeBlock>

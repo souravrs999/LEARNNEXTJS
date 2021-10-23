@@ -1,0 +1,109 @@
+---
+title: 'SEO'
+publishedAt: '2021-10-19'
+summary: 'Adding SEO using a wrapper container'
+icon: opgp
+---
+
+Use this wrapper _Container_ component in the HOC
+
+<CodeBlock>
+```Javascript:Container.jsx
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
+function Container(props) {
+  const { children, ...customMeta } = props;
+  const router = useRouter();
+  const meta = {
+    title: 'Title ...',
+    description: "Summary ...",
+    image: 'Page image ...',
+    type: 'website',
+    ...customMeta
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{meta.title}</title>
+        <meta name="robots" content="follow, index" />
+        <meta content={meta.description} name="description" />
+        <meta
+          property="og:url"
+          content={`Base url ... ${router.asPath}`}
+        />
+        <link
+          rel="canonical"
+          href={`Base url ... ${router.asPath}`}
+        />
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:site_name" content="Learn NextJS" />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:image" content={meta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@learnnextjs" />
+        <meta name="twitter:title" content={meta.title} />
+        <meta name="twitter.description" content={meta.description} />
+        <meta name="twitter:image" content={meta.image} />
+        {meta.data && (
+          <meta property="article:published_time" content={meta.date} />
+        )}
+      </Head>
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
+}
+
+export default Container;
+```
+</CodeBlock>
+
+Usage in a Dynamic route
+
+<CodeBlock>
+```Javascript:blog/[slug].jsx
+import { useMemo } from 'react';
+
+import { getFiles, getFileBySlug } from '@/lib/mdx';
+import MDXComponent from '@/components/MDXComponents';
+import BlogLayout from '@/layouts/Blog';
+import { getMDXComponent } from 'mdx-bundler/client';
+
+export default function BlogSlug({ code, frontMatter }) {
+  const Component = useMemo(() => getMDXComponent(code), [code]);
+
+  return (
+    <BlogLayout matter={frontMatter}>
+      <Component components={{ ...MDXComponent }} />
+    </BlogLayout>
+  );
+}
+
+export async function getStaticPaths() {
+  const posts = await getFiles('posts');
+
+  return {
+    paths: posts.map((p) => ({
+      params: {
+        slug: p.replace(/\.mdx/, '')
+      }
+    })),
+    fallback: false
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const post = await getFileBySlug(params.slug, 'posts');
+
+  return { props: { ...post } };
+}
+
+```
+</CodeBlock>

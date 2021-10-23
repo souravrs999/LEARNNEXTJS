@@ -87,3 +87,6 @@ pre {
 .prose blockquote p {
   @apply text-slate-light;
 }
+.snip svg {
+  @apply w-full h-full;
+}

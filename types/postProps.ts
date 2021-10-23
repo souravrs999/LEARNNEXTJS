@@ -10,4 +10,11 @@ export interface postProps {
     designation?: string;
     slug?: string;
   }[];
+  snippets?: {
+    slug?: string;
+    title?: string;
+    image?: string;
+    summary?: string;
+    publishedAt?: string;
+  }[];
 }
