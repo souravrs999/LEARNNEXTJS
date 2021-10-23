@@ -11,11 +11,11 @@ const Suggested = dynamic(() => import('@/components/Suggested'), {
 
 export default function BlogLayout({ children, matter }) {
   // register view for the blog after 10s
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetch(`/api/views/${matter.slug}`, { method: 'POST' });
-  //   }, 10000);
-  // }, [matter.slug]);
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(`/api/views/${matter.slug}`, { method: 'POST' });
+    }, 10000);
+  }, [matter.slug]);
 
   return (
     <Container

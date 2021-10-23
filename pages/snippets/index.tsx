@@ -16,8 +16,9 @@ function Snippets({ snippets }) {
               <span className="w-20 h-[1px] bg-navy-green"></span>
             </h2>
             <p className="max-w-xl text-slate">
-              For those who don't want to bother reading through the whole blog
-              posts you can easily copy these code snippets to your projects.
+              For those who don&apos;t want to bother reading through the whole
+              blog posts you can easily copy these code snippets to your
+              projects.
             </p>
           </div>
 
