@@ -20,8 +20,13 @@ export default function Blog({ posts }: postProps) {
     post.title.toLowerCase().includes(searchValue.toLocaleLowerCase())
   );
 
+  const meta = {
+    title: 'Blogs - LEARNNEXT',
+    description: 'A collection of all posts associated with LEARNNEXT'
+  };
+
   return (
-    <DefaultLayout>
+    <DefaultLayout meta={{ ...meta }}>
       <section className="flex py-12 mx-auto max-w-6xl">
         <div className="flex flex-col mx-5 space-y-5 w-full">
           <h2 className="flex items-center py-5 space-x-2 text-2xl font-bold text-slate-light">

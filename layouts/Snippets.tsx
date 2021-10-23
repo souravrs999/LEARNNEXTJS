@@ -1,14 +1,29 @@
 import Container from '@/components/Container';
 import SnippetHero from '@/components/SnippetHero';
 
-function SnippetLayout({ children, matter }) {
+interface SnippetType {
+  children: any;
+  matter?: {
+    slug?: string;
+    title?: string;
+    image?: string;
+    summary?: string;
+    publishedAt?: string;
+  };
+}
+
+function SnippetLayout({ children, matter }: SnippetType) {
   return (
-    <Container>
-      <section className="flex max-w-4xl pt-12 mx-auto">
+    <Container
+      title={`${matter.title} - LEARNNEXT`}
+      description={matter.summary}
+      date={new Date(matter.publishedAt).toISOString()}
+    >
+      <section className="flex pt-12 mx-auto max-w-4xl">
         <SnippetHero {...matter} />
       </section>
-      <section className="flex max-w-4xl mx-auto">
-        <article className="w-full px-5 prose">{children}</article>
+      <section className="flex mx-auto max-w-4xl">
+        <article className="px-5 w-full prose">{children}</article>
       </section>
     </Container>
   );

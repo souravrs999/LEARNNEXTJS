@@ -2,11 +2,13 @@ import { icons } from 'icons';
 
 function SnippetHero(props) {
   return (
-    <div className="flex flex-col w-full pt-12 mx-5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-4xl font-black text-slate-light">{props.title}</h2>
-        <div className="w-16 h-16 p-4 rounded-full bg-navy-dark">
-          <span className="grid w-full h-full place-items-center text-navy-green">
+    <div className="flex flex-col py-12 mx-5 w-full">
+      <div className="flex flex-col justify-between items-center md:flex-row">
+        <h2 className="order-2 my-3 text-4xl font-black text-center md:order-1 text-slate-light md:my-0">
+          {props.title}
+        </h2>
+        <div className="order-1 my-3 w-16 h-16 rounded-full bg-navy-dark md:order-2 md:my-0">
+          <span className="grid place-items-center p-4 w-full h-full text-navy-green snip">
             {icons[props.icon]}
           </span>
         </div>

@@ -6,9 +6,20 @@ const CallToAction = dynamic(() => import('@/components/CallToAction'), {
   ssr: false
 });
 
-const DefaultLayout = ({ children }) => {
+interface DefaultType {
+  children: any;
+  meta?: {
+    slug?: string;
+    title?: string;
+    image?: string;
+    summary?: string;
+    publishedAt?: string;
+  };
+}
+
+const DefaultLayout = ({ children, meta }: DefaultType) => {
   return (
-    <Container>
+    <Container {...meta}>
       {children}
       <CallToAction />
     </Container>

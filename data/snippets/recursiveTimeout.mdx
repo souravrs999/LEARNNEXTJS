@@ -1,0 +1,45 @@
+---
+title: 'Recursive Timeout'
+publishedAt: '2021-10-23'
+summary: 'Recursive timeout function that can be used for timed events.'
+icon: timeout
+---
+
+Useful for things like Auto-scrolling carousel's if you're curious about how to implement one
+you can find it here [Auto-scrolling carousel](/blogs/adding-auto-scrolling-support-for-your-embla-next-carousel)
+
+<CodeBlock>
+```Javascript:recursiveTimeout.js
+import { useState, useRef, useEffect, useCallback } from "react";
+
+export default function RecursiveTimeout(callback, delay) {
+  const [isRunning, setIsRunning] = useState(false);
+  const stop = useCallback(() => setIsRunning(false), [setIsRunning]);
+  const play = useCallback(() => setIsRunning(true), [setIsRunning]);
+  const savedCallback = useRef(callback);
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  useEffect(() => {
+    if (!isRunning) return;
+    let id = 0;
+
+    const tick = () => {
+      if (!isRunning) return clearTimeout(id);
+      savedCallback.current();
+      requestAnimationFrame(() => (id = setTimeout(tick, delay)));
+    };
+    requestAnimationFrame(() => (id = setTimeout(tick, delay)));
+
+    return () => {
+      if (id) clearTimeout(id);
+      stop();
+    };
+  }, [isRunning, delay, stop]);
+
+  return { play, stop };
+}
+```
+</CodeBlock>

@@ -15,7 +15,11 @@ const Stats = dynamic(() => import('@/components/Stats'), {
   ssr: false
 });
 
-export default function Home({ posts }: postProps) {
+const SnippetCard = dynamic(() => import('@/components/SnippetCard'), {
+  ssr: false
+});
+
+export default function Home({ posts, snippets }: postProps) {
   const viewCount = getViewCounts();
   return (
     <DefaultLayout>
@@ -56,11 +60,31 @@ export default function Home({ posts }: postProps) {
           </div>
         </div>
       </section>
+
+      {/* Snippet section */}
+      <section className="flex mx-auto my-12 max-w-6xl">
+        <div className="flex flex-col mx-5 space-y-12 w-full">
+          <h2 className="flex items-center space-x-2 text-2xl font-bold text-slate-light">
+            <span className="font-mono text-base text-navy-green">03.</span>
+            <span className="">Recent Snippets</span>
+            <span className="w-20 h-[1px] bg-navy-green"></span>
+          </h2>
+
+          <div className="grid grid-cols-1 gap-4 w-full md:grid-cols-2 lg:grid-cols-3">
+            {SortByDateDesc(snippets)
+              .slice(0, 6)
+              .map((item, _idx) => (
+                <SnippetCard {...snippets[_idx]} key={item.slug} />
+              ))}
+          </div>
+        </div>
+      </section>
     </DefaultLayout>
   );
 }
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter('posts');
-  return { props: { posts } };
+  const snippets = await getAllFilesFrontMatter('snippets');
+  return { props: { posts, snippets } };
 }

@@ -9,7 +9,18 @@ const Suggested = dynamic(() => import('@/components/Suggested'), {
   ssr: false
 });
 
-export default function BlogLayout({ children, matter }) {
+interface BlogType {
+  children: any;
+  matter?: {
+    slug?: string;
+    title?: string;
+    image?: string;
+    summary?: string;
+    publishedAt?: string;
+  };
+}
+
+export default function BlogLayout({ children, matter }: BlogType) {
   // register view for the blog after 10s
   useEffect(() => {
     setTimeout(() => {
@@ -25,13 +36,13 @@ export default function BlogLayout({ children, matter }) {
       date={new Date(matter.publishedAt).toISOString()}
       type="article"
     >
-      <section className="flex max-w-6xl mx-auto my-12">
+      <section className="flex mx-auto my-12 max-w-6xl">
         <BlogHero {...matter} />
       </section>
-      <section className="flex max-w-4xl mx-auto">
-        <article className="w-full px-5 prose">{children}</article>
+      <section className="flex mx-auto max-w-4xl">
+        <article className="px-5 w-full prose">{children}</article>
       </section>
-      <section className="flex flex-col max-w-4xl py-12 mx-auto">
+      <section className="flex flex-col py-12 mx-auto max-w-4xl">
         <SocialSharable title={matter.title} slug={matter.slug} />
         <Suggested />
       </section>

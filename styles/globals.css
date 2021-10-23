@@ -49,7 +49,7 @@ pre {
 }
 
 .rehype-code-title {
-  @apply absolute font-mono font-bold top-5 right-5 text-slate-light;
+  @apply absolute top-5 right-5 font-mono font-bold text-slate-light;
 }
 .rehype-code-title + pre {
   @apply mt-0 rounded-t-none;
@@ -86,4 +86,7 @@ pre {
 }
 .prose blockquote p {
   @apply text-slate-light;
+}
+.snip svg {
+  @apply w-full h-full;
 }

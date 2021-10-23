@@ -1,7 +1,12 @@
-import Opgp from './opgp';
-import GAnalytics from './ganalytics';
+import { GiEarthAfricaEurope } from 'react-icons/gi';
+import { SiGoogleanalytics } from 'react-icons/si';
+import { BsMarkdownFill } from 'react-icons/bs';
+import { CgTimelapse, CgFramer } from 'react-icons/cg';
 
 export const icons = {
-  opgp: <Opgp />,
-  ganalytics: <GAnalytics />
+  opgp: <GiEarthAfricaEurope />,
+  ganalytics: <SiGoogleanalytics />,
+  mdx: <BsMarkdownFill />,
+  timeout: <CgTimelapse />,
+  fm: <CgFramer />
 };
