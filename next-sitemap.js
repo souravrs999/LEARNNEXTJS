@@ -1,4 +1,4 @@
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://learnnext-blog.vercel.app',
+  siteUrl: process.env.SITE_URL || 'https://www.learnnext.blog',
   generateRobotsTxt: true
 };

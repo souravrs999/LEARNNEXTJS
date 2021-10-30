@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://learnnext-blog.vercel.app
+Host: https://www.learnnext.blog
 
 # Sitemaps
-Sitemap: https://learnnext-blog.vercel.app/sitemap.xml
+Sitemap: https://www.learnnext.blog/sitemap.xml

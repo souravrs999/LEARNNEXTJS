@@ -9,10 +9,10 @@ export default function Privacy() {
       <div className="flex flex-col px-5 py-12 mx-auto space-y-5 w-full max-w-4xl">
         <h2 className="text-4xl font-black text-slate-light">Privacy Policy</h2>
         <p className="text-base text-justify text-slate">
-          At LEARNNEXT, accessible from https://learnnext-blog.vercel.app, one
-          of our main priorities is the privacy of our visitors. This Privacy
-          Policy document contains types of information that is collected and
-          recorded by LEARNNEXT and how we use it.
+          At LEARNNEXT, accessible from https://www.learnnext.blog, one of our
+          main priorities is the privacy of our visitors. This Privacy Policy
+          document contains types of information that is collected and recorded
+          by LEARNNEXT and how we use it.
           <br />
           <br />
           If you have additional questions or require more information about our

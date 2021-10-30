@@ -7,7 +7,7 @@ export default function SocialSharable({ title, slug }) {
   function fbShare() {
     window.open(
       encodeURI(
-        `https://www.facebook.com/sharer/sharer.php?u=https://learnnext-blog.vercel.app/blogs/${slug}`
+        `https://www.facebook.com/sharer/sharer.php?u=https://www.learnnext.blog/blogs/${slug}`
       ),
       'sharer',
       'toolbar=0,status=0,width=548,height=325'
@@ -16,7 +16,7 @@ export default function SocialSharable({ title, slug }) {
   function twShare() {
     window.open(
       encodeURI(
-        `https://twitter.com/share?lang=en&text=${title}&url=https://learnnext-blog.vercel.app/blogs/${slug}`
+        `https://twitter.com/share?lang=en&text=${title}&url=https://www.learnnext.blog/blogs/${slug}`
       ),
       'sharer',
       'toolbar=0,status=0,width=548,height=325'
@@ -25,9 +25,7 @@ export default function SocialSharable({ title, slug }) {
 
   function CopiedLinkMsg() {
     setShowAlert(true);
-    navigator.clipboard.writeText(
-      `https://learnnext-blog.vercel.app/blogs/${slug}`
-    );
+    navigator.clipboard.writeText(`https://www.learnnext.blog/blogs/${slug}`);
     const timer = setTimeout(() => {
       setShowAlert(false);
     }, 1000);

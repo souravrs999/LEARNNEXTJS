@@ -32,7 +32,7 @@ export default function BlogLayout({ children, matter }: BlogType) {
     <Container
       title={`${matter.title} - LEARNNEXT`}
       description={matter.summary}
-      image={`https://learnnext-blog.vercel.app${matter.image}`}
+      image={`https://www.learnnext.blog${matter.image}`}
       date={new Date(matter.publishedAt).toISOString()}
       type="article"
     >

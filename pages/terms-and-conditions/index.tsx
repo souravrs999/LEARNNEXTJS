@@ -17,8 +17,7 @@ export default function Terms() {
         </p>
         <p className="text-base text-justify text-slate">
           These terms and conditions outline the rules and regulations for the
-          use of LEARNNEXTs Website, located at
-          https://learnnext-blog.vercel.app.
+          use of LEARNNEXTs Website, located at https://www.learnnext.blog.
           <br />
           <br />
           By accessing this website we assume you accept these terms and

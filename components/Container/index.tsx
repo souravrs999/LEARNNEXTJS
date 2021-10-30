@@ -11,7 +11,7 @@ function Container(props) {
     title: 'LEARNNEXT - All about NextJS',
     description:
       "LEARNNEXT is a collection of Blog's and Article's for NextJS a React Framework for Production from the Vercel team, learn, improve and develop your skill as a NextJS developer.",
-    image: 'https://learnnext-blog.vercel.app/img/banner-800x514.png',
+    image: 'https://www.learnnext.blog/img/banner-800x514.png',
     type: 'website',
     ...customMeta
   };
@@ -24,11 +24,11 @@ function Container(props) {
         <meta content={meta.description} name="description" />
         <meta
           property="og:url"
-          content={`https://learnnext-blog.vercel.app${router.asPath}`}
+          content={`https://www.learnnext.blog${router.asPath}`}
         />
         <link
           rel="canonical"
-          href={`https://learnnext-blog.vercel.app${router.asPath}`}
+          href={`https://www.learnnext.blog${router.asPath}`}
         />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Learn NextJS" />
