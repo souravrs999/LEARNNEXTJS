@@ -1,0 +1,594 @@
+---
+title: 'Lets build a blog with TailwindCSS, MDX-bundler and Next'
+publishedAt: '2021-11-01'
+summary: 'In this blog we will be building a Markdown based blog, we will be using MDX-bundler to parse our .mdx files, Tailwind to style it and Next will handle the rest.'
+image: '/img/blog/lets-build-a-blog-with-tailwind-mdx-bundler-and-next.jpg'
+author: 'Sourav Raveendran'
+tags:
+  - TailwindCSS
+  - MDX-bundler
+  - Blog
+  - MDX
+designation: 'Backend Dev'
+---
+
+## Table of Contents
+ - [What is MDX](#what-is-mdx-)
+ - [What we will be building today](#what-we-will-be-building-today)
+ - [Why MDX-bundler](#why-mdx-bundler-)
+ - [Getting Started](#getting-started)
+ - [Creating the mdx.js file](#creating-the-mdxjs-file)
+ - [Adding some blogs](#adding-some-blogs)
+ - [Creating a blog grid](#creating-a-blog-grid)
+ - [Creating a dynamic route for the blogs](#creating-a-dynamic-route-for-the-blogs)
+ - [Creating custom mdx components](#creating-custom-mdx-components)
+ - [Closing](#closing)
+
+## What is MDX ?
+
+MDX is an authorable format that lets you seamlessly write JSX in your Markdown documents. 
+You can import components, such as interactive charts or alerts, and embed them within your
+content. This makes writing long-form content with components a piece of pie
+An example of markdown with embedded components through JSX follows.
+
+<CodeBlock>
+  ```markdown:markdown.mdx
+---
+title: Importing Components Example
+---
+import { Message } from "theme-ui"
+You can import your own components.
+<Message>MDX gives you JSX in Markdown!</Message>
+
+<Chart year={year} color="#fcb32c" />
+  ```
+</CodeBlock>
+
+## What we will be building today
+
+We will be building a simple MDX blog to give you a basic understanding of MDX and
+parsing MDX files with MDX-bundler.
+
+You can find the final product right here [sample-tailwind-mdx-next-blog](http://sample-tailwind-mdx-next-blog.vercel.app/)
+
+## Why MDX-bundler ?
+
+MDX currently has three popular compilers
+- Official MDX support by Next.js [Next.js + MDX](https://www.npmjs.com/package/@next/mdx)
+- Hashicorp's [next-mdx-remote](https://github.com/hashicorp/next-mdx-remote)
+- Kent C Dodd's [mdx-bundler](https://github.com/kentcdodds/mdx-bundler)
+
+And the one we will be using is [MDX-bundler](https://github.com/kentcdodds/mdx-bundler), it is a runtime bundler,
+This means that mdx-bundler is pretty scalable, fast and also dosen't require your mdx source to be present on your
+local filesystem to work, you can store your MDX content in seperate repo or CMS and pass them down to mdx-bunlder for
+bundling.
+
+## Getting Started
+
+Let's start building our MDX blog and for that first create a new Next.js project
+
+<CodeBlock>
+  ```bash:Terminal
+  npx create-next-app@latest sample-tailwind-mdx-next-blog
+  ```
+</CodeBlock>
+
+Once that's done go to the newly created directory and install all the necessary dependencies
+for our project. we will be needing the following packages
+ - **tailwindcss@latest** for styling our blog.
+ - **autoprefixer@latest** adds vendor prefixes to CSS rules
+ - **postcss@latest** transform CSS with Javascript
+ - **mdx-bundler** bundles our MDX content
+ - **gray-matter** font matter library
+ - **reading-time** estimates the reading time for our blog
+ - **esbuild** mdx-bundler dependency
+ - **rehype-slug** plugin to add id's to headings
+ - **rehype-code-titles** plugin to add titles for code block'
+ - **rehype-prism-plus** plugin to add code highlighting
+ - **rehype-autolink-headings** plugin to add links to headings
+
+<CodeBlock>
+  ```bash:Terminal
+  # If you're using npm
+  npm install mdx-bundler
+  npm install -D tailwindcss@latest autoprefixer@latest postcss@latest esbuild gray-matter reading-time rehype-slug rehype-code-titles rehype-prism-plus rehype-autolink-headings
+
+  # If you're using yarn
+  yarn add mdx-bundler
+  yarn add -D tailwindcss@latest autoprefixer@latest postcss@latest esbuild gray-matter reading-time rehype-slug rehype-code-titles rehype-prism-plus rehype-autolink-headings
+  ```
+</CodeBlock>
+
+Let's start by creating the _tailwind.config.js_ file and customizing for your needs. In this case
+i'll only be extending the font-family with the **Inter** font and also purge all the directories
+that we will be using
+
+<CodeBlock>
+  ```Javascript:tailwind.config.js
+  const { fontFamily } = require("tailwindcss/defaultTheme");
+
+module.exports = {
+  mode: "jit",
+  purge: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./layouts/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: false,
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["Inter", ...fontFamily.sans],
+      },
+    },
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+};
+  ```
+</CodeBlock>
+
+## Creating the mdx.js file
+
+Now let's create a _posts_ directory in the root of our project all our MDX files will reside
+in this directory if you're using a CMS for hosting your files then this won't be necessary.
+
+then create a _lib/mdx.js_ file and add 3 main functions that we will need
+ - getFiles() returns all the files within the _posts_ directory.
+ - getFilesBySlug(slug) returns the parsed data for the file with a particular slug.
+ - getAllFilesFrontMatter() returns only the basic data we need about the blogs like the
+ title, summary, published date, author etc...
+
+<CodeBlock>
+  ```Javascript:lib/mdx.js
+  import matter from "gray-matter";
+import { join } from "path";
+import readingTime from "reading-time";
+import { readdirSync, readFileSync } from "fs";
+
+import { bundleMDX } from "mdx-bundler";
+
+// These plugins are completely dependent on the blog that you
+// are planning to build if you're just focused on building one without
+// any syntax highlighting of those sorts these all won't be necessary
+import rehypeSlug from "rehype-slug";
+import rehypeCodeTitles from "rehype-code-titles";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrism from "rehype-prism-plus";
+
+export async function getFiles() {
+  return readdirSync(join(process.cwd(), "posts"));
+}
+
+export async function getFileBySlug(slug) {
+
+  // we will pass in a slug of the page we want like /blogs/blog-1
+  // example and we will get the parsed content for that particular
+  // blog page.
+
+  const source = readFileSync(
+    join(process.cwd(), "posts", `${slug}.mdx`),
+    "utf8"
+  );
+
+  const { code, frontmatter } = await bundleMDX(source, {
+    xdmOptions(options) {
+
+      // you can add your plugins right here if you'd rather use
+      // remark plugins then you can add them similary just replace
+      // the occurances of rehype with remark.
+      options.rehypePlugins = [
+        ...(options?.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeCodeTitles,
+        rehypePrism,
+        [
+          rehypeAutolinkHeadings,
+          {
+            properties: {
+              className: ["anchor"],
+            },
+          },
+        ],
+      ];
+      return options;
+    },
+  });
+
+  return {
+
+    // return the parsed content for our page along with it's metadata
+    // we will be using gray-matter for this.
+    code,
+    frontMatter: {
+      wordCount: source.split(/\s+/gu).length,
+      readingTime: readingTime(source),
+      slug: slug || null,
+      ...frontmatter,
+    },
+  };
+}
+
+export async function getAllFilesFrontMatter() {
+  const files = readdirSync(join(process.cwd(), "posts"));
+
+  return files.reduce((allPosts, postSlug) => {
+
+    // returns the parsed data for all the files within the posts directory
+    const source = readFileSync(join(process.cwd(), "posts", postSlug), "utf8");
+    const { data } = matter(source);
+
+    return [
+      {
+        ...data,
+
+        // we will be using the filename by removing the extension
+        // as our slug for the file.
+        slug: postSlug.replace(".mdx", ""),
+        readingTime: readingTime(source),
+      },
+      ...allPosts,
+    ];
+  }, []);
+}
+  ```
+</CodeBlock>
+
+## Adding some blogs
+
+Now let's create some mdx files in our _posts_ directory like so
+
+<CodeBlock>
+  ```markdown:travel-1.mdx
+---
+title: "volutpat blandit aliquam etiam erat velit scelerisque in dictum non"
+publishedAt: "2021-09-08"
+summary: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+image: "/images/blog_img_1.jpg"
+author: "author"
+tags:
+  - Kerala
+  - Backwaters
+  - Tour
+---
+
+## turpis in eu mi bibendum neque egestas congue quisque egestas
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+  ```
+</CodeBlock>
+
+here the content within the distinct **---** lines are the blog metadata
+we can use these to load the basic information about a blog like title, summary etc..
+
+You can read more about how gray-matter works right [here](https://www.npmjs.com/package/gray-matter/v/0.5.2)
+
+## Creating a blog grid
+
+Now let's create a blog grid like in our desing we will use _getStaticProps()_ to get the metadata of
+every single file in our _posts_ directory and we will wrap the title of each card with the next-link component
+so that we can point the _/blogs/[title-of-the-blog]_ route.
+
+<BlogImg src="/img/screenshots/Screenshot_2021-11-01_05-05-48.png" height={723} width={773} alt="blog grid" />
+
+so let's create a _BlogCard_ component to which we will pass in the metadata from our _index.jsx_file.
+
+<CodeBlock>
+  ```Javascript:components/BlogCard.jsx
+import Image from "next/image";
+import Link from "next/link";
+
+const BlogCard = (data) => {
+  return (
+    <div className="flex flex-col p-3 space-y-5 bg-white shadow-lg rounded-xl">
+      <div className="overflow-hidden rounded-xl">
+        <Image
+          src={data.image}
+          width={800}
+          height={533}
+          layout="responsive"
+          alt="cover image"
+        />
+      </div>
+
+      <div className="flex flex-col space-y-3">
+        <Link href={`/blogs/${data.slug}`}>
+          <a className="cursor-pointer">
+            <h5 className="text-lg font-black text-gray-800">{data.title}</h5>
+          </a>
+        </Link>
+        <p className="text-sm text-gray-500">{data.summary}</p>
+        <div className="flex space-x-2 text-xs text-purple-500">
+          {data.tags.map((tag) => (
+            <span className="px-2 py-1 bg-gray-100 rounded-full" key={tag}>
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BlogCard;
+  ```
+</CodeBlock>
+
+and in our _index.jsx_ file add this.
+
+<CodeBlock>
+  ```Javascript:index.jsx
+import Image from "next/image";
+
+import BlogCard from "../components/BlogCard";
+import { getAllFilesFrontMatter } from "../lib/mdx";
+
+const Home = ({ posts }) => {
+  return (
+    <div className="flex flex-col max-w-6xl mx-auto">
+      <section className="grid grid-cols-1 gap-5 px-5 mt-32 lg:grid-cols-2">
+        <div className="flex flex-col order-2 w-full space-y-7 lg:order-1">
+          <div className="flex items-center space-x-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-10 h-10 text-purple-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <p className="text-2xl font-bold text-gray-700">Frivago.</p>
+          </div>
+          <h5 className="text-6xl font-black leading-none tracking-tight text-gray-800">
+            Blog while you&apos;re on the go
+          </h5>
+          <p className="text-lg font-medium text-gray-600">
+            Quisque efficitur ipsum in cursus auctor. Sed fringilla lacus ac
+            turpis vehicula, et facilisis neque consectetur. Proin quis posuere
+            nibh. Maecenas a lacinia erat.
+          </p>
+          <div className="flex items-center space-x-7">
+            <button className="px-6 py-3 text-white bg-purple-500 rounded-lg">
+              Checkout
+            </button>
+            <button className="px-6 py-3 text-gray-700 border-2 border-gray-700 rounded-lg">
+              Locations
+            </button>
+          </div>
+        </div>
+        <div className="order-1 w-full lg:order-2">
+          <div className="overflow-hidden rounded-xl">
+            <Image
+              src="/images/blog_img_4.jpg"
+              width={800}
+              height={533}
+              layout="responsive"
+              alt="cover image"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+      <section className="flex flex-col px-5 my-10 mt-24 space-y-7">
+        {/* blog section */}
+        <div className="px-3 text-5xl font-black text-gray-800 border-l-4 border-purple-500 rounded">
+          <h5 className="leading-none tracking-tight">Recent Posts</h5>
+        </div>
+        <div className="grid grid-cols-1 gap-4 p-3 bg-gray-100 md:grid-cols-2 lg:grid-cols-3 rounded-xl">
+
+          // we will loop through all the posts and create individual
+          // blog cards for them.
+          {posts.map((item, _idx) => (
+            <BlogCard {...posts[_idx]} key={item.slug} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export async function getStaticProps() {
+  const posts = await getAllFilesFrontMatter();
+  return { props: { posts } };
+}
+
+export default Home;
+  ```
+</CodeBlock>
+
+## Creating a dynamic route for the blogs
+
+And now in our _pages_ directory let's create a _blogs/[slug].jsx_ file, this is known as a dynamic route. we won't
+be going deep about how they work and if you're interested you can read the docs [here](https://nextjs.org/docs/routing/dynamic-routes)
+
+<CodeBlock>
+  ```Javascript:pages/blogs/[slug].jsx
+import { useMemo } from "react";
+import Image from "next/image";
+
+import { getFiles, getFileBySlug } from "../../lib/mdx";
+import { getMDXComponent } from "mdx-bundler/client";
+import MDXComponent from "../../components/MDXComponents";
+
+export default function BlogSlug({ code, frontMatter }) {
+  const Component = useMemo(() => getMDXComponent(code), [code]);
+
+  return (
+    <>
+      <div className="flex max-w-6xl mx-auto">
+        <div className="flex flex-col max-w-4xl px-5 mx-auto space-y-10">
+          <div className="flex flex-col mt-32 space-y-7">
+            <h2 className="text-6xl font-black text-gray-800">
+              {frontMatter.title}
+            </h2>
+            <p className="text-xl text-gray-500">{frontMatter.summary}</p>
+            <div className="flex items-center space-x-3">
+              <p className="px-3 py-1 text-sm text-purple-500 bg-gray-100 rounded-full">
+                {frontMatter.readingTime.text}
+              </p>
+              <p className="px-3 py-1 text-sm text-purple-500 bg-gray-100 rounded-full">
+                Date : {frontMatter.publishedAt}
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-xl">
+              <Image
+                src={frontMatter.image}
+                width={800}
+                height={533}
+                layout="responsive"
+                alt="cover image"
+              />
+            </div>
+          </div>
+          <article className="flex flex-col space-y-10 prose">
+            <Component />
+          </article>
+        </div>
+      </div>
+    </>
+  );
+}
+
+// we will generate all the blogs at build time.
+
+export async function getStaticPaths() {
+  const posts = await getFiles();
+
+  return {
+    paths: posts.map((p) => ({
+      params: {
+        slug: p.replace(/\.mdx/, ""),
+      },
+    })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const post = await getFileBySlug(params.slug);
+
+  return { props: { ...post } };
+}
+  ```
+</CodeBlock>
+
+With all that down you should have a working mdx blog
+
+## Creating custom mdx components
+
+But wait it's not the best looking blog, how do i add some bling to my blog?
+
+You can deal with this by styling the typography of your blog using
+your preferred style system in our case tailwindcss or you can create custom components to
+control the behaviour and look's of your blog like adding a terminal like promp for all the code
+snippets like so
+
+<CodeBlock>
+  ```md:CodeBlock
+  This is a custom component that i use to wrap around the code snippets
+  to make it look interesting.
+  ```
+</CodeBlock>
+
+Since i don't want to elongate this blog post we will just build a simple image component
+that you can use to embed images in your blog. so let's create a new file _MDXComponents.jsx_ file
+and add our custom image component.
+
+<CodeBlock>
+  ```Javascript:components/MDXComponents.jsx
+  import Link from "next/link";
+import Image from "next/image";
+
+const CustomLink = (props) => {
+  const href = props.href;
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+
+  if (isInternalLink) {
+    return (
+      <Link href={href}>
+        <a {...props}>{props.children}</a>
+      </Link>
+    );
+  }
+
+  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+};
+
+const BlogImg = (props) => {
+  return (
+    <div className="my-3">
+      <Image
+        src={props.src}
+        alt={props.alt}
+        layout="responsive"
+        {...props}
+        className="rounded-xl"
+      />
+    </div>
+  );
+};
+
+const MDXComponent = {
+  Image,
+  a: CustomLink,
+  BlogImg,
+};
+
+export default MDXComponent;
+  ```
+</CodeBlock>
+
+so we've created our custom components now so let's just pass in these components
+to our _MDXComponent_
+
+<CodeBlock>
+  ```Javascript:pages/blogs/[slug].jsx
+  <article className="flex flex-col space-y-10 prose">
+    <Component components={{ ...MDXComponent }} />
+  </article>
+  ```
+</CodeBlock>
+
+and now let's add embed an image to our blog with the component that we've
+just created.
+
+<CodeBlock>
+  ```md:posts/travel-5.mdx
+   Rhoncus dolor purus non enim praesent. Nunc lobortis mattis aliquam faucibus. Varius vel pharetra vel turpis nunc eget.
+
+  <BlogImg
+  src="/images/blog_img_5.jpg"
+  width={800}
+  height={533}
+  alt="some description"
+/>
+
+Adipiscing commodo elit at imperdiet dui accumsan.
+  ```
+</CodeBlock>
+
+The changes should now be reflected in our current blog.
+
+<BlogImg
+  src="/img/screenshots/Screenshot_2021-11-01_05-46-15.png"
+  width={719}
+  height={604}
+  alt="embeded image component"
+/>
+
+## Closing
+
+And that's it we've successfully built a simple but beautiful mdx blogging website.
+You can also deploy your new website to the Vercel platform without any configuration
+whatsoever. If you'd like to see the sample blogging website that i've built it's available
+right [here](http://sample-tailwind-mdx-next-blog.vercel.app/) and the repository is available
+[here](https://github.com/souravrs999/sample-tailwind-mdx-next-blog)
+
+If you're not impressed with the sample website then you can also see how i implemented
+LEARNNEXT which is also built using TailwindCSS, MDX-bundler and Next.js right [here](https://github.com/souravrs999/LEARNNEXTJS)
